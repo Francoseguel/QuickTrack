@@ -1,0 +1,15 @@
+# Variables de entorno y credenciales (CRÍTICO)
+.env
+
+# Entorno virtual
+venv/
+.venv/
+env/
+
+# Caché de Python
+__pycache__/
+*.pyc
+
+# Configuración de editor / IDE
+.vscode/
+.idea/
