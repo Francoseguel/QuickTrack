@@ -1,0 +1,101 @@
+﻿ruta_id,fecha_envio,estado,medio_pago,total,cliente_num_id,orden_id,estado_seguimiento,ultimo_evento,estado_coherente
+ruta_93,2022-03-16,Entregado,Efectivo,111841.49,31,orden_3,Entregado,En tránsito,True
+ruta_70,2022-08-07,En preparación,Transferencia,151191.2,56,orden_4,Despachado,En tránsito,False
+ruta_12,2024-05-05,En preparación,Tarjeta,106763.04,77,orden_13,Despachado,En tránsito,False
+ruta_99,2022-09-21,En tránsito,Efectivo,190106.46,55,orden_35,En preparación,Entregado,False
+ruta_26,2022-11-16,En tránsito,Efectivo,170947.69,88,orden_36,En preparación,En tránsito,False
+ruta_11,2022-01-21,Entregado,Tarjeta,81640.21,59,orden_42,En tránsito,Despachado,False
+ruta_64,2022-05-11,En preparación,Transferencia,73933.08,36,orden_45,En preparación,Entregado,True
+ruta_56,2023-10-11,Cancelado,Efectivo,26076.37,7,orden_63,En preparación,Entregado,False
+ruta_34,2023-08-20,Cancelado,Transferencia,107672.42,92,orden_66,En preparación,Despachado,False
+ruta_77,2022-03-22,Cancelado,Tarjeta,136300.86,8,orden_69,En preparación,Despachado,False
+ruta_51,2023-08-27,Cancelado,Efectivo,197288.08,65,orden_87,En tránsito,Entregado,False
+ruta_85,2022-03-07,En preparación,Tarjeta,13765.39,71,orden_94,Entregado,Entregado,False
+ruta_59,2022-12-23,Entregado,Transferencia,176107.92,40,orden_97,En preparación,En tránsito,False
+ruta_47,2022-06-18,En tránsito,Tarjeta,101127.88,68,orden_24,En preparación,Despachado,False
+ruta_60,2022-11-03,En preparación,Efectivo,82867.02,1,orden_39,Entregado,Despachado,False
+ruta_44,2023-11-13,Cancelado,Transferencia,177441.7,69,orden_46,Entregado,Entregado,False
+ruta_62,2023-12-14,Cancelado,Transferencia,152201.31,9,orden_48,Entregado,Despachado,False
+ruta_54,2022-01-17,En preparación,Transferencia,91424.91,68,orden_50,En preparación,En tránsito,True
+ruta_29,2023-07-14,En preparación,Transferencia,165826.58,39,orden_52,En preparación,Despachado,True
+ruta_47,2023-09-19,Entregado,Efectivo,147296.41,61,orden_53,Entregado,Despachado,True
+ruta_19,2023-03-27,Cancelado,Tarjeta,96902.9,29,orden_58,Despachado,En tránsito,False
+ruta_74,2022-08-19,En tránsito,Efectivo,15218.59,35,orden_67,En preparación,En tránsito,False
+ruta_21,2023-01-15,En preparación,Efectivo,146329.03,31,orden_77,Despachado,Despachado,False
+ruta_11,2023-05-06,En tránsito,Efectivo,62151.37,39,orden_82,En preparación,En tránsito,False
+ruta_80,2023-07-28,Entregado,Transferencia,66970.39,42,orden_95,Entregado,En tránsito,True
+ruta_43,2022-04-24,Entregado,Transferencia,41628.63,10,orden_99,En tránsito,En tránsito,False
+ruta_87,2022-10-26,En tránsito,Tarjeta,75163.6,25,orden_100,Despachado,Despachado,False
+ruta_58,2022-02-08,Entregado,Tarjeta,55832.56,72,orden_7,En tránsito,Entregado,False
+ruta_20,2022-09-23,Cancelado,Tarjeta,172305.02,20,orden_23,En tránsito,En tránsito,False
+ruta_51,2022-02-09,En preparación,Efectivo,18594.78,88,orden_32,Despachado,Despachado,False
+ruta_76,2024-03-20,Cancelado,Transferencia,48689.63,59,orden_34,Despachado,En tránsito,False
+ruta_21,2023-05-09,Entregado,Tarjeta,152561.69,58,orden_38,Despachado,Despachado,False
+ruta_77,2024-01-28,En preparación,Efectivo,62126.82,79,orden_41,En tránsito,Despachado,False
+ruta_63,2024-06-13,En preparación,Tarjeta,43892.7,36,orden_73,En tránsito,Entregado,False
+ruta_79,2022-11-30,En preparación,Tarjeta,76028.25,65,orden_79,En tránsito,En tránsito,False
+ruta_75,2022-10-19,Entregado,Efectivo,55105.86,38,orden_88,Entregado,Entregado,True
+ruta_14,2023-02-22,Cancelado,Tarjeta,185698.33,34,orden_93,En tránsito,Entregado,False
+ruta_20,2023-01-09,Entregado,Tarjeta,142059.52,16,orden_6,Entregado,En tránsito,True
+ruta_44,2023-05-07,Cancelado,Tarjeta,88734.89,68,orden_8,En tránsito,Entregado,False
+ruta_39,2024-03-16,Cancelado,Efectivo,171501.06,29,orden_18,En tránsito,En tránsito,False
+ruta_94,2022-07-05,Cancelado,Tarjeta,46057.64,96,orden_20,En preparación,Despachado,False
+ruta_33,2024-03-20,En preparación,Efectivo,109499.89,18,orden_71,En preparación,Despachado,True
+ruta_18,2022-10-06,En preparación,Tarjeta,72623.97,98,orden_91,Despachado,En tránsito,False
+ruta_9,2023-09-02,En preparación,Efectivo,190572.76,66,orden_92,Entregado,En tránsito,False
+ruta_13,2023-07-07,En tránsito,Transferencia,165947.93,49,orden_96,En tránsito,En tránsito,True
+ruta_43,2022-10-18,Cancelado,Transferencia,134152.77,99,orden_1,En preparación,En tránsito,False
+ruta_36,2023-02-18,En preparación,Tarjeta,121749.79,22,orden_9,Entregado,Entregado,False
+ruta_42,2022-01-16,Entregado,Tarjeta,168699.7,71,orden_14,Entregado,En tránsito,True
+ruta_12,2023-12-25,En preparación,Transferencia,188583.54,58,orden_31,En preparación,Entregado,True
+ruta_93,2022-02-13,En tránsito,Tarjeta,60115.39,74,orden_33,Entregado,En tránsito,False
+ruta_62,2023-10-29,Entregado,Tarjeta,44600.71,48,orden_40,Entregado,Entregado,True
+ruta_88,2022-04-05,En preparación,Efectivo,12216.14,69,orden_43,En tránsito,Entregado,False
+ruta_63,2023-02-20,En tránsito,Efectivo,61551.05,27,orden_54,Despachado,Despachado,False
+ruta_49,2022-09-09,Entregado,Efectivo,25799.36,39,orden_61,En preparación,En tránsito,False
+ruta_100,2023-04-02,En tránsito,Transferencia,33970.79,89,orden_81,Entregado,Entregado,False
+ruta_51,2023-06-03,Cancelado,Efectivo,102167.59,76,orden_89,En preparación,En tránsito,False
+ruta_87,2023-10-28,Entregado,Efectivo,179474.96,4,orden_90,En preparación,Entregado,False
+ruta_85,2022-11-07,En preparación,Transferencia,76704.25,16,orden_98,Despachado,Despachado,False
+ruta_68,2024-04-10,En tránsito,Transferencia,190328.01,71,orden_22,Entregado,Entregado,False
+ruta_12,2023-05-12,Cancelado,Transferencia,151723.26,90,orden_25,En tránsito,Despachado,False
+ruta_94,2023-05-05,En tránsito,Transferencia,131550.6,91,orden_29,Despachado,En tránsito,False
+ruta_35,2023-02-21,En preparación,Tarjeta,174983.73,3,orden_30,Entregado,En tránsito,False
+ruta_21,2023-10-08,Entregado,Transferencia,39163.42,13,orden_44,Despachado,Despachado,False
+ruta_86,2023-01-07,Entregado,Transferencia,54679.23,68,orden_57,En preparación,Despachado,False
+ruta_9,2023-06-08,En preparación,Tarjeta,65446.18,8,orden_59,Despachado,Despachado,False
+ruta_99,2022-02-19,Entregado,Transferencia,151939.8,3,orden_74,Entregado,En tránsito,True
+ruta_58,2022-02-15,En tránsito,Tarjeta,72390.5,50,orden_76,Despachado,Despachado,False
+ruta_48,2024-01-23,Entregado,Efectivo,117435.34,79,orden_84,Despachado,Entregado,False
+ruta_99,2024-06-05,Entregado,Tarjeta,165509.2,73,orden_2,En preparación,Entregado,False
+ruta_93,2023-05-08,Entregado,Efectivo,108077.34,13,orden_12,En tránsito,Entregado,False
+ruta_38,2022-02-05,En tránsito,Efectivo,22577.55,59,orden_16,Entregado,Entregado,False
+ruta_65,2023-04-24,En preparación,Efectivo,169630.46,36,orden_21,En preparación,En tránsito,True
+ruta_98,2022-01-15,Entregado,Efectivo,182075.53,27,orden_26,En tránsito,Despachado,False
+ruta_24,2022-04-21,Cancelado,Transferencia,18470.88,43,orden_37,Despachado,Entregado,False
+ruta_89,2023-11-13,En tránsito,Efectivo,159634.32,35,orden_47,Despachado,Despachado,False
+ruta_39,2024-05-30,Cancelado,Transferencia,85185.59,81,orden_49,En tránsito,En tránsito,False
+ruta_69,2024-06-07,En tránsito,Transferencia,143176.15,48,orden_51,Despachado,Entregado,False
+ruta_65,2022-08-14,En preparación,Efectivo,113992.02,87,orden_56,Entregado,Despachado,False
+ruta_27,2024-01-09,Entregado,Tarjeta,55358.79,90,orden_62,En preparación,Entregado,False
+ruta_60,2023-10-13,Cancelado,Tarjeta,198622.39,39,orden_70,En preparación,Entregado,False
+ruta_8,2023-07-16,Entregado,Tarjeta,40899.26,47,orden_72,Entregado,Despachado,True
+ruta_80,2024-06-13,En preparación,Efectivo,165364.2,4,orden_86,Despachado,En tránsito,False
+ruta_36,2023-09-25,En tránsito,Transferencia,170785.29,86,orden_5,En preparación,En tránsito,False
+ruta_94,2023-04-10,En preparación,Efectivo,197116.52,1,orden_10,Entregado,En tránsito,False
+ruta_49,2024-01-17,Entregado,Tarjeta,75995.81,75,orden_11,Despachado,Entregado,False
+ruta_60,2024-03-14,Cancelado,Efectivo,83084.24,50,orden_15,Despachado,Entregado,False
+ruta_49,2023-05-14,En tránsito,Transferencia,135211.93,35,orden_17,En tránsito,En tránsito,True
+ruta_51,2023-02-03,Cancelado,Efectivo,140914.68,63,orden_19,Despachado,Despachado,False
+ruta_45,2023-09-15,Cancelado,Transferencia,70713.5,19,orden_27,En preparación,Despachado,False
+ruta_60,2024-02-27,Entregado,Transferencia,197977.37,11,orden_28,En preparación,Entregado,False
+ruta_67,2024-06-22,En tránsito,Efectivo,73814.03,98,orden_55,Entregado,En tránsito,False
+ruta_63,2023-04-26,Cancelado,Transferencia,80112.24,95,orden_60,En tránsito,En tránsito,False
+ruta_91,2022-01-23,Entregado,Tarjeta,106409.91,91,orden_64,En preparación,En tránsito,False
+ruta_46,2023-03-20,En preparación,Transferencia,104968.45,67,orden_65,En tránsito,Despachado,False
+ruta_65,2023-09-02,En preparación,Transferencia,110591.61,94,orden_68,Despachado,Entregado,False
+ruta_32,2022-04-13,En preparación,Tarjeta,38707.91,21,orden_75,En preparación,Entregado,True
+ruta_30,2023-04-02,En tránsito,Tarjeta,102726.16,79,orden_78,En preparación,Despachado,False
+ruta_50,2023-03-04,Entregado,Efectivo,151690.03,22,orden_80,Despachado,Despachado,False
+ruta_83,2022-08-04,En preparación,Tarjeta,135716.85,4,orden_83,Despachado,Entregado,False
+ruta_31,2022-08-23,En tránsito,Tarjeta,151058.57,2,orden_85,En preparación,Entregado,False

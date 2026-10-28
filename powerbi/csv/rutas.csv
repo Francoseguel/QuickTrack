@@ -1,0 +1,101 @@
+﻿zona,ciudad_origen,ciudad_destino,distancia_km,ruta_id
+Oriente,Concepción,Arica,780.47,ruta_17
+Poniente,Temuco,Arica,1623.16,ruta_18
+Oriente,Santiago,Puerto Montt,528.33,ruta_22
+Oriente,Temuco,La Serena,741.13,ruta_41
+Centro,Antofagasta,Puerto Montt,1347.01,ruta_51
+Centro,Antofagasta,La Serena,1541.02,ruta_54
+Norte,Valparaíso,Arica,113.73,ruta_60
+Oriente,Santiago,La Serena,257.4,ruta_72
+Centro,Temuco,La Serena,1595.88,ruta_74
+Centro,Temuco,Arica,1622.97,ruta_78
+Poniente,Antofagasta,Puerto Montt,1222.95,ruta_97
+Sur,Concepción,Talca,1928.83,ruta_100
+Norte,Concepción,Iquique,1640.14,ruta_2
+Norte,Santiago,Iquique,1909.22,ruta_3
+Oriente,Valparaíso,Arica,233.0,ruta_9
+Oriente,Antofagasta,Talca,390.6,ruta_24
+Norte,Temuco,Arica,1277.0,ruta_35
+Oriente,Santiago,Iquique,1635.23,ruta_49
+Norte,Valparaíso,Iquique,850.7,ruta_59
+Oriente,Temuco,Talca,1022.6,ruta_75
+Norte,Santiago,Puerto Montt,828.97,ruta_76
+Oriente,Antofagasta,Iquique,1893.66,ruta_81
+Sur,Santiago,La Serena,445.06,ruta_85
+Centro,Valparaíso,Iquique,1731.93,ruta_96
+Poniente,Santiago,Talca,1261.57,ruta_1
+Poniente,Valparaíso,Puerto Montt,1150.71,ruta_6
+Centro,Valparaíso,Iquique,1056.63,ruta_8
+Norte,Temuco,Talca,276.49,ruta_13
+Oriente,Concepción,La Serena,1379.78,ruta_23
+Poniente,Antofagasta,La Serena,1898.47,ruta_27
+Oriente,Valparaíso,Talca,1035.96,ruta_32
+Oriente,Concepción,Talca,818.12,ruta_33
+Poniente,Valparaíso,La Serena,1948.11,ruta_36
+Sur,Temuco,Iquique,276.97,ruta_56
+Poniente,Santiago,La Serena,1200.6,ruta_68
+Oriente,Temuco,Arica,1559.9,ruta_79
+Oriente,Concepción,Talca,664.18,ruta_87
+Sur,Temuco,La Serena,1295.17,ruta_15
+Oriente,Temuco,Arica,1411.96,ruta_30
+Oriente,Temuco,La Serena,232.16,ruta_31
+Centro,Antofagasta,Arica,1613.64,ruta_34
+Oriente,Temuco,Arica,461.85,ruta_38
+Oriente,Temuco,Iquique,1963.06,ruta_47
+Oriente,Santiago,La Serena,1902.15,ruta_52
+Poniente,Valparaíso,Talca,1079.8,ruta_53
+Norte,Santiago,Puerto Montt,477.21,ruta_57
+Poniente,Santiago,Puerto Montt,1271.97,ruta_63
+Oriente,Antofagasta,Puerto Montt,928.74,ruta_67
+Norte,Valparaíso,Puerto Montt,759.09,ruta_71
+Norte,Santiago,Talca,195.63,ruta_73
+Norte,Santiago,Talca,947.26,ruta_84
+Norte,Valparaíso,Talca,988.86,ruta_91
+Poniente,Antofagasta,Puerto Montt,1390.27,ruta_92
+Sur,Antofagasta,La Serena,1268.51,ruta_95
+Oriente,Antofagasta,Iquique,429.59,ruta_7
+Norte,Valparaíso,La Serena,1729.09,ruta_10
+Poniente,Santiago,Iquique,1780.49,ruta_21
+Poniente,Temuco,Iquique,478.68,ruta_40
+Poniente,Valparaíso,Puerto Montt,659.98,ruta_42
+Norte,Antofagasta,Puerto Montt,1215.62,ruta_45
+Norte,Temuco,Puerto Montt,332.64,ruta_64
+Sur,Temuco,Iquique,964.31,ruta_77
+Norte,Antofagasta,Talca,1957.55,ruta_83
+Oriente,Santiago,La Serena,444.56,ruta_88
+Oriente,Santiago,Talca,613.54,ruta_89
+Norte,Santiago,Iquique,932.16,ruta_19
+Poniente,Antofagasta,Iquique,1785.95,ruta_25
+Sur,Concepción,Arica,1083.52,ruta_26
+Norte,Antofagasta,Talca,352.13,ruta_29
+Sur,Concepción,Iquique,1156.16,ruta_48
+Poniente,Temuco,La Serena,736.08,ruta_55
+Sur,Valparaíso,Arica,185.34,ruta_62
+Centro,Temuco,Puerto Montt,1581.31,ruta_4
+Oriente,Valparaíso,Arica,1945.84,ruta_5
+Poniente,Santiago,Iquique,1385.76,ruta_12
+Oriente,Santiago,Puerto Montt,154.82,ruta_14
+Centro,Valparaíso,Arica,1236.41,ruta_20
+Sur,Concepción,Puerto Montt,1582.21,ruta_28
+Oriente,Concepción,Iquique,1952.23,ruta_37
+Centro,Antofagasta,Arica,1995.41,ruta_39
+Norte,Valparaíso,Arica,1456.33,ruta_44
+Poniente,Valparaíso,Talca,1580.96,ruta_50
+Oriente,Antofagasta,La Serena,1244.89,ruta_61
+Sur,Antofagasta,Arica,1328.17,ruta_65
+Norte,Valparaíso,Iquique,1526.37,ruta_70
+Oriente,Santiago,Talca,855.37,ruta_80
+Oriente,Concepción,Puerto Montt,628.5,ruta_82
+Poniente,Antofagasta,La Serena,1231.64,ruta_99
+Oriente,Santiago,La Serena,1810.46,ruta_11
+Centro,Temuco,Iquique,208.77,ruta_16
+Centro,Temuco,Iquique,1924.79,ruta_43
+Poniente,Temuco,Puerto Montt,1823.4,ruta_46
+Norte,Antofagasta,Talca,338.26,ruta_58
+Oriente,Concepción,La Serena,1322.65,ruta_66
+Oriente,Valparaíso,Puerto Montt,605.66,ruta_69
+Poniente,Valparaíso,Talca,860.37,ruta_86
+Oriente,Antofagasta,La Serena,664.14,ruta_90
+Centro,Concepción,Puerto Montt,1628.26,ruta_93
+Norte,Concepción,Iquique,1519.74,ruta_94
+Poniente,Valparaíso,Talca,574.55,ruta_98

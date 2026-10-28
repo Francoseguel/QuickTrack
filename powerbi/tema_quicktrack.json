@@ -1,0 +1,13 @@
+{
+  "name": "QuickTrack",
+  "dataColors": ["#1F4E79", "#2E86C1", "#F39C12", "#C0392B", "#27AE60", "#7F8C8D", "#8E44AD", "#16A085"],
+  "good": "#27AE60",
+  "neutral": "#F39C12",
+  "bad": "#C0392B",
+  "maximum": "#C0392B",
+  "center": "#F7DC6F",
+  "minimum": "#27AE60",
+  "background": "#FFFFFF",
+  "foreground": "#1B2631",
+  "tableAccent": "#1F4E79"
+}

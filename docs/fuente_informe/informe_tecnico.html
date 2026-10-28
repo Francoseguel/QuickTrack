@@ -1,0 +1,970 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Informe Técnico QuickTrack NoSQL</title>
+<style>
+:root{
+  --ink:#14202b; --ink2:#41505d; --muted:#6b7884; --line:#d8dfe4; --soft:#f3f6f7;
+  --navy:#10263a; --teal:#0e7468; --tealsoft:#e4f2ef;
+  --amber:#8a5300; --ambersoft:#fff4e2; --red:#a8231a; --redsoft:#fcebe9; --green:#1b6f31; --greensoft:#e6f4ea;
+  --code:#0f1c27; --codeink:#dfe8ee; --codemuted:#8ea3b3;
+  --bar:#0e7468; --bar2:#9aa7b2;
+}
+*{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+@page{size:A4;margin:17mm 15mm 18mm 15mm;
+  @bottom-left{content:"QuickTrack · Informe técnico NoSQL · BDY0101 EP2";font:7.5pt "Segoe UI",Arial,sans-serif;color:#6b7884}
+  @bottom-right{content:"Página " counter(page) " de " counter(pages);font:7.5pt "Segoe UI",Arial,sans-serif;color:#6b7884}}
+@page:first{margin-top:12mm}
+html{font-family:"Segoe UI","Segoe UI Variable Text",Arial,sans-serif;font-size:9.4pt;line-height:1.5;color:var(--ink);background:#fff}
+body{margin:0}
+h1,h2,h3,h4{margin:0;line-height:1.2;color:var(--navy)}
+p{margin:0 0 7pt}
+code,.mono{font-family:"Cascadia Mono",Consolas,"Courier New",monospace;font-size:.9em}
+p code,li code,td code{background:var(--soft);border:1px solid #e3e8eb;border-radius:3px;padding:0 3px;color:#0b3d5c}
+ul,ol{margin:0 0 7pt;padding-left:15pt}
+li{margin:0 0 2.5pt}
+b,strong{font-weight:650}
+
+/* ---------- portada ---------- */
+.band{background:linear-gradient(120deg,#10263a 0%,#123b4c 55%,#0e7468 100%);color:#eef5f6;border-radius:8px;padding:20pt 22pt 18pt}
+.eyebrow{font-size:7.8pt;letter-spacing:.09em;text-transform:uppercase;color:#a9d6cf;font-weight:600;margin-bottom:9pt}
+.band h1{color:#fff;font-size:21pt;font-weight:700;letter-spacing:-.01em;margin-bottom:6pt}
+.band .sub{color:#cfe2e6;font-size:10.2pt;margin:0 0 14pt}
+.meta{display:grid;grid-template-columns:repeat(4,1fr);gap:10pt;border-top:1px solid rgba(255,255,255,.22);padding-top:10pt}
+.meta div{font-size:8.2pt;color:#e8f1f3;line-height:1.35}
+.meta span{display:block;font-size:6.9pt;letter-spacing:.08em;text-transform:uppercase;color:#9fc3c9;margin-bottom:2pt}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8pt;margin:9pt 0 6pt}
+.kpi{border:1px solid var(--line);border-left:3px solid var(--teal);border-radius:6px;padding:8pt 10pt;background:#fbfcfc}
+.kpi b{display:block;font-size:17pt;font-weight:700;color:var(--teal);line-height:1.1;margin-bottom:2pt}
+.kpi span{font-size:7.9pt;color:var(--ink2);line-height:1.3;display:block}
+
+/* ---------- secciones ---------- */
+section.main{margin-top:24pt}
+section.first{break-before:page;margin-top:0}
+.sechead{display:flex;align-items:baseline;gap:10pt;border-bottom:2px solid var(--tealsoft);padding-bottom:5pt;margin-bottom:10pt;break-after:avoid}
+h3,h4{break-after:avoid}
+.keep{break-inside:avoid}
+.sechead .num{font-size:20pt;font-weight:700;color:var(--teal);line-height:1}
+.sechead h2{font-size:15pt;font-weight:700}
+.sechead .ie{margin-left:auto;font-size:7.6pt;font-weight:600;color:var(--teal);background:var(--tealsoft);border-radius:10px;padding:2pt 8pt;white-space:nowrap}
+h3{font-size:10.8pt;font-weight:700;margin:13pt 0 6pt;color:var(--navy)}
+h3 .n{color:var(--teal);margin-right:4pt}
+h4{font-size:9.4pt;font-weight:700;margin:9pt 0 4pt}
+.lead{font-size:9.9pt;color:var(--ink2)}
+
+/* ---------- tablas ---------- */
+table{width:100%;border-collapse:collapse;margin:3pt 0 9pt;font-size:8.3pt;line-height:1.38;break-inside:auto}
+thead{display:table-header-group}
+tr{break-inside:avoid}
+th{background:var(--navy);color:#fff;text-align:left;font-weight:600;padding:4.5pt 6pt;font-size:7.9pt;vertical-align:bottom}
+td{padding:4pt 6pt;border-bottom:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even) td{background:#f7f9fa}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+td.c,th.c{text-align:center}
+table.kv td:first-child{width:27%;font-weight:600;color:var(--navy);background:#f3f6f7}
+.hl td{background:#fff6e8 !important}
+
+/* ---------- chips ---------- */
+.chip{display:inline-block;font-size:7.2pt;font-weight:700;border-radius:9px;padding:.5pt 6pt;white-space:nowrap;letter-spacing:.02em}
+.ok{background:var(--greensoft);color:var(--green)}
+.bad{background:var(--redsoft);color:var(--red)}
+.warn{background:var(--ambersoft);color:var(--amber)}
+.info{background:var(--tealsoft);color:var(--teal)}
+.neutral{background:#eef1f3;color:#4c5a66}
+
+/* ---------- callouts ---------- */
+.call{border-radius:6px;padding:7pt 10pt;margin:6pt 0 10pt;break-inside:avoid;font-size:8.9pt}
+.call p:last-child,.call ul:last-child{margin-bottom:0}
+.call .t{font-weight:700;display:block;margin-bottom:2pt;font-size:8.6pt;letter-spacing:.01em}
+.call.find{background:var(--tealsoft);border-left:3px solid var(--teal)}
+.call.find .t{color:var(--teal)}
+.call.warnc{background:var(--ambersoft);border-left:3px solid #c27c0e}
+.call.warnc .t{color:var(--amber)}
+.call.goal{background:#f1f5f8;border-left:3px solid var(--navy)}
+
+/* ---------- codigo y evidencia ---------- */
+pre{margin:0;white-space:pre-wrap;word-break:break-word}
+.code{background:#f5f7f8;border:1px solid #e1e6e9;border-radius:6px;padding:7pt 9pt;font-family:"Cascadia Mono",Consolas,monospace;font-size:7.2pt;line-height:1.45;color:#16324a;margin:3pt 0 9pt;break-inside:avoid}
+.code .cm{color:#6b7f8e}
+.ev{background:var(--code);border-radius:6px;margin:3pt 0 10pt;break-inside:avoid;overflow:hidden}
+.ev .cap{background:#0a141c;color:#9fc3c9;font-size:7.3pt;font-weight:600;letter-spacing:.03em;padding:4pt 9pt;display:flex;justify-content:space-between;gap:10pt}
+.ev .cap i{font-style:normal;color:#6f8797;font-weight:400}
+.ev pre{color:var(--codeink);font-family:"Cascadia Mono",Consolas,monospace;font-size:7.3pt;line-height:1.5;padding:7pt 9pt}
+.ev .p{color:#7fd1c3}
+.ev .m{color:var(--codemuted)}
+.ev .g{color:#9be3a6}
+.ev .r{color:#ffb3a7}
+.ev .y{color:#ffd58a}
+
+/* ---------- barras ---------- */
+.bars{margin:3pt 0 8pt;break-inside:avoid}
+.bars .ttl{font-size:8.4pt;font-weight:700;color:var(--navy);margin-bottom:1pt}
+.bars .unit{font-size:7.5pt;color:var(--muted);margin-bottom:5pt}
+.brow{display:grid;grid-template-columns:var(--lw,92pt) 1fr 46pt;align-items:center;gap:6pt;margin:3.5pt 0;font-size:8pt}
+.brow .l{color:var(--ink2);text-align:right;line-height:1.2}
+.brow .track{height:9pt;position:relative;border-left:1px solid #c3cbd1}
+.brow .fill{position:absolute;left:0;top:0;bottom:0;background:var(--bar);border-radius:0 4px 4px 0}
+.brow .fill.mute{background:var(--bar2)}
+.brow .v{font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink)}
+.brow .v small{font-weight:400;color:var(--muted)}
+.mbar{display:inline-block;width:62pt;height:7pt;border-left:1px solid #c3cbd1;vertical-align:middle;margin-right:5pt;position:relative}
+.mbar i{position:absolute;left:0;top:0;bottom:0;background:var(--bar);border-radius:0 3px 3px 0}
+.mbar i.mute{background:var(--bar2)}
+
+/* ---------- layout ---------- */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14pt}
+.two>div{min-width:0}
+.flow{display:flex;align-items:stretch;gap:0;margin:5pt 0 10pt;break-inside:avoid}
+.flow .st{flex:1;border:1px solid var(--line);border-radius:6px;padding:6pt 7pt;background:#fbfcfc;font-size:7.8pt;line-height:1.35}
+.flow .st b{display:block;color:var(--navy);font-size:8.2pt;margin-bottom:2pt}
+.flow .st.dark{background:var(--navy);border-color:var(--navy);color:#d7e6ea}
+.flow .st.dark b{color:#fff}
+.flow .st.tl{background:var(--tealsoft);border-color:#b9ddd6}
+.flow .ar{display:flex;flex-direction:column;justify-content:center;align-items:center;width:44pt;flex:none;font-size:6.6pt;color:var(--muted);text-align:center;line-height:1.15;padding:0 2pt}
+.flow .ar b{font-size:13pt;line-height:1;color:#7d8e9b;font-weight:400}
+.fig{font-size:7.6pt;color:var(--muted);margin:-4pt 0 10pt}
+.small{font-size:8pt;color:var(--ink2)}
+.nobreak{break-inside:avoid}
+svg text{font-family:"Segoe UI",Arial,sans-serif}
+svg .mono text,svg text.mono{font-family:"Cascadia Mono",Consolas,monospace}
+</style>
+</head>
+<body>
+
+<!-- =================================================== PORTADA -->
+<div class="band">
+  <div class="eyebrow">BDY0101 · Base de Datos No Relacionales · Evaluación Parcial N°2 · Forma B</div>
+  <h1>QuickTrack: base de datos NoSQL en MongoDB Atlas integrada a una API REST</h1>
+  <p class="sub" style="margin-bottom:4pt">Informe técnico: configuración, carga, consultas, CRUD, integración y control de errores.</p>
+  <p class="sub" style="color:#eef5f6"><b>Integrantes:</b> Franco Seguel · Martin Papic · Felipe Angel</p>
+  <div class="meta">
+    <div><span>Base de datos</span>MongoDB Atlas 8.0 · replica set de 3 nodos (AWS São Paulo)</div>
+    <div><span>Aplicación</span>Python 3.14 · PyMongo 4.19 · FastAPI 0.162</div>
+    <div><span>Repositorio</span>github.com/Francoseguel/QuickTrack</div>
+    <div><span>Evidencias</span>Ejecutadas el 26-10-2026 sobre el clúster real</div>
+  </div>
+</div>
+
+<div class="kpis">
+  <div class="kpi"><b>500</b><span>documentos cargados en 5 colecciones, verificados contra los archivos de origen</span></div>
+  <div class="kpi"><b>−73 %</b><span>documentos examinados con el índice compuesto (100 → 27) según <code>explain()</code></span></div>
+  <div class="kpi"><b>14 / 14</b><span>pruebas de integración y errores con el resultado esperado</span></div>
+  <div class="kpi"><b>82 ms</b><span>latencia mediana de una lectura a Atlas con un cliente reutilizado</span></div>
+</div>
+
+<h3 style="margin-top:4pt">Resumen ejecutivo</h3>
+<p>Se implementó la base de datos operativa de QuickTrack en un clúster de MongoDB Atlas y se integró con una API REST en Python (FastAPI + PyMongo). Los cinco conjuntos de datos del caso (500 documentos) se cargaron con un proceso ETL idempotente que además normaliza la referencia entre órdenes y clientes. Sobre esa base se desarrollaron consultas con filtros, proyecciones, agregaciones y ordenamientos; su eficiencia se midió con <code>explain()</code>, volumen de datos y latencia. También se validó el ciclo CRUD completo desde scripts y desde la API.</p>
+<p>Las pruebas confirman lectura y escritura en tiempo real y respuestas de error controladas (400, 404, 422 y 500). El análisis detectó además dos puntos accionables: inconsistencias en los datos de origen (82 de 100 órdenes tienen un estado distinto al de su seguimiento) y una mejora de rendimiento en la API. Ambos se documentan con su solución propuesta.</p>
+
+<h3>Mapa de la pauta: dónde está cada apartado</h3>
+<table>
+  <thead><tr><th style="width:27%">Apartado de la pauta</th><th style="width:13%">Indicadores</th><th class="c" style="width:7%">Sección</th><th>Evidencia principal</th></tr></thead>
+  <tbody>
+    <tr><td>1. Objetivos del proyecto</td><td>Transversal</td><td class="c">1</td><td>Objetivo general y cuatro objetivos específicos alineados a IL2.1–IL2.4</td></tr>
+    <tr><td>2. Configuración de la base de datos</td><td>IE1 · IE2 · IE3</td><td class="c">2</td><td>Clúster, colecciones y parámetros (partición, throughput, consistencia, credenciales); conectividad con 4 herramientas</td></tr>
+    <tr><td>3. Inserción de datos de prueba</td><td>IE1 · IE3 · IE7</td><td class="c">3</td><td>ETL de 5 archivos; verificación archivo vs. base: 100 = 100 en las 5 colecciones</td></tr>
+    <tr><td>4. Desarrollo de consultas</td><td>IE4 · IE5 · IE6</td><td class="c">4</td><td>5 consultas de negocio con resultados reales; evaluación con <code>explain()</code>, volumen y latencia</td></tr>
+    <tr><td>5. Operaciones CRUD completas</td><td>IE7 · IE8</td><td class="c">5</td><td>Ciclo CRUD ejecutado; 14 controles de integridad (9 correctos, 5 inconsistencias con solución)</td></tr>
+    <tr><td>6. Integración con aplicación externa</td><td>IE9 · IE10</td><td class="c">6</td><td>API REST con 6 operaciones; cada escritura vía HTTP se verifica al instante con PyMongo</td></tr>
+    <tr><td>7. Control de errores y validaciones</td><td>IE11</td><td class="c">7</td><td>Respuestas 400/404/422/500 controladas, log de actividad y tiempo de proceso por request</td></tr>
+  </tbody>
+</table>
+<p class="small">Indicadores según la rúbrica de evaluación (IE1–IE11). Todas las cifras provienen de ejecuciones reales; las salidas de consola se reproducen sin editar en los recuadros oscuros de «Evidencia».</p>
+
+<!-- =================================================== 1 OBJETIVOS -->
+<section class="main first">
+<div class="sechead"><span class="num">1</span><h2>Objetivos del proyecto</h2><span class="ie">Transversal</span></div>
+
+<p class="lead">QuickTrack es una empresa de logística que ofrece entregas express a nivel nacional. Su sistema registra en una base de datos NoSQL las órdenes de entrega, el seguimiento de cada paquete, las rutas utilizadas y las valoraciones de los clientes. La gerencia necesita esa información disponible y consultable para optimizar rutas, identificar zonas críticas, medir la satisfacción del cliente y entender qué afecta el cumplimiento de plazos.</p>
+
+<div class="call goal"><span class="t">Objetivo general</span>
+<p>Implementar y validar una base de datos NoSQL documental en MongoDB Atlas para los datos operativos de QuickTrack, integrada con una API REST en Python que permita consultar y modificar la información en tiempo real, con validación de entradas, control de errores y trazabilidad.</p></div>
+
+<h3>Objetivos específicos</h3>
+<table>
+  <thead><tr><th class="c" style="width:7%">#</th><th>Objetivo específico</th><th style="width:13%">Indicador de logro</th><th class="c" style="width:10%">Sección</th></tr></thead>
+  <tbody>
+    <tr><td class="c"><b>OE1</b></td><td>Configurar un clúster de MongoDB Atlas con la base <code>quicktrack_db</code>, usuarios con permisos de lectura y escritura, y conexión segura mediante variables de entorno.</td><td>IL2.1</td><td class="c">2</td></tr>
+    <tr><td class="c"><b>OE2</b></td><td>Desarrollar consultas con filtros, proyecciones, agregaciones y ordenamientos que respondan preguntas del negocio, y evaluar su eficiencia con datos medidos.</td><td>IL2.2</td><td class="c">4</td></tr>
+    <tr><td class="c"><b>OE3</b></td><td>Cargar los datos del caso e implementar operaciones CRUD sobre órdenes y su seguimiento, validando los resultados e identificando errores e inconsistencias.</td><td>IL2.3</td><td class="c">3 y 5</td></tr>
+    <tr><td class="c"><b>OE4</b></td><td>Integrar la base con una API REST que lea y escriba en tiempo real, con validación de entradas, manejo de errores y registro de actividad.</td><td>IL2.4</td><td class="c">6 y 7</td></tr>
+  </tbody>
+</table>
+
+<h3>Alcance y supuestos</h3>
+<ul>
+  <li><b>Datos:</b> los cinco archivos JSON de la Forma B (clientes, órdenes, rutas, seguimiento y valoraciones), con 100 documentos cada uno.</li>
+  <li><b>Entorno:</b> clúster compartido de MongoDB Atlas y API ejecutada localmente con Uvicorn (puerto 8000).</li>
+  <li><b>Evidencias:</b> todas las cifras provienen de ejecuciones del 26-10-2026. Las pruebas de escritura usaron identificadores de prueba (<code>orden_test_999</code>, <code>orden_api_901</code>) que se eliminaron al terminar; la base quedó con 100 documentos por colección.</li>
+  <li><b>Fuera de alcance:</b> visualizaciones en Power BI y despliegue de la API en un servidor público.</li>
+</ul>
+
+<h3>Resultado esperado para el negocio</h3>
+<div class="two">
+<div class="call find" style="margin:0"><span class="t">Para la operación logística</span>
+<p>Consultar en segundos el estado e historial de cualquier orden, actualizarlo desde una API y detectar las zonas con más cancelaciones.</p></div>
+<div class="call find" style="margin:0"><span class="t">Para la gerencia</span>
+<p>Contar con indicadores por zona (cancelación, satisfacción, órdenes abiertas) y con un diagnóstico de la calidad de los datos registrados.</p></div>
+</div>
+</section>
+
+<!-- =================================================== 2 CONFIGURACION -->
+<section class="main">
+<div class="sechead"><span class="num">2</span><h2>Configuración de la base de datos NoSQL</h2><span class="ie">IE1 · IE2 · IE3</span></div>
+
+<h3><span class="n">2.1</span>Tecnología seleccionada y justificación</h3>
+<p>La pauta propone Azure Cosmos DB (APIs Core SQL, Gremlin o Table) u otras tecnologías equivalentes, y recomienda MongoDB Atlas por su disponibilidad gratuita y su conexión externa. Se eligió <b>MongoDB Atlas</b>, cuyo modelo documental es el equivalente directo de la API Core (SQL) de Cosmos DB.</p>
+<table>
+  <thead><tr><th style="width:20%">Alternativa</th><th style="width:14%">Modelo</th><th>Evaluación para QuickTrack</th></tr></thead>
+  <tbody>
+    <tr class="hl"><td><b>MongoDB Atlas</b> <span class="chip ok">ELEGIDA</span></td><td>Documental (BSON)</td><td>Los datos ya vienen en JSON. El historial de seguimiento se guarda embebido como arreglo, y <code>$lookup</code> + <code>$group</code> cubren el análisis por zona. Ofrece nivel gratuito, driver oficial para Python (PyMongo) y conexión por URI.</td></tr>
+    <tr><td>Cosmos DB · Core (SQL)</td><td>Documental</td><td>Equivalente conceptual, pero requiere suscripción de Azure y planificar RU/s; no aporta ventajas adicionales para el caso.</td></tr>
+    <tr><td>Cosmos DB · Gremlin</td><td>Grafo</td><td>Serviría para modelar la red de ciudades, pero las preguntas del caso son agregaciones por orden y zona, no recorridos de grafo.</td></tr>
+    <tr><td>Cosmos DB · Table</td><td>Clave-valor</td><td>No tiene agregaciones ni consultas compuestas ricas, así que no alcanza para el análisis requerido.</td></tr>
+  </tbody>
+</table>
+
+<h3><span class="n">2.2</span>Arquitectura del clúster</h3>
+<table class="kv">
+  <tbody>
+    <tr><td>Proveedor y región</td><td>AWS · <code>SA_EAST_1</code> (São Paulo), zona de disponibilidad <code>sae1-az3</code> (Sudamérica).</td></tr>
+    <tr><td>Topología</td><td>Replica set <code>atlas-8vgg5u-shard-0</code> de <b>3 nodos</b> (1 primario + 2 secundarios), con failover automático.</td></tr>
+    <tr><td>Versión del motor</td><td>MongoDB <b>8.0.34</b></td></tr>
+    <tr><td>Base de datos</td><td><code>quicktrack_db</code>: 5 colecciones, 500 documentos, ≈ 80 KB de datos y 8 índices.</td></tr>
+    <tr><td>Nivel de servicio</td><td>Clúster compartido de Atlas: no expone comandos administrativos (p. ej. <code>getDefaultRWConcern</code> responde <i>CommandNotFound</i>).</td></tr>
+    <tr><td>Conexión</td><td>URI <code>mongodb+srv://</code> con TLS: el driver descubre los 3 nodos mediante un registro DNS SRV.</td></tr>
+  </tbody>
+</table>
+<p class="fig">Fuente: comandos <code>hello</code>, <code>server_info()</code> y <code>dbStats</code> ejecutados con PyMongo el 26-10-2026.</p>
+
+<h3><span class="n">2.3</span>Colecciones (contenedores) y modelo de datos</h3>
+<table>
+  <thead><tr><th style="width:17%">Colección</th><th class="num" style="width:7%">Docs</th><th class="num" style="width:9%">Tam. prom.</th><th style="width:12%">_id (ejemplo)</th><th>Campos</th><th style="width:19%">Relación</th></tr></thead>
+  <tbody>
+    <tr><td><code>clientes</code></td><td class="num">100</td><td class="num">135 B</td><td><code>73</code> (entero)</td><td>nombre, correo, pais, fecha_registro</td><td>1:N con órdenes</td></tr>
+    <tr><td><code>ordenes_entrega</code></td><td class="num">100</td><td class="num">189 B</td><td><code>"orden_2"</code></td><td>cliente_id, cliente_num_id, ruta_id, fecha_envio, estado, medio_pago, total</td><td>N:1 con clientes y rutas</td></tr>
+    <tr><td><code>rutas</code></td><td class="num">100</td><td class="num">119 B</td><td><code>"ruta_99"</code></td><td>zona, ciudad_origen, ciudad_destino, distancia_km</td><td>1:N con órdenes</td></tr>
+    <tr><td><code>seguimiento</code></td><td class="num">100</td><td class="num">284 B</td><td><code>"seg_2"</code></td><td>orden_id, estado_actual, <b>historial[ ]</b> {estado, fecha}</td><td>1:1 con la orden (índice único)</td></tr>
+    <tr><td><code>valoraciones</code></td><td class="num">100</td><td class="num">90 B</td><td><code>"val_2"</code></td><td>orden_id, puntaje (1–5), comentario</td><td>1:1 con la orden</td></tr>
+  </tbody>
+</table>
+
+<div class="nobreak">
+<svg viewBox="0 0 760 266" width="100%" role="img" aria-label="Modelo de datos: órdenes al centro, referenciando clientes y rutas; seguimiento y valoraciones referencian la orden">
+  <defs><marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#7d8e9b"/></marker></defs>
+  <!-- clientes -->
+  <rect x="6" y="10" width="160" height="104" rx="7" fill="#f6f8f9" stroke="#c9d3da"/>
+  <rect x="6" y="10" width="160" height="22" rx="7" fill="#41505d"/><rect x="6" y="24" width="160" height="8" fill="#41505d"/>
+  <text x="16" y="25" font-size="10" font-weight="700" fill="#fff">clientes</text>
+  <g font-size="8.6" fill="#14202b" class="mono"><text x="16" y="48">_id: 73</text><text x="16" y="62">nombre</text><text x="16" y="76">correo</text><text x="16" y="90">pais</text><text x="16" y="104">fecha_registro</text></g>
+  <!-- rutas -->
+  <rect x="6" y="154" width="160" height="104" rx="7" fill="#f6f8f9" stroke="#c9d3da"/>
+  <rect x="6" y="154" width="160" height="22" rx="7" fill="#41505d"/><rect x="6" y="168" width="160" height="8" fill="#41505d"/>
+  <text x="16" y="169" font-size="10" font-weight="700" fill="#fff">rutas</text>
+  <g font-size="8.6" fill="#14202b" class="mono"><text x="16" y="192">_id: "ruta_99"</text><text x="16" y="206">zona</text><text x="16" y="220">ciudad_origen</text><text x="16" y="234">ciudad_destino</text><text x="16" y="248">distancia_km</text></g>
+  <!-- ordenes -->
+  <rect x="296" y="34" width="178" height="198" rx="7" fill="#eef4f8" stroke="#10263a" stroke-width="1.3"/>
+  <rect x="296" y="34" width="178" height="24" rx="7" fill="#10263a"/><rect x="296" y="50" width="178" height="8" fill="#10263a"/>
+  <text x="307" y="50" font-size="10.4" font-weight="700" fill="#fff">ordenes_entrega</text>
+  <g font-size="8.6" fill="#14202b" class="mono"><text x="307" y="76">_id: "orden_2"</text><text x="307" y="91">cliente_id: "cli_73"</text><text x="307" y="106" fill="#0e7468" font-weight="700">cliente_num_id: 73</text><text x="307" y="121">ruta_id: "ruta_99"</text><text x="307" y="136">fecha_envio</text><text x="307" y="151">estado</text><text x="307" y="166">medio_pago</text><text x="307" y="181">total</text></g>
+  <text x="307" y="210" font-size="7.8" fill="#0e7468">cliente_num_id:</text>
+  <text x="307" y="221" font-size="7.8" fill="#0e7468">agregado por el ETL</text>
+  <!-- seguimiento -->
+  <rect x="598" y="6" width="156" height="136" rx="7" fill="#f6f8f9" stroke="#c9d3da"/>
+  <rect x="598" y="6" width="156" height="22" rx="7" fill="#0e7468"/><rect x="598" y="20" width="156" height="8" fill="#0e7468"/>
+  <text x="608" y="21" font-size="10" font-weight="700" fill="#fff">seguimiento</text>
+  <g font-size="8.6" fill="#14202b" class="mono"><text x="608" y="44">_id: "seg_2"</text><text x="608" y="58">orden_id (único)</text><text x="608" y="72">estado_actual</text><text x="608" y="86">historial: [</text></g>
+  <rect x="612" y="92" width="134" height="40" rx="5" fill="#e4f2ef" stroke="#9fd0c6"/>
+  <g font-size="8.2" fill="#0b4f47" class="mono"><text x="619" y="107">{ estado, fecha }</text><text x="619" y="122">2 a 4 eventos</text></g>
+  <!-- valoraciones -->
+  <rect x="598" y="166" width="156" height="94" rx="7" fill="#f6f8f9" stroke="#c9d3da"/>
+  <rect x="598" y="166" width="156" height="22" rx="7" fill="#41505d"/><rect x="598" y="180" width="156" height="8" fill="#41505d"/>
+  <text x="608" y="181" font-size="10" font-weight="700" fill="#fff">valoraciones</text>
+  <g font-size="8.6" fill="#14202b" class="mono"><text x="608" y="204">_id: "val_2"</text><text x="608" y="218">orden_id</text><text x="608" y="232">puntaje: 1–5</text><text x="608" y="246">comentario</text></g>
+  <!-- conectores (encima de las cajas) -->
+  <path d="M294 96 L169 62" stroke="#7d8e9b" stroke-width="1.4" fill="none" marker-end="url(#ah)"/>
+  <path d="M294 190 L169 208" stroke="#7d8e9b" stroke-width="1.4" fill="none" marker-end="url(#ah)"/>
+  <path d="M596 70 L477 96" stroke="#7d8e9b" stroke-width="1.4" fill="none" marker-end="url(#ah)"/>
+  <path d="M596 212 L477 190" stroke="#7d8e9b" stroke-width="1.4" fill="none" marker-end="url(#ah)"/>
+  <g text-anchor="middle">
+    <text x="229" y="50" font-size="8.4" fill="#41505d" class="mono">cliente_num_id</text>
+    <text x="229" y="61" font-size="8" fill="#6b7884">→ _id · N:1</text>
+    <text x="229" y="219" font-size="8.4" fill="#41505d" class="mono">ruta_id</text>
+    <text x="229" y="230" font-size="8" fill="#6b7884">→ _id · N:1</text>
+    <text x="537" y="57" font-size="8.4" fill="#41505d" class="mono">orden_id</text>
+    <text x="537" y="68" font-size="8" fill="#6b7884">→ _id · 1:1</text>
+    <text x="537" y="224" font-size="8.4" fill="#41505d" class="mono">orden_id</text>
+    <text x="537" y="235" font-size="8" fill="#6b7884">→ _id · 1:1</text>
+  </g>
+</svg>
+</div>
+<p class="fig">Figura 1. Modelo documental de <code>quicktrack_db</code>. Las flechas indican referencias entre colecciones; el historial de seguimiento va embebido.</p>
+
+<div class="two" style="grid-template-columns:2fr 3fr">
+<div>
+<h4>Decisiones de modelado</h4>
+<ul>
+  <li><b>Referencias</b> entre entidades con ciclo de vida propio (clientes, rutas, órdenes): así no se duplican datos que cambian por separado.</li>
+  <li><b>Embebido</b> para el historial de seguimiento: siempre se lee junto con su orden, crece acotado (de 2 a 4 eventos) y se actualiza de forma atómica con <code>$push</code>.</li>
+  <li><b>Relación 1:1</b> orden–seguimiento garantizada por el índice único <code>orden_id_1</code>.</li>
+</ul>
+</div>
+<div>
+<h4>Documento real de <code>seguimiento</code></h4>
+<div class="code"><pre>{ "_id": "seg_2", "orden_id": "orden_2",
+  "estado_actual": "En preparación",
+  "historial": [
+    { "estado": "En preparación", "fecha": "2022-08-30T00:00:00" },
+    { "estado": "Despachado",     "fecha": "2022-09-01T00:00:00" },
+    { "estado": "En tránsito",    "fecha": "2022-09-03T00:00:00" },
+    { "estado": "Entregado",      "fecha": "2022-09-05T00:00:00" } ] }</pre></div>
+</div>
+</div>
+
+<h3><span class="n">2.4</span>Parámetros esenciales y su validación</h3>
+<p>La pauta usa conceptos de Cosmos DB. La tabla muestra cada concepto, su equivalente en MongoDB Atlas, cómo quedó configurado en QuickTrack y cómo se validó.</p>
+<table>
+  <thead><tr><th style="width:13%">Parámetro</th><th style="width:20%">Concepto en Cosmos DB</th><th>Configuración en MongoDB Atlas (QuickTrack)</th><th style="width:22%">Validación</th></tr></thead>
+  <tbody>
+    <tr><td><b>Base y contenedores</b></td><td>Database + containers</td><td>Base <code>quicktrack_db</code> con 5 colecciones (una por entidad del caso), creadas por el ETL al insertar.</td><td><code>list_collection_names()</code> → 5 colecciones <span class="chip ok">OK</span></td></tr>
+    <tr><td><b>Clave de partición</b></td><td>Partition key obligatoria por contenedor</td><td>El replica set no está fragmentado, así que no requiere shard key: cada nodo guarda una copia completa. <b>Diseño para escalar:</b> <code>ordenes_entrega</code> → <code>{_id: "hashed"}</code> (alta cardinalidad, reparte escrituras); <code>seguimiento</code> y <code>valoraciones</code> → <code>{orden_id: "hashed"}</code> (la consulta por orden llega a un solo shard). Se descartan <code>estado</code> y <code>zona</code> por su baja cardinalidad (4 y 5 valores).</td><td>Acceso por orden ya indexado (<code>orden_id_1</code>) <span class="chip info">DISEÑO</span></td></tr>
+    <tr><td><b>Throughput</b></td><td>RU/s aprovisionadas o serverless</td><td>Atlas no usa RU/s: la capacidad depende del tier del clúster. Se midió el rendimiento real desde el equipo de desarrollo.</td><td>Ping: mediana 82 ms · lectura por <code>_id</code>: 82 ms · agregación por zona: 87 ms <span class="chip ok">MEDIDO</span></td></tr>
+    <tr><td><b>Consistencia</b></td><td>5 niveles: Strong, Bounded staleness, Session, Consistent prefix, Eventual</td><td>Valores por defecto (la URI no los modifica): write concern implícito <code>w: "majority"</code> (MongoDB ≥ 5.0), read concern <code>local</code> y read preference <code>primary</code>. Cada cliente lee de inmediato lo que se escribió: equivale a <b>Session</b> en Cosmos DB.</td><td>Lo que escribe la API se lee al instante desde PyMongo (§6.5) <span class="chip ok">OK</span></td></tr>
+    <tr><td><b>Credenciales</b></td><td>Claves de cuenta / RBAC</td><td>Usuarios de base de datos de Atlas (SCRAM) con rol <code>readWriteAnyDatabase</code>; cada integrante invitado se conecta con su propio usuario. La URI vive en <code>.env</code>, que <code>.gitignore</code> excluye del repositorio; <code>.env.example</code> debe contener solo valores de ejemplo.</td><td><code>connectionStatus</code> → rol <code>readWriteAnyDatabase</code> <span class="chip ok">OK</span></td></tr>
+    <tr><td><b>Acceso de red</b></td><td>Firewall / VNet</td><td>Lista de acceso IP de Atlas y TLS obligatorio en la conexión <code>mongodb+srv</code>.</td><td>Conexión exitosa desde el equipo de desarrollo <span class="chip ok">OK</span></td></tr>
+    <tr><td><b>Tiempo de espera</b></td><td>Timeouts del SDK</td><td><code>serverSelectionTimeoutMS=5000</code> en <code>config/database.py</code>: si el clúster no responde, la operación falla a los 5 s en vez de bloquear la API.</td><td>Falla controlada con 500 (§7.3) <span class="chip ok">OK</span></td></tr>
+  </tbody>
+</table>
+
+<h3><span class="n">2.5</span>Configuración inicial</h3>
+<div class="two">
+<div>
+<ol>
+  <li>Crear el proyecto y el clúster en MongoDB Atlas (AWS, São Paulo).</li>
+  <li>Crear los usuarios de base de datos con permisos de lectura y escritura.</li>
+  <li>Autorizar las IP de los equipos en <i>Network Access</i>.</li>
+  <li>Copiar la URI <code>mongodb+srv://</code> y guardarla en <code>.env</code> (<code>MONGO_URI</code>, <code>DB_NAME</code>, <code>PORT</code>).</li>
+  <li>Instalar las dependencias de Python (Anexo A).</li>
+  <li>Validar con <code>python config/database.py</code>, que ejecuta un <code>ping</code> al clúster.</li>
+</ol>
+</div>
+<div>
+<div class="ev"><div class="cap">Evidencia 1 · prueba de conexión <i>26-10-2026</i></div><pre><span class="p">$ python config/database.py</span>
+ <span class="g">Conexión exitosa a la base de datos 'quicktrack_db' en MongoDB Atlas.</span></pre></div>
+<p class="small">Medición complementaria con PyMongo: el primer <code>ping</code> tardó 882 ms (incluye resolución DNS SRV, TLS y autenticación). La mediana de los 10 siguientes fue de <b>82 ms</b>.</p>
+</div>
+</div>
+
+<h3><span class="n">2.6</span>Problemas encontrados y resueltos</h3>
+<table>
+  <thead><tr><th style="width:31%">Problema</th><th style="width:30%">Causa</th><th>Solución</th></tr></thead>
+  <tbody>
+    <tr><td>Los archivos de datos usan dos formatos JSON distintos.</td><td><code>clientes.json</code> es un arreglo; los otros cuatro son NDJSON (un documento por línea), y <code>json.load()</code> falla con NDJSON.</td><td>Dos cargadores: <code>cargar_coleccion_array()</code> y <code>cargar_coleccion_lineas()</code>.</td></tr>
+    <tr><td>El cruce órdenes–clientes devolvía 0 coincidencias.</td><td><code>ordenes.cliente_id</code> es texto (<code>"cli_73"</code>) y <code>clientes._id</code> es entero (<code>73</code>).</td><td>Normalización en el ETL: nuevo campo <code>cliente_num_id</code>. Resultado: 100 de 100 órdenes se unen a su cliente (§5.3).</td></tr>
+    <tr><td>Cargar dos veces duplicaba los datos.</td><td><code>insert_many()</code> agrega documentos sin revisar si ya existen.</td><td><code>drop()</code> antes de insertar: la carga es idempotente.</td></tr>
+    <tr><td>Credenciales escritas en el código.</td><td>La URI incluye usuario y contraseña.</td><td>Archivo <code>.env</code> + <code>python-dotenv</code>; si falta <code>MONGO_URI</code>, se lanza un <code>ValueError</code> explícito.</td></tr>
+    <tr><td>Las dependencias fijadas no se instalaron en Python 3.14.</td><td>El proyecto se desarrolló en Python 3.13. <code>requirements.txt</code> fija pydantic 2.6.4 y pandas 2.2.1, que no publican paquetes precompilados para Python 3.14.</td><td>Se instalaron versiones compatibles (FastAPI 0.162, Pydantic 2.14, Pandas 3.0). Queda pendiente actualizar <code>requirements.txt</code>.</td></tr>
+  </tbody>
+</table>
+
+<h3><span class="n">2.7</span>Conectividad con herramientas externas</h3>
+<table>
+  <thead><tr><th style="width:22%">Herramienta</th><th style="width:16%">Tipo</th><th>Prueba realizada</th><th style="width:22%">Resultado</th></tr></thead>
+  <tbody>
+    <tr><td>PyMongo 4.19</td><td>SDK / driver</td><td><code>ping</code> ×10, <code>hello</code>, consultas, CRUD y <code>explain()</code></td><td>Estable · mediana 82 ms <span class="chip ok">OK</span></td></tr>
+    <tr><td>FastAPI 0.162 + Uvicorn</td><td>Aplicación (API REST)</td><td>Lectura y escritura sobre Atlas a través de 6 operaciones HTTP</td><td>Todas responden <span class="chip ok">OK</span></td></tr>
+    <tr><td>curl 8.18</td><td>Cliente HTTP externo</td><td>13 llamadas: CRUD completo, casos de error y analítica</td><td>13 / 13 con el código esperado <span class="chip ok">OK</span></td></tr>
+    <tr><td>Swagger UI / OpenAPI</td><td>Explorador de la API</td><td><code>/docs</code> y <code>/openapi.json</code> documentan las rutas automáticamente</td><td>5 rutas, 6 operaciones <span class="chip ok">OK</span></td></tr>
+  </tbody>
+</table>
+</section>
+
+<!-- =================================================== 3 INSERCION -->
+<section class="main">
+<div class="sechead"><span class="num">3</span><h2>Inserción de datos de prueba</h2><span class="ie">IE1 · IE3 · IE7</span></div>
+
+<h3><span class="n">3.1</span>Proceso de carga (ETL) — <code>scripts/cargar_atlas.py</code></h3>
+<div class="flow">
+  <div class="st dark"><b>data/*.json</b>5 archivos del caso (Forma B)</div><div class="ar"><b>→</b>leer</div>
+  <div class="st"><b>Lectura</b>Arreglo JSON (<code>json.load</code>) o NDJSON línea a línea</div><div class="ar"><b>→</b>transformar</div>
+  <div class="st tl"><b>Normalización</b><code>"cli_73"</code> → <code>cliente_num_id: 73</code></div><div class="ar"><b>→</b>cargar</div>
+  <div class="st"><b>drop() + insert_many()</b>Carga masiva idempotente</div><div class="ar"><b>→</b>validar</div>
+  <div class="st dark"><b>Verificación</b>Conteos e integridad (§3.2)</div>
+</div>
+<table>
+  <thead><tr><th>Archivo</th><th>Formato</th><th class="num">Documentos</th><th>Colección destino</th><th>Transformación</th></tr></thead>
+  <tbody>
+    <tr><td><code>clientes.json</code></td><td>Arreglo JSON</td><td class="num">100</td><td><code>clientes</code></td><td>—</td></tr>
+    <tr><td><code>ordenes_entrega.json</code></td><td>NDJSON</td><td class="num">100</td><td><code>ordenes_entrega</code></td><td>Agrega <code>cliente_num_id</code> (entero)</td></tr>
+    <tr><td><code>rutas.json</code></td><td>NDJSON</td><td class="num">100</td><td><code>rutas</code></td><td>—</td></tr>
+    <tr><td><code>seguimiento.json</code></td><td>NDJSON</td><td class="num">100</td><td><code>seguimiento</code></td><td>—</td></tr>
+    <tr><td><code>valoraciones.json</code></td><td>NDJSON</td><td class="num">100</td><td><code>valoraciones</code></td><td>—</td></tr>
+  </tbody>
+</table>
+<div class="code"><pre><span class="cm"># scripts/cargar_atlas.py — lectura NDJSON, normalización y carga</span>
+for linea in f:
+    linea_limpia = linea.strip()
+    if linea_limpia:
+        doc = json.loads(linea_limpia)
+        <span class="cm"># Normalización de cliente_id para ordenes_entrega ("cli_99" -> 99)</span>
+        if es_ordenes and isinstance(doc.get('cliente_id'), str) and doc['cliente_id'].startswith('cli_'):
+            doc['cliente_num_id'] = int(doc['cliente_id'].replace('cli_', ''))
+        documentos.append(doc)
+
+db[nombre_coleccion].drop()                 <span class="cm"># carga idempotente</span>
+if documentos:
+    db[nombre_coleccion].insert_many(documentos)</pre></div>
+
+<h3><span class="n">3.2</span>Verificación de la carga</h3>
+<div class="two">
+<div>
+<table>
+  <thead><tr><th>Colección</th><th class="num">Archivo</th><th class="num">Base</th><th class="c">Estado</th></tr></thead>
+  <tbody>
+    <tr><td><code>clientes</code></td><td class="num">100</td><td class="num">100</td><td class="c"><span class="chip ok">OK</span></td></tr>
+    <tr><td><code>ordenes_entrega</code></td><td class="num">100</td><td class="num">100</td><td class="c"><span class="chip ok">OK</span></td></tr>
+    <tr><td><code>rutas</code></td><td class="num">100</td><td class="num">100</td><td class="c"><span class="chip ok">OK</span></td></tr>
+    <tr><td><code>seguimiento</code></td><td class="num">100</td><td class="num">100</td><td class="c"><span class="chip ok">OK</span></td></tr>
+    <tr><td><code>valoraciones</code></td><td class="num">100</td><td class="num">100</td><td class="c"><span class="chip ok">OK</span></td></tr>
+  </tbody>
+</table>
+<p class="small">Conteo de líneas de cada archivo contra <code>count_documents({})</code> en Atlas.</p>
+</div>
+<div>
+<h4 style="margin-top:0">Controles adicionales tras la carga</h4>
+<ul class="small">
+  <li>Tipos homogéneos en las 100 órdenes: <code>total</code> es <i>double</i>; <code>cliente_id</code> y <code>fecha_envio</code> son <i>string</i>.</li>
+  <li>0 órdenes con ruta inexistente y 0 seguimientos huérfanos.</li>
+  <li>Exactamente 1 seguimiento y 1 valoración por orden.</li>
+  <li><code>fecha_envio</code> se guarda como texto ISO-8601. Sirve para ordenar y comparar, pero obliga a convertirla para cálculos de fechas (mejora en §4.5).</li>
+</ul>
+</div>
+</div>
+<h4>Documento cargado: <code>ordenes_entrega</code> → <code>orden_2</code></h4>
+<div class="code"><pre>{ "_id": "orden_2", "cliente_id": "cli_73", "ruta_id": "ruta_99", "fecha_envio": "2024-06-05T00:00:00",
+  "estado": "Entregado", "medio_pago": "Tarjeta", "total": 165509.2, "cliente_num_id": 73 }</pre></div>
+
+<h3><span class="n">3.3</span>Inserciones unitarias de prueba</h3>
+<p>Además de la carga masiva, se probaron inserciones individuales por dos vías: el script CRUD (<code>orden_test_999</code>, §5.2) y la API (<code>POST /ordenes</code> con <code>orden_api_901</code>, §6.5). En ambos casos la orden y su seguimiento inicial quedaron en la base, se verificaron con una lectura y se eliminaron al terminar.</p>
+<div class="code"><pre><span class="cm"># scripts/crud_operations.py — CREATE: la orden y su primer evento de seguimiento</span>
+if db.ordenes_entrega.find_one({"_id": orden_id}):            <span class="cm"># evita duplicados</span>
+    print(f" Advertencia: La orden '{orden_id}' ya existe."); return False
+db.ordenes_entrega.insert_one({"_id": orden_id, "cliente_id": cliente_id, "ruta_id": ruta_id,
+                               "fecha_envio": "2026-03-30T10:00:00", "estado": "En preparación",
+                               "medio_pago": medio_pago, "total": float(total)})
+db.seguimiento.insert_one({"_id": f"seg_{orden_id}", "orden_id": orden_id, "estado_actual": "En preparación",
+                           "historial": [{"estado": "En preparación", "fecha": "2026-03-30T10:00:00"}]})</pre></div>
+</section>
+
+<!-- =================================================== 4 CONSULTAS -->
+<section class="main">
+<div class="sechead"><span class="num">4</span><h2>Desarrollo de consultas sobre la base de datos</h2><span class="ie">IE4 · IE5 · IE6</span></div>
+<p>Las consultas C1 a C3 están en <code>scripts/consultas_nosql.py</code>, y el endpoint <code>/analitica/rendimiento-zonas</code> de la API repite la agregación por zona. Para responder directamente las preguntas del caso se agregaron dos consultas complementarias (C4 y C5), ejecutadas con PyMongo para este informe.</p>
+
+<h3><span class="n">4.1</span>Índices definidos</h3>
+<table>
+  <thead><tr><th style="width:17%">Colección</th><th style="width:25%">Índice</th><th style="width:11%">Tipo</th><th>Uso</th><th style="width:19%">Plan observado</th></tr></thead>
+  <tbody>
+    <tr><td><code>ordenes_entrega</code></td><td><code>{estado: 1, fecha_envio: -1}</code></td><td>Compuesto</td><td>Filtrar por estado (C1) y listar órdenes de un estado por fecha, sin ordenar en memoria.</td><td><code>IXSCAN</code></td></tr>
+    <tr><td><code>ordenes_entrega</code></td><td><code>{ruta_id: 1}</code></td><td>Simple</td><td>Filtrar órdenes por ruta y hacer <code>$lookup</code> desde rutas hacia órdenes.</td><td>—</td></tr>
+    <tr><td><code>seguimiento</code></td><td><code>{orden_id: 1}</code></td><td>Único</td><td>Garantiza 1 seguimiento por orden y acelera el <code>$lookup</code> orden → seguimiento.</td><td><code>EXPRESS_IXSCAN</code></td></tr>
+  </tbody>
+</table>
+<p class="small">El <code>$lookup</code> de C2 (órdenes → rutas) usa el índice <code>_id</code> de <code>rutas</code>, que MongoDB crea automáticamente. El de C3 (valoraciones → órdenes) usó el índice <code>_id_</code> con 0 recorridos completos de colección.</p>
+
+<h3><span class="n">4.2</span>Consultas implementadas en el repositorio</h3>
+<table>
+  <thead><tr><th style="width:5%">#</th><th style="width:30%">Requerimiento de negocio</th><th>Operadores y estructura</th></tr></thead>
+  <tbody>
+    <tr><td><b>C1</b></td><td>¿Cuáles son las órdenes entregadas de mayor valor (más de $100.000)?</td><td><code>find()</code> con filtro compuesto (igualdad + <code>$gt</code>), <b>proyección</b> de 5 campos, <code>sort(total, -1)</code> y <code>limit(5)</code></td></tr>
+    <tr><td><b>C2</b></td><td>¿Cuántas órdenes y cuánto monto hay por zona y medio de pago?</td><td>Agregación: <code>$lookup</code> (rutas) → <code>$unwind</code> → <code>$group</code> con <code>$sum</code>/<code>$avg</code> → <code>$project</code> con <code>$round</code> → <code>$sort</code></td></tr>
+    <tr><td><b>C3</b></td><td>¿Qué órdenes recibieron valoraciones críticas (≤ 2) y en qué estado están?</td><td>Agregación: <code>$match</code> con <code>$lte</code> → <code>$lookup</code> (órdenes) → <code>$unwind</code> → <code>$project</code> → <code>$sort</code></td></tr>
+  </tbody>
+</table>
+<div class="code"><pre><span class="cm"># C1 — filtro compuesto + proyección + ordenamiento + límite</span>
+db.ordenes_entrega.find({"estado": "Entregado", "total": {"$gt": 100000}},
+                        {"_id": 1, "cliente_id": 1, "medio_pago": 1, "total": 1, "fecha_envio": 1}
+                       ).sort("total", -1).limit(5)
+<span class="cm"># C2 — agregación por zona y medio de pago</span>
+[{"$lookup": {"from": "rutas", "localField": "ruta_id", "foreignField": "_id", "as": "info_ruta"}},
+ {"$unwind": "$info_ruta"},
+ {"$group": {"_id": {"zona": "$info_ruta.zona", "medio_pago": "$medio_pago"},
+             "total_ordenes": {"$sum": 1},
+             "monto_acumulado": {"$sum": "$total"},
+             "monto_promedio": {"$avg": "$total"}}},
+ {"$project": {"_id": 0, "zona": "$_id.zona", "medio_pago": "$_id.medio_pago", "total_ordenes": 1,
+               "monto_acumulado": {"$round": ["$monto_acumulado", 2]},
+               "monto_promedio": {"$round": ["$monto_promedio", 2]}}},
+ {"$sort": {"zona": 1, "monto_acumulado": -1}}]
+<span class="cm"># C3 — valoraciones críticas con el estado de su orden</span>
+[{"$match": {"puntaje": {"$lte": 2}}},
+ {"$lookup": {"from": "ordenes_entrega", "localField": "orden_id", "foreignField": "_id", "as": "detalle_orden"}},
+ {"$unwind": "$detalle_orden"},
+ {"$project": {"_id": 0, "orden_id": 1, "puntaje": 1, "comentario": 1,
+               "estado_orden": "$detalle_orden.estado", "monto_total": "$detalle_orden.total"}},
+ {"$sort": {"puntaje": 1}}]</pre></div>
+
+<div class="ev"><div class="cap"><span>Evidencia 2 · salida de <code>python scripts/consultas_nosql.py</code></span><i>26-10-2026</i></div><pre><span class="m">--- 1. Creación de Índices Estratégicos ---</span>
+ Índice creado en ordenes_entrega: estado_1_fecha_envio_-1
+ Índice creado en ordenes_entrega: ruta_id_1
+ Índice creado en seguimiento: orden_id_1
+
+<span class="m">--- Consulta 1: Órdenes Entregadas con Total > $100.000 ---</span>
+  ID: orden_28 | Cliente: cli_11 | Pago: Transferencia | Total: $197,977.37
+  ID: orden_26 | Cliente: cli_27 | Pago: Efectivo | Total: $182,075.53
+  ID: orden_90 | Cliente: cli_4 | Pago: Efectivo | Total: $179,474.96
+  ID: orden_97 | Cliente: cli_40 | Pago: Transferencia | Total: $176,107.92
+  ID: orden_14 | Cliente: cli_71 | Pago: Tarjeta | Total: $168,699.70
+
+<span class="m">--- Consulta 2: Rendimiento Logístico por Zona y Medio de Pago (Agregación) ---</span>
+  Zona: Centro | Pago: Efectivo | Órdenes: 8 | Total: $865,603.61
+  Zona: Centro | Pago: Transferencia | Órdenes: 5 | Total: $460,064.32
+  Zona: Centro | Pago: Tarjeta | Órdenes: 4 | Total: $415,379.19
+  Zona: Norte | Pago: Transferencia | Órdenes: 10 | Total: $1,359,379.51
+  Zona: Norte | Pago: Tarjeta | Órdenes: 9 | Total: $975,651.37
+  Zona: Norte | Pago: Efectivo | Órdenes: 3 | Total: $363,067.78
+
+<span class="m">--- Consulta 3: Análisis de Valoraciones Bajas (<= 2 puntos) ---</span>
+  Orden: orden_50 | Puntaje: 1/5 | Comentario: 'Tuvo retraso' | Estado: En preparación
+  Orden: orden_100 | Puntaje: 1/5 | Comentario: 'Tuvo retraso' | Estado: En tránsito
+  Orden: orden_99 | Puntaje: 1/5 | Comentario: 'Tuvo retraso' | Estado: Entregado
+  Orden: orden_93 | Puntaje: 1/5 | Comentario: 'Muy buen servicio' | Estado: Cancelado
+  Orden: orden_89 | Puntaje: 1/5 | Comentario: 'Excelente atención' | Estado: Cancelado
+
+ <span class="g">Consultas ejecutadas correctamente.</span></pre></div>
+
+<h3><span class="n">4.3</span>Consultas complementarias: zonas críticas y satisfacción</h3>
+<p>C4 y C5 responden directamente dos preguntas del caso: <i>¿dónde está la insatisfacción?</i> y <i>¿qué zonas cumplen peor?</i>. Ambas combinan tres colecciones con <code>$lookup</code> y calculan indicadores con <code>$cond</code>.</p>
+<div class="code"><pre><span class="cm"># C4 — satisfacción por zona (valoraciones → órdenes → rutas)</span>
+db.valoraciones.aggregate([
+  {"$lookup": {"from": "ordenes_entrega", "localField": "orden_id", "foreignField": "_id", "as": "o"}},
+  {"$unwind": "$o"},
+  {"$lookup": {"from": "rutas", "localField": "o.ruta_id", "foreignField": "_id", "as": "r"}},
+  {"$unwind": "$r"},
+  {"$group": {"_id": "$r.zona", "valoraciones": {"$sum": 1}, "puntaje_prom": {"$avg": "$puntaje"},
+              "criticas": {"$sum": {"$cond": [{"$lte": ["$puntaje", 2]}, 1, 0]}}}},
+  {"$sort": {"puntaje_prom": 1}}])
+<span class="cm"># C5 — cumplimiento por zona: canceladas, entregadas y abiertas</span>
+db.ordenes_entrega.aggregate([
+  {"$lookup": {"from": "rutas", "localField": "ruta_id", "foreignField": "_id", "as": "r"}},
+  {"$unwind": "$r"},
+  {"$group": {"_id": "$r.zona", "ordenes": {"$sum": 1},
+              "canceladas": {"$sum": {"$cond": [{"$eq": ["$estado", "Cancelado"]}, 1, 0]}},
+              "entregadas": {"$sum": {"$cond": [{"$eq": ["$estado", "Entregado"]}, 1, 0]}},
+              "abiertas":   {"$sum": {"$cond": [{"$in": ["$estado", ["En preparación", "En tránsito"]]}, 1, 0]}}}},
+  {"$project": {"zona": "$_id", "ordenes": 1, "canceladas": 1, "entregadas": 1, "abiertas": 1,
+                "pct_cancelacion": {"$round": [{"$multiply": [{"$divide": ["$canceladas", "$ordenes"]}, 100]}, 1]}}},
+  {"$sort": {"pct_cancelacion": -1}}])</pre></div>
+
+<table class="keep">
+  <thead><tr><th>Zona</th><th class="num">Órdenes</th><th class="num">Canceladas</th><th class="num">% cancelación</th><th class="num">Abiertas</th><th class="num">Puntaje prom.</th><th class="num">% valoraciones ≤ 2</th><th class="num">Distancia prom. rutas</th></tr></thead>
+  <tbody>
+    <tr class="hl"><td><b>Centro</b> <span class="chip bad">ZONA CRÍTICA</span></td><td class="num">17</td><td class="num">8</td><td class="num"><b>47,1 %</b></td><td class="num">4</td><td class="num"><b>2,71</b></td><td class="num"><b>47,1 %</b></td><td class="num">1.468 km</td></tr>
+    <tr><td>Norte</td><td class="num">22</td><td class="num">8</td><td class="num">36,4 %</td><td class="num">10</td><td class="num">3,00</td><td class="num">36,4 %</td><td class="num">983 km</td></tr>
+    <tr><td>Sur</td><td class="num">13</td><td class="num">3</td><td class="num">23,1 %</td><td class="num">8</td><td class="num">3,00</td><td class="num">46,2 %</td><td class="num">1.047 km</td></tr>
+    <tr><td>Poniente</td><td class="num">22</td><td class="num">2</td><td class="num">9,1 %</td><td class="num">11</td><td class="num">3,14</td><td class="num">31,8 %</td><td class="num">1.283 km</td></tr>
+    <tr><td>Oriente</td><td class="num">26</td><td class="num">2</td><td class="num">7,7 %</td><td class="num">17</td><td class="num">3,35</td><td class="num">30,8 %</td><td class="num">985 km</td></tr>
+    <tr><td><b>Total</b></td><td class="num"><b>100</b></td><td class="num"><b>23</b></td><td class="num"><b>23,0 %</b></td><td class="num"><b>50</b></td><td class="num"><b>3,07</b></td><td class="num"><b>37,0 %</b></td><td class="num">—</td></tr>
+  </tbody>
+</table>
+<p class="fig">Resultados de C4 y C5 (26-10-2026). «Abiertas» = órdenes en preparación o en tránsito. La distancia promedio considera todas las rutas de cada zona (<code>$avg</code> de <code>distancia_km</code>).</p>
+
+<div class="two">
+  <div class="bars" style="--lw:44pt">
+    <div class="ttl">Tasa de cancelación por zona</div><div class="unit">% de las órdenes de la zona</div>
+    <div class="brow"><span class="l"><b>Centro</b></span><span class="track"><span class="fill" style="width:94.2%"></span></span><span class="v">47,1 %</span></div>
+    <div class="brow"><span class="l">Norte</span><span class="track"><span class="fill mute" style="width:72.8%"></span></span><span class="v">36,4 %</span></div>
+    <div class="brow"><span class="l">Sur</span><span class="track"><span class="fill mute" style="width:46.2%"></span></span><span class="v">23,1 %</span></div>
+    <div class="brow"><span class="l">Poniente</span><span class="track"><span class="fill mute" style="width:18.2%"></span></span><span class="v">9,1 %</span></div>
+    <div class="brow"><span class="l">Oriente</span><span class="track"><span class="fill mute" style="width:15.4%"></span></span><span class="v">7,7 %</span></div>
+  </div>
+  <div class="bars" style="--lw:44pt">
+    <div class="ttl">Puntaje promedio de satisfacción</div><div class="unit">escala 1 a 5 (menor = peor)</div>
+    <div class="brow"><span class="l"><b>Centro</b></span><span class="track"><span class="fill" style="width:54.2%"></span></span><span class="v">2,71</span></div>
+    <div class="brow"><span class="l">Sur</span><span class="track"><span class="fill mute" style="width:60%"></span></span><span class="v">3,00</span></div>
+    <div class="brow"><span class="l">Norte</span><span class="track"><span class="fill mute" style="width:60%"></span></span><span class="v">3,00</span></div>
+    <div class="brow"><span class="l">Poniente</span><span class="track"><span class="fill mute" style="width:62.8%"></span></span><span class="v">3,14</span></div>
+    <div class="brow"><span class="l">Oriente</span><span class="track"><span class="fill mute" style="width:67%"></span></span><span class="v">3,35</span></div>
+  </div>
+</div>
+<p class="fig">Figura 2. Centro (destacada) encabeza ambos indicadores negativos. Las barras de puntaje usan una escala de 0 a 5.</p>
+
+<div class="call find"><span class="t">Hallazgo: Centro es la zona crítica</span>
+<p>Centro tiene la mayor tasa de cancelación (47,1 %), el peor puntaje promedio (2,71 de 5) y la mayor distancia promedio de sus rutas (1.468 km). Oriente es el caso opuesto en cancelación (7,7 %), pero acumula la mayor cantidad de órdenes abiertas (17 de 26). En total, 50 de las 100 órdenes siguen en preparación o en tránsito, aunque sus fechas de envío son de 2022 a 2024.</p></div>
+<div class="call warnc"><span class="t">Limitación de los datos para medir plazos</span>
+<p>Las 33 órdenes cuyo historial llega a «Entregado» demoran siempre exactamente 6 días (un evento cada 2 días), así que los datos no permiten medir retrasos reales. Además, el conjunto no incluye campos que el caso menciona: fecha de entrega, motivo de retraso, tiempo estimado, tipo de transporte y clima. Se recomienda incorporarlos para construir indicadores de cumplimiento de plazos.</p></div>
+
+<h3><span class="n">4.4</span>Consultas de modificación</h3>
+<table>
+  <thead><tr><th style="width:20%">Operación</th><th style="width:20%">Filtro</th><th>Operadores de modificación</th><th style="width:24%">Validación</th></tr></thead>
+  <tbody>
+    <tr><td>Cambio de estado de una orden</td><td><code>{"_id": orden_id}</code> / <code>{"orden_id": orden_id}</code></td><td><code>$set</code> del estado en la orden, y <code>$set</code> de <code>estado_actual</code> + <code>$push</code> de un evento al historial en el seguimiento</td><td><code>matched_count</code>; el historial pasa de 1 a 2 eventos (§6.5)</td></tr>
+    <tr><td>Eliminación en cascada</td><td><code>{"orden_id": orden_id}</code> y <code>{"_id": orden_id}</code></td><td><code>delete_many</code> en valoraciones y seguimiento, y <code>delete_one</code> en la orden</td><td><code>deleted_count</code>; 0 documentos residuales</td></tr>
+    <tr><td>Corrección masiva <span class="chip neutral">PROPUESTA</span></td><td><code>{}</code> (todos)</td><td><code>update_many</code> con pipeline: <code>estado_actual</code> = último evento de <code>historial</code></td><td>Corregiría los 72 seguimientos inconsistentes (§5.3)</td></tr>
+  </tbody>
+</table>
+
+<h3><span class="n">4.5</span>Evaluación de eficiencia</h3>
+<p><b>Método:</b> (1) <code>explain("executionStats")</code> de cada consulta con su índice, y de la misma consulta forzando un recorrido completo con <code>hint({"$natural": 1})</code>; (2) tamaño BSON de lo retornado, con y sin proyección; (3) latencia medida desde Python: 30 repeticiones con un cliente reutilizado y 8 creando un cliente nuevo en cada operación, igual que lo hace hoy la API.</p>
+<table class="keep">
+  <thead><tr><th style="width:28%">Consulta</th><th style="width:31%">Plan ganador</th><th class="num">Claves exam.</th><th>Documentos examinados</th><th class="num">Devueltos</th></tr></thead>
+  <tbody>
+    <tr><td>C1 con índice compuesto</td><td><code>IXSCAN → FETCH → SORT → PROJECTION</code></td><td class="num">27</td><td><span class="mbar"><i style="width:27%"></i></span><b>27</b></td><td class="num">5</td></tr>
+    <tr><td>C1 sin índice (forzado)</td><td><code>COLLSCAN → SORT → PROJECTION</code></td><td class="num">0</td><td><span class="mbar"><i class="mute" style="width:100%"></i></span>100</td><td class="num">5</td></tr>
+    <tr><td>Órdenes «En tránsito» por fecha, con índice</td><td><code>IXSCAN → FETCH</code> (sin <code>SORT</code>)</td><td class="num">21</td><td><span class="mbar"><i style="width:21%"></i></span><b>21</b></td><td class="num">21</td></tr>
+    <tr><td>Ídem sin índice (forzado)</td><td><code>COLLSCAN → SORT</code></td><td class="num">0</td><td><span class="mbar"><i class="mute" style="width:100%"></i></span>100</td><td class="num">21</td></tr>
+    <tr><td>Seguimiento de una orden</td><td><code>EXPRESS_IXSCAN (orden_id_1)</code></td><td class="num">1</td><td><span class="mbar"><i style="width:1%"></i></span><b>1</b></td><td class="num">1</td></tr>
+    <tr><td>C3: valoraciones ≤ 2 (sin índice)</td><td><code>COLLSCAN</code></td><td class="num">0</td><td><span class="mbar"><i class="mute" style="width:100%"></i></span>100</td><td class="num">37</td></tr>
+  </tbody>
+</table>
+<p class="small"><code>executionTimeMillis</code> fue 0–2 ms en todos los casos porque cada colección tiene solo 100 documentos. Por eso la métrica que importa es la <b>selectividad</b>: con el índice, C1 examina un 73 % menos de documentos y el listado por fecha un 79 % menos, sin ordenar en memoria. Ese ahorro crece linealmente con el volumen de órdenes.</p>
+
+<div class="two">
+<div>
+<h4>Volumen de datos retornado (C1)</h4>
+<table>
+  <thead><tr><th>Variante</th><th class="num">Docs</th><th class="num">Bytes</th><th class="num">vs. base</th></tr></thead>
+  <tbody>
+    <tr><td>Sin proyección ni límite</td><td class="num">15</td><td class="num">2.795</td><td class="num">—</td></tr>
+    <tr><td>Con proyección (5 campos)</td><td class="num">15</td><td class="num">1.850</td><td class="num">−34 %</td></tr>
+    <tr><td>Proyección + <code>limit(5)</code></td><td class="num">5</td><td class="num">623</td><td class="num">−78 %</td></tr>
+  </tbody>
+</table>
+<p class="small">Una orden con su seguimiento (<code>GET /ordenes/{id}</code>) pesa 552 bytes.</p>
+</div>
+<div>
+<div class="bars" style="--lw:96pt">
+  <div class="ttl">Latencia de una lectura por <code>_id</code></div><div class="unit">mediana en milisegundos (menor es mejor)</div>
+  <div class="brow"><span class="l">Cliente reutilizado <small>(n = 30)</small></span><span class="track"><span class="fill" style="width:4.8%"></span></span><span class="v">82</span></div>
+  <div class="brow"><span class="l">Cliente nuevo por operación <small>(n = 8)</small></span><span class="track"><span class="fill mute" style="width:100%"></span></span><span class="v">1.689</span></div>
+</div>
+<p class="small">Crear un <code>MongoClient</code> por operación es <b>unas 20 veces más lento</b>, porque repite la resolución DNS SRV, el TLS y la autenticación en cada llamada. Es lo que hace hoy <code>get_database()</code> en cada request, y explica el <code>X-Process-Time</code> de 1,3–1,6 s de la API (§7.2). El ping de 82 ms muestra que el resto del tiempo es red, no procesamiento del motor.</p>
+</div>
+</div>
+
+<h4>Mejoras propuestas, basadas en las mediciones</h4>
+<table>
+  <thead><tr><th class="c" style="width:4%">#</th><th style="width:35%">Mejora</th><th>Justificación con los datos medidos</th></tr></thead>
+  <tbody>
+    <tr><td class="c">1</td><td>Crear un solo <code>MongoClient</code> al iniciar la API (lifespan de FastAPI) y reutilizarlo.</td><td>Bajaría cada request de ~1,4 s a 0,1–0,3 s (1 a 3 viajes de red de ~82 ms).</td></tr>
+    <tr><td class="c">2</td><td>Índice <code>{estado: 1, total: -1}</code> para C1.</td><td>Por la regla ESR (igualdad, orden, rango), elimina la etapa <code>SORT</code> en memoria observada en el plan.</td></tr>
+    <tr><td class="c">3</td><td>Índice <code>{puntaje: 1}</code> en <code>valoraciones</code>.</td><td>C3 hoy hace <code>COLLSCAN</code> de 100 documentos para devolver 37.</td></tr>
+    <tr><td class="c">4</td><td>Mantener proyecciones y límites en los endpoints.</td><td>Reducen entre 34 % y 78 % los bytes transferidos.</td></tr>
+    <tr><td class="c">5</td><td>Guardar las fechas como <code>Date</code> (ISODate) en vez de texto.</td><td>Permite rangos y <code>$dateDiff</code> directos sobre índices, sin convertir con <code>$dateFromString</code>.</td></tr>
+  </tbody>
+</table>
+</section>
+
+<!-- =================================================== 5 CRUD -->
+<section class="main">
+<div class="sechead"><span class="num">5</span><h2>Operaciones CRUD completas</h2><span class="ie">IE7 · IE8</span></div>
+
+<h3><span class="n">5.1</span>Diseño de las operaciones</h3>
+<p>Cada operación trabaja sobre la orden y sus documentos relacionados, para que el seguimiento y las valoraciones no pierdan su contexto. Las mismas operaciones existen como funciones en <code>scripts/crud_operations.py</code> y como endpoints en <code>api/main.py</code>.</p>
+<table>
+  <thead><tr><th style="width:9%">Operación</th><th style="width:19%">Función / endpoint</th><th style="width:20%">Colecciones</th><th style="width:21%">Operadores</th><th>Validación incluida</th></tr></thead>
+  <tbody>
+    <tr><td><b>Create</b></td><td><code>crear_orden</code><br><code>POST /ordenes</code></td><td>ordenes_entrega + seguimiento</td><td><code>insert_one</code> ×2</td><td>Rechaza un <code>_id</code> repetido (400). Pydantic exige los campos y <code>total &gt; 0</code> (422).</td></tr>
+    <tr><td><b>Read</b></td><td><code>leer_orden</code><br><code>GET /ordenes/{id}</code></td><td>ordenes_entrega + seguimiento</td><td><code>aggregate</code>: <code>$match</code> + <code>$lookup</code></td><td>404 si la orden no existe.</td></tr>
+    <tr><td><b>Update</b></td><td><code>actualizar_estado_orden</code><br><code>PUT /ordenes/{id}/estado</code></td><td>ordenes_entrega + seguimiento</td><td><code>update_one</code> con <code>$set</code> y <code>$push</code></td><td><code>matched_count == 0</code> → 404.</td></tr>
+    <tr><td><b>Delete</b></td><td><code>eliminar_orden_cascada</code><br><code>DELETE /ordenes/{id}</code></td><td>ordenes_entrega + seguimiento + valoraciones</td><td><code>delete_many</code> + <code>delete_one</code></td><td><code>deleted_count == 0</code> → 404. La cascada evita documentos huérfanos.</td></tr>
+  </tbody>
+</table>
+
+<h3><span class="n">5.2</span>Ejecución del ciclo completo</h3>
+<div class="ev"><div class="cap"><span>Evidencia 3 · salida de <code>python scripts/crud_operations.py</code></span><i>26-10-2026</i></div><pre><span class="m">--- Probando Ciclo de Vida CRUD Completo ---</span>
+
+ <span class="g">[CREATE]</span> Orden 'orden_test_999' registrada correctamente con su seguimiento inicial.
+ <span class="p">[READ]</span> Detalle de 'orden_test_999': Estado=En preparación | Total=$185,000.00
+ <span class="y">[UPDATE]</span> Estado de la orden 'orden_test_999' actualizado a 'En tránsito'.
+ <span class="p">[READ]</span> Detalle de 'orden_test_999': Estado=En tránsito | Total=$185,000.00
+ <span class="r">[DELETE]</span> Orden 'orden_test_999' y registros relacionados eliminados.
+ <span class="p">[READ]</span> No se encontró la orden 'orden_test_999'.</pre></div>
+<p class="small">La lectura después de cada paso confirma el efecto: el estado cambia de «En preparación» a «En tránsito» y, tras el borrado, la orden ya no existe. Al final, la base volvió a tener 100 documentos por colección, sin restos de la prueba.</p>
+
+<h3><span class="n">5.3</span>Validación de resultados: duplicados, inconsistencias y pérdida de contexto</h3>
+<p>Se ejecutaron 14 controles con agregaciones sobre la base: 9 confirman la integridad de la implementación y 5 revelan inconsistencias que ya venían en los datos de origen.</p>
+<div class="two">
+<div>
+<table>
+  <thead><tr><th>Control de integridad</th><th class="num">Resultado</th><th class="c">Estado</th></tr></thead>
+  <tbody>
+    <tr><td>Orden con <code>_id</code> repetido</td><td class="num">rechazada</td><td class="c"><span class="chip ok">OK</span></td></tr>
+    <tr><td>Seguimientos por orden (índice único)</td><td class="num">1 de 1</td><td class="c"><span class="chip ok">OK</span></td></tr>
+    <tr><td>Órdenes con ruta inexistente</td><td class="num">0</td><td class="c"><span class="chip ok">OK</span></td></tr>
+    <tr><td>Valoraciones de órdenes inexistentes</td><td class="num">0</td><td class="c"><span class="chip ok">OK</span></td></tr>
+    <tr><td>Seguimientos huérfanos / órdenes sin seguimiento</td><td class="num">0 / 0</td><td class="c"><span class="chip ok">OK</span></td></tr>
+    <tr><td>Restos tras el borrado en cascada</td><td class="num">0</td><td class="c"><span class="chip ok">OK</span></td></tr>
+    <tr><td>Puntajes fuera del rango 1–5</td><td class="num">0</td><td class="c"><span class="chip ok">OK</span></td></tr>
+    <tr><td>Clientes con correo duplicado</td><td class="num">0</td><td class="c"><span class="chip ok">OK</span></td></tr>
+    <tr><td>Órdenes unidas a su cliente: por texto → por <code>cliente_num_id</code></td><td class="num">0 → 100</td><td class="c"><span class="chip ok">RESUELTO</span></td></tr>
+  </tbody>
+</table>
+</div>
+<div>
+<div class="bars" style="--lw:118pt">
+  <div class="ttl">Inconsistencias en los datos de origen</div><div class="unit">documentos afectados de 100 (23 en el último caso)</div>
+  <div class="brow"><span class="l">Estado de la orden ≠ estado del seguimiento</span><span class="track"><span class="fill" style="width:82%"></span></span><span class="v">82</span></div>
+  <div class="brow"><span class="l"><code>estado_actual</code> ≠ último evento del historial</span><span class="track"><span class="fill" style="width:72%"></span></span><span class="v">72</span></div>
+  <div class="brow"><span class="l">Historial comienza antes de <code>fecha_envio</code></span><span class="track"><span class="fill" style="width:51%"></span></span><span class="v">51</span></div>
+  <div class="brow"><span class="l">Comentario contradice el puntaje</span><span class="track"><span class="fill" style="width:32%"></span></span><span class="v">32</span></div>
+  <div class="brow"><span class="l">Órdenes canceladas con valoración</span><span class="track"><span class="fill" style="width:23%"></span></span><span class="v">23 <small>de 23</small></span></div>
+</div>
+<p class="small">Ejemplo, <code>orden_2</code>: la orden dice «Entregado», su seguimiento dice «En preparación» y el último evento del historial es «Entregado». «Comentario contradice» = comentario positivo con puntaje ≤ 2 (23 casos) o negativo con puntaje ≥ 4 (9 casos).</p>
+</div>
+</div>
+
+<div class="code"><pre><span class="cm"># Detección: órdenes cuyo estado no coincide con su seguimiento  →  [{"n": 82}]</span>
+db.ordenes_entrega.aggregate([
+  {"$lookup": {"from": "seguimiento", "localField": "_id", "foreignField": "orden_id", "as": "seg"}},
+  {"$unwind": "$seg"},
+  {"$match": {"$expr": {"$ne": ["$estado", "$seg.estado_actual"]}}},
+  {"$count": "n"}])
+<span class="cm"># Detección: estado_actual distinto del último evento del historial  →  [{"n": 72}]</span>
+db.seguimiento.aggregate([
+  {"$match": {"$expr": {"$ne": ["$estado_actual", {"$arrayElemAt": ["$historial.estado", -1]}]}}},
+  {"$count": "n"}])</pre></div>
+
+<h4>Soluciones aplicadas y propuestas</h4>
+<table>
+  <thead><tr><th style="width:24%">Problema</th><th style="width:34%">Solución aplicada en el proyecto</th><th>Solución propuesta</th></tr></thead>
+  <tbody>
+    <tr><td>Órdenes duplicadas</td><td>Verificación previa del <code>_id</code> (400 en la API) y unicidad nativa de <code>_id</code>.</td><td>—</td></tr>
+    <tr><td>Más de un seguimiento por orden</td><td>Índice único <code>orden_id_1</code>.</td><td>—</td></tr>
+    <tr><td>Pérdida de contexto al borrar</td><td>Borrado en cascada de seguimiento y valoraciones.</td><td>Ejecutarlo dentro de una transacción.</td></tr>
+    <tr><td>Cliente referenciado como texto y como entero</td><td>Normalización a <code>cliente_num_id</code> en el ETL.</td><td>Aplicar la misma normalización en <code>POST /ordenes</code>, que hoy no crea ese campo.</td></tr>
+    <tr><td>Estados contradictorios (82 y 72 casos)</td><td>—</td><td>Una sola fuente de verdad: <code>estado_actual</code> = último evento del historial, con la orden y su seguimiento actualizados en la misma transacción. Corrección masiva con <code>update_many</code>.</td></tr>
+    <tr><td>Fechas incoherentes (51 casos)</td><td>—</td><td>Validar en la API que <code>fecha_evento ≥ fecha_envio</code> y agregar un validador <code>$jsonSchema</code> a la colección.</td></tr>
+    <tr><td>Comentario vs. puntaje (32) y valoraciones de canceladas (23)</td><td>—</td><td>Regla de negocio: solo se valoran órdenes entregadas, con comentario libre y puntaje validados por separado.</td></tr>
+  </tbody>
+</table>
+<div class="call warnc"><span class="t">Riesgo de atomicidad detectado</span>
+<p>Crear, actualizar y borrar una orden escribe en 2 o 3 colecciones con llamadas separadas. Si una falla a mitad de camino (por ejemplo, el <code>insert_one</code> del seguimiento), queda una orden sin seguimiento. MongoDB permite transacciones multidocumento en replica sets: <code>with client.start_session() as s: s.with_transaction(...)</code>. Así, las escrituras se confirman todas o ninguna.</p></div>
+<p class="small">Las correcciones propuestas no se ejecutaron sobre la base para conservar intacto el conjunto de datos oficial de la evaluación.</p>
+</section>
+
+<!-- =================================================== 6 INTEGRACION -->
+<section class="main">
+<div class="sechead"><span class="num">6</span><h2>Integración con aplicación externa</h2><span class="ie">IE9 · IE10</span></div>
+
+<h3><span class="n">6.1</span>Flujo de integración</h3>
+<div class="flow">
+  <div class="st"><b>Cliente HTTP</b>curl · Swagger UI (<code>/docs</code>) · navegador o frontend</div><div class="ar"><b>→</b>HTTP / JSON</div>
+  <div class="st dark"><b>API FastAPI (Uvicorn)</b>CORS · <code>X-Process-Time</code> · validación Pydantic · manejador global de errores</div><div class="ar"><b>→</b>driver</div>
+  <div class="st"><b>PyMongo</b><code>get_database()</code> lee <code>MONGO_URI</code> y <code>DB_NAME</code> desde <code>.env</code></div><div class="ar"><b>→</b>TLS ·<br>mongodb+srv</div>
+  <div class="st tl"><b>MongoDB Atlas</b>Replica set de 3 nodos · AWS São Paulo · <code>quicktrack_db</code></div>
+</div>
+<p class="fig">Figura 3. Cada request valida la entrada, ejecuta las operaciones en Atlas y devuelve JSON con su tiempo de proceso.</p>
+
+<div class="two">
+<div>
+<h3><span class="n">6.2</span>Herramientas y librerías</h3>
+<table>
+  <thead><tr><th>Componente</th><th>Versión</th><th>Rol</th></tr></thead>
+  <tbody>
+    <tr><td>Python</td><td>3.14.2</td><td>Lenguaje de la aplicación</td></tr>
+    <tr><td>PyMongo</td><td>4.19.0</td><td>Driver oficial (SDK)</td></tr>
+    <tr><td>FastAPI</td><td>0.162.0</td><td>Framework de la API REST</td></tr>
+    <tr><td>Pydantic</td><td>2.14.1</td><td>Validación de entradas</td></tr>
+    <tr><td>Uvicorn</td><td>0.53.0</td><td>Servidor ASGI</td></tr>
+    <tr><td>python-dotenv</td><td>1.2.4</td><td>Variables de entorno</td></tr>
+    <tr><td>curl</td><td>8.18.0</td><td>Cliente HTTP de prueba</td></tr>
+  </tbody>
+</table>
+</div>
+<div>
+<h3><span class="n">6.3</span>String de conexión</h3>
+<div class="code"><pre><span class="cm"># .env  (excluido del repositorio por .gitignore)</span>
+MONGO_URI=mongodb+srv://&lt;usuario&gt;:&lt;contraseña&gt;@quicktrackcluster.msimh8w.mongodb.net/
+DB_NAME=quicktrack_db
+PORT=8000</pre></div>
+<ul class="small">
+  <li><code>mongodb+srv</code> obtiene por DNS la lista de los 3 nodos del replica set y activa TLS por defecto.</li>
+  <li>El código nunca contiene credenciales: <code>config/database.py</code> las lee con <code>load_dotenv()</code> y crea el cliente con <code>serverSelectionTimeoutMS=5000</code>.</li>
+</ul>
+</div>
+</div>
+
+<h3><span class="n">6.4</span>Funciones expuestas por la API</h3>
+<table>
+  <thead><tr><th style="width:9%">Método</th><th style="width:25%">Ruta</th><th>Función</th><th style="width:21%">Respuestas</th></tr></thead>
+  <tbody>
+    <tr><td><span class="chip info">GET</span></td><td><code>/</code></td><td>Estado del servicio (healthcheck)</td><td>200</td></tr>
+    <tr><td><span class="chip ok">POST</span></td><td><code>/ordenes</code></td><td>Crea la orden y su seguimiento inicial</td><td>201 · 400 · 422</td></tr>
+    <tr><td><span class="chip info">GET</span></td><td><code>/ordenes/{orden_id}</code></td><td>Orden + seguimiento (<code>$lookup</code>)</td><td>200 · 404</td></tr>
+    <tr><td><span class="chip warn">PUT</span></td><td><code>/ordenes/{orden_id}/estado</code></td><td>Cambia el estado y agrega un evento al historial</td><td>200 · 404 · 422</td></tr>
+    <tr><td><span class="chip bad">DELETE</span></td><td><code>/ordenes/{orden_id}</code></td><td>Borra la orden con su seguimiento y valoración</td><td>200 · 404</td></tr>
+    <tr><td><span class="chip info">GET</span></td><td><code>/analitica/rendimiento-zonas</code></td><td>Órdenes y montos por zona (agregación)</td><td>200</td></tr>
+  </tbody>
+</table>
+
+<h3><span class="n">6.5</span>Evidencia de lectura y escritura en tiempo real</h3>
+<p>Cada escritura hecha con <b>curl</b> a través de la API se verificó de inmediato con una lectura directa desde <b>otro cliente</b> (PyMongo). Esto confirma que los cambios quedan persistidos en Atlas apenas responde la API.</p>
+<div class="ev"><div class="cap">Evidencia 4 · curl → API → Atlas, verificado con PyMongo <i>26-10-2026</i></div><pre><span class="p">$ curl -X POST /ordenes -H 'Content-Type: application/json' -d @b_ok.json</span>
+  -> <span class="g">HTTP/1.1 201 Created</span> | X-Process-Time: 1.4653s
+  {"mensaje":"Orden creada exitosamente","orden_id":"orden_api_901"}
+
+<span class="p">$ python (PyMongo) -> db.ordenes_entrega.find_one({'_id': 'orden_api_901'})</span>
+  -> {'_id': 'orden_api_901', 'estado': 'En preparación', 'total': 125000.0} | eventos en historial: 1
+
+<span class="p">$ curl -X PUT /ordenes/orden_api_901/estado -H 'Content-Type: application/json' -d @b_estado.json</span>
+  -> <span class="g">HTTP/1.1 200 OK</span> | X-Process-Time: 1.3668s
+  {"mensaje":"Estado de la orden 'orden_api_901' actualizado a 'En tránsito'"}
+
+<span class="p">$ python (PyMongo) -> db.ordenes_entrega.find_one({'_id': 'orden_api_901'})</span>
+  -> {'_id': 'orden_api_901', 'estado': 'En tránsito', 'total': 125000.0} | eventos en historial: 2
+
+<span class="p">$ curl -X DELETE /ordenes/orden_api_901</span>
+  -> <span class="g">HTTP/1.1 200 OK</span> | X-Process-Time: 1.6171s
+  {"mensaje":"Orden 'orden_api_901' y sus datos asociados fueron eliminados."}
+
+<span class="p">$ python (PyMongo) -> db.ordenes_entrega.find_one({'_id': 'orden_api_901'})</span>
+  -> None | eventos en historial: None</pre></div>
+<p class="small">Cuerpo enviado en el POST (<code>b_ok.json</code>): <code>{"_id":"orden_api_901","cliente_id":"cli_15","ruta_id":"ruta_2","medio_pago":"Tarjeta","total":125000}</code>. En el PUT (<code>b_estado.json</code>): <code>{"nuevo_estado":"En tránsito","fecha_evento":"2026-10-26T15:00:00"}</code>.</p>
+</section>
+
+<!-- =================================================== 7 ERRORES -->
+<section class="main">
+<div class="sechead"><span class="num">7</span><h2>Control de errores y validaciones</h2><span class="ie">IE11</span></div>
+
+<h3><span class="n">7.1</span>Mecanismos implementados</h3>
+<table>
+  <thead><tr><th style="width:15%">Capa</th><th>Mecanismo</th><th style="width:22%">Dónde</th></tr></thead>
+  <tbody>
+    <tr><td>Configuración</td><td>Si falta <code>MONGO_URI</code>, se lanza un <code>ValueError</code> con un mensaje claro.</td><td><code>config/database.py</code></td></tr>
+    <tr><td>Conectividad</td><td><code>test_connection()</code> con <code>ping</code>, y <code>serverSelectionTimeoutMS=5000</code> para no quedar bloqueado.</td><td><code>config/database.py</code></td></tr>
+    <tr><td>Entrada</td><td>Modelos Pydantic: campos obligatorios, tipos y <code>total &gt; 0</code>. Si algo no cumple, la API responde 422 indicando el campo y el motivo.</td><td><code>api/models.py</code></td></tr>
+    <tr><td>Reglas de negocio</td><td>Orden duplicada → 400; orden inexistente → 404 (en GET, PUT y DELETE).</td><td><code>api/main.py</code></td></tr>
+    <tr><td>Errores inesperados</td><td>Un manejador global convierte cualquier excepción en un 500 con JSON estructurado.</td><td><code>api/middlewares.py</code></td></tr>
+    <tr><td>Trazabilidad</td><td>Cabecera <code>X-Process-Time</code> en cada respuesta, más el log de acceso de Uvicorn (cliente, método, ruta y código).</td><td><code>api/middlewares.py</code> · Uvicorn</td></tr>
+    <tr><td>Integridad</td><td>Índice único en <code>seguimiento.orden_id</code>, borrado en cascada y verificación de <code>matched_count</code>/<code>deleted_count</code>.</td><td>scripts y API</td></tr>
+    <tr><td>Scripts</td><td><code>try/except</code> por operación, con mensajes que identifican la orden afectada.</td><td><code>scripts/</code></td></tr>
+  </tbody>
+</table>
+
+<h3><span class="n">7.2</span>Matriz de pruebas de integración y errores</h3>
+<table>
+  <thead><tr><th class="c" style="width:4%">#</th><th style="width:37%">Caso de prueba</th><th style="width:16%">Esperado</th><th>Obtenido</th><th class="num" style="width:12%">X-Process-Time</th></tr></thead>
+  <tbody>
+    <tr><td class="c">1</td><td><code>GET /</code> (salud del servicio)</td><td>200</td><td><span class="chip ok">200</span> online</td><td class="num">0,4 ms</td></tr>
+    <tr><td class="c">2</td><td><code>POST /ordenes</code> válida</td><td>201</td><td><span class="chip ok">201</span> orden creada</td><td class="num">1,47 s</td></tr>
+    <tr><td class="c">3</td><td><code>POST /ordenes</code> con el mismo <code>_id</code></td><td>400</td><td><span class="chip ok">400</span> «ya existe»</td><td class="num">1,36 s</td></tr>
+    <tr><td class="c">4</td><td><code>POST /ordenes</code> con <code>total = −5</code></td><td>422</td><td><span class="chip ok">422</span> <code>greater_than</code> en <code>total</code></td><td class="num">1,2 ms</td></tr>
+    <tr><td class="c">5</td><td><code>POST /ordenes</code> sin <code>ruta_id</code></td><td>422</td><td><span class="chip ok">422</span> <code>missing</code> en <code>ruta_id</code></td><td class="num">0,5 ms</td></tr>
+    <tr><td class="c">6</td><td><code>GET /ordenes/orden_api_901</code></td><td>200 + seguimiento</td><td><span class="chip ok">200</span> orden con historial</td><td class="num">1,36 s</td></tr>
+    <tr><td class="c">7</td><td><code>PUT</code> estado «En tránsito»</td><td>200</td><td><span class="chip ok">200</span> historial: 2 eventos</td><td class="num">1,37 s</td></tr>
+    <tr><td class="c">8</td><td><code>PUT</code> sobre una orden inexistente</td><td>404</td><td><span class="chip ok">404</span> «no encontrada»</td><td class="num">1,63 s</td></tr>
+    <tr><td class="c">9</td><td><code>DELETE /ordenes/orden_api_901</code></td><td>200</td><td><span class="chip ok">200</span> borrado en cascada</td><td class="num">1,62 s</td></tr>
+    <tr><td class="c">10</td><td><code>GET</code> de la orden ya eliminada</td><td>404</td><td><span class="chip ok">404</span> «no encontrada»</td><td class="num">3,75 s</td></tr>
+    <tr><td class="c">11</td><td><code>DELETE</code> repetido</td><td>404</td><td><span class="chip ok">404</span> «no encontrada»</td><td class="num">1,44 s</td></tr>
+    <tr><td class="c">12</td><td><code>GET /analitica/rendimiento-zonas</code></td><td>200</td><td><span class="chip ok">200</span> 5 zonas</td><td class="num">1,30 s</td></tr>
+    <tr><td class="c">13</td><td><code>GET /openapi.json</code></td><td>200</td><td><span class="chip ok">200</span> 5 rutas documentadas</td><td class="num">—</td></tr>
+    <tr><td class="c">14</td><td>Base inaccesible (<code>MONGO_URI</code> inválida, simulación)</td><td>500 controlado</td><td><span class="chip ok">500</span> JSON estructurado</td><td class="num">—</td></tr>
+  </tbody>
+</table>
+<p class="small">Los casos 4 y 5 se rechazan en menos de 2 ms porque Pydantic los valida <b>antes</b> de tocar la base. Los que consultan Atlas tardan 1,3–1,6 s por la creación del cliente en cada request (mejora 1 de §4.5).</p>
+
+<h3><span class="n">7.3</span>Trazabilidad: registro de actividad y error controlado</h3>
+<div class="ev"><div class="cap"><span>Evidencia 5 · log de acceso de Uvicorn</span><i>extracto</i></div><pre><span class="m">INFO:</span>  "POST /ordenes HTTP/1.1" <span class="g">201 Created</span>
+<span class="m">INFO:</span>  "POST /ordenes HTTP/1.1" <span class="y">400 Bad Request</span>
+<span class="m">INFO:</span>  "POST /ordenes HTTP/1.1" <span class="y">422 Unprocessable Content</span>
+<span class="m">INFO:</span>  "POST /ordenes HTTP/1.1" <span class="y">422 Unprocessable Content</span>
+<span class="m">INFO:</span>  "GET /ordenes/orden_api_901 HTTP/1.1" <span class="g">200 OK</span>
+<span class="m">INFO:</span>  "PUT /ordenes/orden_api_901/estado HTTP/1.1" <span class="g">200 OK</span>
+<span class="m">INFO:</span>  "PUT /ordenes/orden_no_existe/estado HTTP/1.1" <span class="y">404 Not Found</span>
+<span class="m">INFO:</span>  "DELETE /ordenes/orden_api_901 HTTP/1.1" <span class="g">200 OK</span>
+<span class="m">INFO:</span>  "GET /ordenes/orden_api_901 HTTP/1.1" <span class="y">404 Not Found</span>
+<span class="m">INFO:</span>  "GET /analitica/rendimiento-zonas HTTP/1.1" <span class="g">200 OK</span></pre></div>
+<div class="ev"><div class="cap"><span>Evidencia 6 · simulación de base inaccesible con <code>MONGO_URI="mongodb+srv://usuario:clave@cluster-inexistente.invalid/"</code></span><i>TestClient</i></div><pre>GET /ordenes/orden_2 con MONGO_URI invalida -> <span class="r">500</span>
+{'status': 'error', 'message': 'Error interno en el servidor QuickTrack', 'detail': 'The DNS query name does not exist: _mongodb._tcp.cluster-inexistente.invalid.'}</pre></div>
+<p class="fig">El log registra cada llamada con su código de respuesta (se omitieron la IP y el puerto del cliente, 127.0.0.1). Ante una caída de la base, la API no se cae: responde un JSON estructurado.</p>
+
+<h3><span class="n">7.4</span>Brechas detectadas y mejoras</h3>
+<table>
+  <thead><tr><th style="width:29%">Brecha</th><th style="width:28%">Riesgo</th><th>Mejora propuesta</th></tr></thead>
+  <tbody>
+    <tr><td>No hay un log propio de la aplicación (solo el de acceso de Uvicorn).</td><td>No queda registro de qué documento cambió ni del error interno.</td><td>Módulo <code>logging</code> con id de request, operación, <code>_id</code> afectado y resultado, en un archivo rotativo.</td></tr>
+    <tr><td>El 500 devuelve <code>str(exc)</code> al cliente.</td><td>Expone detalles internos, como el host del clúster.</td><td>Guardar el detalle en el log y responder un mensaje genérico con un id de error.</td></tr>
+    <tr><td><code>nuevo_estado</code> acepta cualquier texto.</td><td>Estados inválidos o mal escritos.</td><td><code>Literal</code>/<code>Enum</code> con los 5 estados válidos (422 si no coincide).</td></tr>
+    <tr><td><code>fecha_envio</code> fija (<code>"2026-03-30T10:00:00"</code>) al crear una orden.</td><td>Las órdenes nuevas quedan con una fecha que no es real.</td><td><code>datetime.now(timezone.utc)</code>.</td></tr>
+    <tr><td>No se verifica que <code>cliente_id</code> y <code>ruta_id</code> existan.</td><td>Órdenes con referencias rotas.</td><td>Consulta previa a <code>clientes</code> y <code>rutas</code> (422 si no existen).</td></tr>
+    <tr><td>Escrituras en varias colecciones sin transacción.</td><td>Una orden puede quedar sin seguimiento.</td><td><code>start_session()</code> + <code>with_transaction()</code>.</td></tr>
+  </tbody>
+</table>
+</section>
+
+<!-- =================================================== 8 CONCLUSIONES -->
+<section class="main">
+<div class="sechead"><span class="num">8</span><h2>Conclusiones y próximos pasos</h2></div>
+
+<h3>Conclusiones</h3>
+<ul>
+  <li><b>Base funcional y bien configurada.</b> MongoDB Atlas quedó operativo en un replica set de 3 nodos en São Paulo, con credenciales fuera del código, consistencia equivalente a Session y conectividad verificada con 4 herramientas.</li>
+  <li><b>Datos cargados y verificados.</b> Las 5 colecciones coinciden documento a documento con sus archivos. La normalización del ETL hizo posible el cruce órdenes–clientes, que antes daba 0 de 100.</li>
+  <li><b>Consultas que responden al negocio.</b> Filtros, proyecciones, agregaciones de hasta tres colecciones y ordenamientos identifican a Centro como zona crítica: 47,1 % de cancelación y 2,71 de satisfacción.</li>
+  <li><b>Eficiencia medida, no supuesta.</b> Los índices reducen entre 73 % y 79 % los documentos examinados, y la búsqueda del seguimiento de una orden examina solo 1 documento. El cuello de botella real está en la API (un cliente nuevo por request, unas 20 veces más lento), y su solución es directa.</li>
+  <li><b>CRUD e integración en tiempo real.</b> 14 de 14 pruebas dieron el resultado esperado, y cada escritura por HTTP se observó de inmediato desde otro cliente.</li>
+  <li><b>Calidad de datos como hallazgo.</b> El 82 % de las órdenes tiene un estado distinto al de su seguimiento. Esto requiere una sola fuente de verdad para el estado antes de usar estos datos en reportes de gestión.</li>
+</ul>
+
+<h3>Indicadores propuestos para el seguimiento operativo</h3>
+<table>
+  <thead><tr><th style="width:26%">Indicador</th><th>Definición</th><th style="width:30%">Valor actual (línea base)</th></tr></thead>
+  <tbody>
+    <tr><td>Tasa de cancelación por zona</td><td>Órdenes canceladas / órdenes de la zona</td><td>23,0 % global · Centro 47,1 %</td></tr>
+    <tr><td>Satisfacción promedio</td><td>Promedio del puntaje (1–5)</td><td>3,07 global · Centro 2,71</td></tr>
+    <tr><td>Valoraciones críticas</td><td>% de valoraciones con puntaje ≤ 2</td><td>37 %</td></tr>
+    <tr><td>Órdenes abiertas</td><td>Órdenes en preparación o en tránsito</td><td>50 de 100</td></tr>
+    <tr><td>Tasa de entrega</td><td>Órdenes entregadas / total</td><td>27 %</td></tr>
+    <tr><td>Coherencia del estado</td><td>% de órdenes cuyo estado coincide con su seguimiento</td><td>18 %</td></tr>
+    <tr><td>Latencia de la API (p50)</td><td>Mediana de <code>X-Process-Time</code> en endpoints que consultan la base</td><td>1,44 s (meta: &lt; 0,3 s)</td></tr>
+  </tbody>
+</table>
+
+<h3>Próximos pasos priorizados</h3>
+<table>
+  <thead><tr><th class="c" style="width:4%">#</th><th>Acción</th><th style="width:13%">Impacto</th><th style="width:13%">Esfuerzo</th></tr></thead>
+  <tbody>
+    <tr><td class="c">1</td><td>Un solo <code>MongoClient</code> reutilizado por la API</td><td><span class="chip bad">ALTO</span></td><td><span class="chip ok">BAJO</span></td></tr>
+    <tr><td class="c">2</td><td>Transacciones y una sola fuente de verdad para el estado de la orden</td><td><span class="chip bad">ALTO</span></td><td><span class="chip warn">MEDIO</span></td></tr>
+    <tr><td class="c">3</td><td>Validaciones: estados con <code>Enum</code>, <code>$jsonSchema</code> y existencia de cliente y ruta</td><td><span class="chip bad">ALTO</span></td><td><span class="chip warn">MEDIO</span></td></tr>
+    <tr><td class="c">4</td><td>Log estructurado y respuestas 500 sin detalles internos</td><td><span class="chip warn">MEDIO</span></td><td><span class="chip ok">BAJO</span></td></tr>
+    <tr><td class="c">5</td><td>Índices <code>{estado, total}</code> y <code>{puntaje}</code></td><td><span class="chip warn">MEDIO</span></td><td><span class="chip ok">BAJO</span></td></tr>
+    <tr><td class="c">6</td><td>Fechas como <code>Date</code> y <code>requirements.txt</code> actualizado</td><td><span class="chip warn">MEDIO</span></td><td><span class="chip ok">BAJO</span></td></tr>
+  </tbody>
+</table>
+
+<h3>Anexo A · Estructura del repositorio y cómo reproducir</h3>
+<div class="two">
+<div class="code" style="margin:0"><pre>QuickTrack/
+├── api/
+│   ├── main.py          <span class="cm"># endpoints REST</span>
+│   ├── models.py        <span class="cm"># validación Pydantic</span>
+│   └── middlewares.py   <span class="cm"># tiempo + error 500</span>
+├── config/
+│   └── database.py      <span class="cm"># conexión (lee .env)</span>
+├── data/                <span class="cm"># 5 JSON del caso</span>
+├── docs/                <span class="cm"># informe y pauta</span>
+├── scripts/
+│   ├── cargar_atlas.py      <span class="cm"># ETL</span>
+│   ├── consultas_nosql.py   <span class="cm"># índices + C1–C3</span>
+│   └── crud_operations.py   <span class="cm"># ciclo CRUD</span>
+├── .env.example
+└── requirements.txt</pre></div>
+<div class="code" style="margin:0"><pre><span class="cm"># 1. Dependencias (compatibles con Python 3.14)</span>
+pip install fastapi "uvicorn[standard]" pymongo
+pip install python-dotenv pandas
+<span class="cm"># 2. Copiar .env.example a .env y completar MONGO_URI</span>
+<span class="cm"># 3. Verificar, cargar y probar</span>
+python config/database.py
+python scripts/cargar_atlas.py     <span class="cm"># borra y recarga</span>
+python scripts/consultas_nosql.py
+python scripts/crud_operations.py
+<span class="cm"># 4. API → http://localhost:8000/docs</span>
+python -m uvicorn api.main:app --reload</pre></div>
+</div>
+</section>
+
+</body>
+</html>

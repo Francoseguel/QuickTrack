@@ -1,0 +1,101 @@
+﻿orden_id,estado_actual,eventos,primer_evento,ultimo_evento,fecha_ultimo_evento,dias_entrega
+orden_3,Entregado,3,2023-02-17,En tránsito,2023-02-21,
+orden_4,Despachado,3,2022-11-28,En tránsito,2022-12-02,
+orden_33,Entregado,3,2024-04-05,En tránsito,2024-04-09,
+orden_41,En tránsito,2,2022-09-16,Despachado,2022-09-18,
+orden_54,Despachado,2,2022-10-07,Despachado,2022-10-09,
+orden_60,En tránsito,3,2022-06-20,En tránsito,2022-06-24,
+orden_63,En preparación,4,2023-09-02,Entregado,2023-09-08,6.0
+orden_65,En tránsito,2,2023-09-25,Despachado,2023-09-27,
+orden_69,En preparación,2,2023-08-25,Despachado,2023-08-27,
+orden_82,En preparación,3,2023-05-26,En tránsito,2023-05-30,
+orden_85,En preparación,4,2022-06-25,Entregado,2022-07-01,6.0
+orden_97,En preparación,3,2022-08-04,En tránsito,2022-08-08,
+orden_6,Entregado,3,2023-10-28,En tránsito,2023-11-01,
+orden_7,En tránsito,4,2023-06-29,Entregado,2023-07-05,6.0
+orden_12,En tránsito,4,2023-12-16,Entregado,2023-12-22,6.0
+orden_15,Despachado,4,2023-06-03,Entregado,2023-06-09,6.0
+orden_30,Entregado,3,2022-07-15,En tránsito,2022-07-19,
+orden_35,En preparación,4,2024-02-08,Entregado,2024-02-14,6.0
+orden_38,Despachado,2,2022-07-05,Despachado,2022-07-07,
+orden_40,Entregado,4,2022-02-02,Entregado,2022-02-08,6.0
+orden_46,Entregado,4,2022-12-11,Entregado,2022-12-17,6.0
+orden_47,Despachado,2,2024-01-16,Despachado,2024-01-18,
+orden_50,En preparación,3,2022-10-25,En tránsito,2022-10-29,
+orden_67,En preparación,3,2022-06-04,En tránsito,2022-06-08,
+orden_72,Entregado,2,2024-03-03,Despachado,2024-03-05,
+orden_80,Despachado,2,2022-12-17,Despachado,2022-12-19,
+orden_87,En tránsito,4,2022-12-16,Entregado,2022-12-22,6.0
+orden_91,Despachado,3,2024-04-26,En tránsito,2024-04-30,
+orden_1,En preparación,3,2024-06-21,En tránsito,2024-06-25,
+orden_24,En preparación,2,2024-03-17,Despachado,2024-03-19,
+orden_28,En preparación,4,2022-12-03,Entregado,2022-12-09,6.0
+orden_31,En preparación,4,2024-04-07,Entregado,2024-04-13,6.0
+orden_39,Entregado,2,2022-09-16,Despachado,2022-09-18,
+orden_45,En preparación,4,2023-09-18,Entregado,2023-09-24,6.0
+orden_68,Despachado,4,2022-06-06,Entregado,2022-06-12,6.0
+orden_76,Despachado,2,2023-10-04,Despachado,2023-10-06,
+orden_89,En preparación,3,2023-09-27,En tránsito,2023-10-01,
+orden_5,En preparación,3,2022-09-07,En tránsito,2022-09-11,
+orden_10,Entregado,3,2023-05-23,En tránsito,2023-05-27,
+orden_16,Entregado,4,2023-07-06,Entregado,2023-07-12,6.0
+orden_21,En preparación,3,2024-06-04,En tránsito,2024-06-08,
+orden_26,En tránsito,2,2023-03-15,Despachado,2023-03-17,
+orden_34,Despachado,3,2023-11-19,En tránsito,2023-11-23,
+orden_42,En tránsito,2,2022-11-22,Despachado,2022-11-24,
+orden_44,Despachado,2,2022-11-04,Despachado,2022-11-06,
+orden_48,Entregado,2,2023-06-03,Despachado,2023-06-05,
+orden_53,Entregado,2,2022-06-25,Despachado,2022-06-27,
+orden_59,Despachado,2,2023-04-30,Despachado,2023-05-02,
+orden_73,En tránsito,4,2023-04-28,Entregado,2023-05-04,6.0
+orden_74,Entregado,3,2023-11-14,En tránsito,2023-11-18,
+orden_77,Despachado,2,2024-03-22,Despachado,2024-03-24,
+orden_88,Entregado,4,2022-09-27,Entregado,2022-10-03,6.0
+orden_93,En tránsito,4,2022-06-21,Entregado,2022-06-27,6.0
+orden_11,Despachado,4,2023-03-22,Entregado,2023-03-28,6.0
+orden_20,En preparación,2,2022-11-11,Despachado,2022-11-13,
+orden_22,Entregado,4,2024-03-09,Entregado,2024-03-15,6.0
+orden_27,En preparación,2,2023-04-24,Despachado,2023-04-26,
+orden_29,Despachado,3,2023-03-15,En tránsito,2023-03-19,
+orden_49,En tránsito,3,2022-05-05,En tránsito,2022-05-09,
+orden_56,Entregado,2,2022-10-30,Despachado,2022-11-01,
+orden_57,En preparación,2,2024-03-20,Despachado,2024-03-22,
+orden_58,Despachado,3,2022-09-20,En tránsito,2022-09-24,
+orden_71,En preparación,2,2023-03-11,Despachado,2023-03-13,
+orden_84,Despachado,4,2022-04-10,Entregado,2022-04-16,6.0
+orden_86,Despachado,3,2023-10-12,En tránsito,2023-10-16,
+orden_95,Entregado,3,2023-05-20,En tránsito,2023-05-24,
+orden_99,En tránsito,3,2023-09-20,En tránsito,2023-09-24,
+orden_8,En tránsito,4,2023-11-24,Entregado,2023-11-30,6.0
+orden_36,En preparación,3,2022-01-02,En tránsito,2022-01-06,
+orden_43,En tránsito,4,2022-01-25,Entregado,2022-01-31,6.0
+orden_51,Despachado,4,2024-05-12,Entregado,2024-05-18,6.0
+orden_61,En preparación,3,2024-04-05,En tránsito,2024-04-09,
+orden_62,En preparación,4,2022-12-09,Entregado,2022-12-15,6.0
+orden_66,En preparación,2,2022-09-26,Despachado,2022-09-28,
+orden_90,En preparación,4,2023-08-04,Entregado,2023-08-10,6.0
+orden_9,Entregado,4,2023-05-12,Entregado,2023-05-18,6.0
+orden_14,Entregado,3,2022-06-03,En tránsito,2022-06-07,
+orden_18,En tránsito,3,2024-05-14,En tránsito,2024-05-18,
+orden_23,En tránsito,3,2024-01-03,En tránsito,2024-01-07,
+orden_25,En tránsito,2,2024-01-13,Despachado,2024-01-15,
+orden_52,En preparación,2,2023-11-17,Despachado,2023-11-19,
+orden_55,Entregado,3,2023-11-21,En tránsito,2023-11-25,
+orden_64,En preparación,3,2024-06-12,En tránsito,2024-06-16,
+orden_70,En preparación,4,2023-07-21,Entregado,2023-07-27,6.0
+orden_75,En preparación,4,2023-11-11,Entregado,2023-11-17,6.0
+orden_78,En preparación,2,2023-03-20,Despachado,2023-03-22,
+orden_79,En tránsito,3,2023-02-22,En tránsito,2023-02-26,
+orden_81,Entregado,4,2023-02-03,Entregado,2023-02-09,6.0
+orden_83,Despachado,4,2022-05-29,Entregado,2022-06-04,6.0
+orden_94,Entregado,4,2023-04-19,Entregado,2023-04-25,6.0
+orden_98,Despachado,2,2024-04-01,Despachado,2024-04-03,
+orden_100,Despachado,2,2023-05-23,Despachado,2023-05-25,
+orden_2,En preparación,4,2022-08-30,Entregado,2022-09-05,6.0
+orden_13,Despachado,3,2024-02-05,En tránsito,2024-02-09,
+orden_17,En tránsito,3,2023-03-06,En tránsito,2023-03-10,
+orden_19,Despachado,2,2024-04-29,Despachado,2024-05-01,
+orden_32,Despachado,2,2024-03-25,Despachado,2024-03-27,
+orden_37,Despachado,4,2023-04-11,Entregado,2023-04-17,6.0
+orden_92,Entregado,3,2024-01-06,En tránsito,2024-01-10,
+orden_96,En tránsito,3,2023-06-24,En tránsito,2023-06-28,
