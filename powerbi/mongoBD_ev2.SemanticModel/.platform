@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "mongoBD_ev2"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "abe4accb-51a5-4789-a704-f2df56f75838"
+  }
+}

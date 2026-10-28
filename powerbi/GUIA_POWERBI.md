@@ -173,7 +173,7 @@ Otras cifras globales:
 
 | Síntoma | Solución |
 |---|---|
-| «No se encontró MONGO_URI» | Falta el `.env` en la carpeta del proyecto, o `RUTA_PROYECTO` en el script no apunta a tu copia |
+| «No se encontró MONGO_URI» | Falta el `.env` en la carpeta del proyecto, o el parámetro `RutaProyecto` (*Transformar datos → Administrar parámetros*) no apunta a tu copia del repositorio |
 | Timeout de conexión | Tu IP no está permitida en Atlas → *Network Access*, o no tienes internet |
 | Error de Python / pandas en Power BI | Revisa el paso 1. Si sigue fallando, usa el plan B con CSV |
 | Las tarjetas por zona muestran el mismo valor en todas | Falta una relación o está inactiva (paso 3) |

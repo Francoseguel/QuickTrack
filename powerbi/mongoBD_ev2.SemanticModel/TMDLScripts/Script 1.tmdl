@@ -1,0 +1,71 @@
+createOrReplace
+
+	ref table ordenes
+
+		measure 'Total órdenes' = COUNTROWS(ordenes)
+			formatString: 0
+			displayFolder: 1 Operación
+
+		measure 'Órdenes entregadas' = CALCULATE(COUNTROWS(ordenes), ordenes[estado] = "Entregado")
+			formatString: 0
+			displayFolder: 1 Operación
+
+		measure 'Órdenes canceladas' = CALCULATE(COUNTROWS(ordenes), ordenes[estado] = "Cancelado")
+			formatString: 0
+			displayFolder: 1 Operación
+
+		measure 'Órdenes abiertas' = CALCULATE(COUNTROWS(ordenes), ordenes[estado] IN {"En preparación", "En tránsito"})
+			formatString: 0
+			displayFolder: 1 Operación
+
+		measure 'Tasa de entrega' = DIVIDE(CALCULATE(COUNTROWS(ordenes), ordenes[estado] = "Entregado"), COUNTROWS(ordenes))
+			formatString: 0.0%
+			displayFolder: 1 Operación
+
+		measure 'Tasa de cancelación' = DIVIDE(CALCULATE(COUNTROWS(ordenes), ordenes[estado] = "Cancelado"), COUNTROWS(ordenes))
+			formatString: 0.0%
+			displayFolder: 1 Operación
+
+		measure 'Tiempo promedio de entrega (días)' = AVERAGE(seguimiento[dias_entrega])
+			formatString: 0.0
+			displayFolder: 1 Operación
+
+		measure 'Distancia promedio (km)' = AVERAGEX(ordenes, RELATED(rutas[distancia_km]))
+			formatString: #,0
+			displayFolder: 1 Operación
+
+		measure 'Ingresos totales' = SUM(ordenes[total])
+			formatString: #,0
+			displayFolder: 2 Ventas
+
+		measure 'Ticket promedio' = AVERAGE(ordenes[total])
+			formatString: #,0
+			displayFolder: 2 Ventas
+
+		measure 'Puntaje promedio' = AVERAGE(valoraciones[puntaje])
+			formatString: 0.00
+			displayFolder: 3 Satisfacción
+
+		measure '% clientes satisfechos' = DIVIDE(CALCULATE(COUNTROWS(valoraciones), valoraciones[puntaje] >= 4), COUNTROWS(valoraciones))
+			formatString: 0.0%
+			displayFolder: 3 Satisfacción
+
+		measure '% valoraciones críticas' = DIVIDE(CALCULATE(COUNTROWS(valoraciones), valoraciones[critica] = TRUE()), COUNTROWS(valoraciones))
+			formatString: 0.0%
+			displayFolder: 3 Satisfacción
+
+		measure '% reclamos por retraso' = DIVIDE(CALCULATE(COUNTROWS(valoraciones), valoraciones[con_retraso] = TRUE()), COUNTROWS(valoraciones))
+			formatString: 0.0%
+			displayFolder: 3 Satisfacción
+
+		measure '% estados coherentes' = DIVIDE(CALCULATE(COUNTROWS(ordenes), ordenes[estado_coherente] = TRUE()), COUNTROWS(ordenes))
+			formatString: 0.0%
+			displayFolder: 4 Calidad de datos
+
+		measure 'Órdenes con estado inconsistente' = CALCULATE(COUNTROWS(ordenes), ordenes[estado_coherente] = FALSE())
+			formatString: 0
+			displayFolder: 4 Calidad de datos
+
+		measure 'Canceladas con valoración' = CALCULATE(COUNTROWS(valoraciones), ordenes[estado] = "Cancelado")
+			formatString: 0
+			displayFolder: 4 Calidad de datos

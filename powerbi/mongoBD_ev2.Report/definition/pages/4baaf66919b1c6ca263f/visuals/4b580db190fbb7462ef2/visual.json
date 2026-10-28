@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "4b580db190fbb7462ef2",
+  "position": {
+    "x": 660,
+    "y": 120,
+    "z": 5,
+    "height": 170,
+    "width": 600,
+    "tabOrder": 5
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ordenes"
+                    }
+                  },
+                  "Property": "% clientes satisfechos"
+                }
+              },
+              "queryRef": "ordenes.% clientes satisfechos",
+              "nativeQueryRef": "% clientes satisfechos"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

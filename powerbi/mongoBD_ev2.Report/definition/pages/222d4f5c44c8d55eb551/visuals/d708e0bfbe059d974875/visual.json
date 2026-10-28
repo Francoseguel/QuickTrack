@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "d708e0bfbe059d974875",
+  "position": {
+    "x": 344,
+    "y": 120,
+    "z": 5,
+    "height": 170,
+    "width": 290,
+    "tabOrder": 5
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ordenes"
+                    }
+                  },
+                  "Property": "Tasa de entrega"
+                }
+              },
+              "queryRef": "ordenes.Tasa de entrega",
+              "nativeQueryRef": "Tasa de entrega"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

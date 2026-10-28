@@ -1,0 +1,96 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "86744115de255f9b80bd",
+  "position": {
+    "x": 30,
+    "y": 595,
+    "z": 9,
+    "height": 455,
+    "width": 915,
+    "tabOrder": 9
+  },
+  "visual": {
+    "visualType": "columnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ordenes"
+                    }
+                  },
+                  "Property": "estado"
+                }
+              },
+              "queryRef": "ordenes.estado",
+              "nativeQueryRef": "estado"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ordenes"
+                    }
+                  },
+                  "Property": "Total órdenes"
+                }
+              },
+              "queryRef": "ordenes.Total órdenes",
+              "nativeQueryRef": "Total órdenes"
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ordenes"
+                    }
+                  },
+                  "Property": "estado_seguimiento"
+                }
+              },
+              "queryRef": "ordenes.estado_seguimiento",
+              "nativeQueryRef": "estado_seguimiento"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Estado de la orden vs. estado en seguimiento'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

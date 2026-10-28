@@ -1,0 +1,114 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "a9a2c931d279be0756cd",
+  "position": {
+    "x": 975,
+    "y": 120,
+    "z": 5,
+    "height": 450,
+    "width": 915,
+    "tabOrder": 5
+  },
+  "visual": {
+    "visualType": "scatterChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "rutas"
+                    }
+                  },
+                  "Property": "zona"
+                }
+              },
+              "queryRef": "rutas.zona",
+              "nativeQueryRef": "zona"
+            }
+          ]
+        },
+        "X": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ordenes"
+                    }
+                  },
+                  "Property": "Distancia promedio (km)"
+                }
+              },
+              "queryRef": "ordenes.Distancia promedio (km)",
+              "nativeQueryRef": "Distancia promedio (km)"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ordenes"
+                    }
+                  },
+                  "Property": "Tasa de cancelación"
+                }
+              },
+              "queryRef": "ordenes.Tasa de cancelación",
+              "nativeQueryRef": "Tasa de cancelación"
+            }
+          ]
+        },
+        "Size": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ordenes"
+                    }
+                  },
+                  "Property": "Total órdenes"
+                }
+              },
+              "queryRef": "ordenes.Total órdenes",
+              "nativeQueryRef": "Total órdenes"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Distancia promedio vs. cancelación (tamaño = órdenes)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

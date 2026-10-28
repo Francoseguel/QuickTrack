@@ -1,0 +1,5 @@
+expression RutaProyecto = "C:\Users\Felipe\Desktop\exp2_bdnorelacional\QuickTrack" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: df0475e0-2e07-40c7-979d-8a0d437307d1
+
+	annotation PBI_ResultType = Text
+

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "658398d4e9e3e1566ace",
+  "position": {
+    "x": 1286,
+    "y": 120,
+    "z": 8,
+    "height": 170,
+    "width": 290,
+    "tabOrder": 8
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ordenes"
+                    }
+                  },
+                  "Property": "Puntaje promedio"
+                }
+              },
+              "queryRef": "ordenes.Puntaje promedio",
+              "nativeQueryRef": "Puntaje promedio"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

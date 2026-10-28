@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "23e60c285bf740635a79",
+  "position": {
+    "x": 1595,
+    "y": 120,
+    "z": 7,
+    "height": 170,
+    "width": 290,
+    "tabOrder": 7
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ordenes"
+                    }
+                  },
+                  "Property": "Órdenes con estado inconsistente"
+                }
+              },
+              "queryRef": "ordenes.Órdenes con estado inconsistente",
+              "nativeQueryRef": "Órdenes con estado inconsistente"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

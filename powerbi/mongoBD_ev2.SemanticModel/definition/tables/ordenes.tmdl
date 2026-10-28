@@ -1,0 +1,197 @@
+table ordenes
+	lineageTag: c4ee3f97-b53f-4e88-99f0-7fd05fd3c291
+
+	measure 'Total órdenes' = COUNTROWS(ordenes)
+		formatString: 0
+		displayFolder: 1 Operación
+		lineageTag: 8bed3c29-7169-4848-8183-e79b5f556506
+
+	measure 'Órdenes entregadas' = CALCULATE(COUNTROWS(ordenes), ordenes[estado] = "Entregado")
+		formatString: 0
+		displayFolder: 1 Operación
+		lineageTag: 19e29744-87b0-4eb2-9104-3f1614176f16
+
+	measure 'Órdenes canceladas' = CALCULATE(COUNTROWS(ordenes), ordenes[estado] = "Cancelado")
+		formatString: 0
+		displayFolder: 1 Operación
+		lineageTag: 00d143c2-de98-4cc8-ac47-6947edda6872
+
+	measure 'Órdenes abiertas' = CALCULATE(COUNTROWS(ordenes), ordenes[estado] IN {"En preparación", "En tránsito"})
+		formatString: 0
+		displayFolder: 1 Operación
+		lineageTag: c342cde9-a784-4ac8-acf2-727ddaa84218
+
+	measure 'Tasa de entrega' = DIVIDE(CALCULATE(COUNTROWS(ordenes), ordenes[estado] = "Entregado"), COUNTROWS(ordenes))
+		formatString: 0.0%
+		displayFolder: 1 Operación
+		lineageTag: a81b407b-cced-4442-b77d-e987e048bc6d
+
+	measure 'Tasa de cancelación' = DIVIDE(CALCULATE(COUNTROWS(ordenes), ordenes[estado] = "Cancelado"), COUNTROWS(ordenes))
+		formatString: 0.0%
+		displayFolder: 1 Operación
+		lineageTag: e6bc36df-6fae-48fd-a361-3a95cd21811e
+
+	measure 'Tiempo promedio de entrega (días)' = AVERAGE(seguimiento[dias_entrega])
+		formatString: 0.0
+		displayFolder: 1 Operación
+		lineageTag: 6cdc2af9-9582-48af-96d6-9b32ae5d80fd
+
+	measure 'Distancia promedio (km)' = AVERAGEX(ordenes, RELATED(rutas[distancia_km]))
+		formatString: #,0
+		displayFolder: 1 Operación
+		lineageTag: facdc8df-c080-4836-8af4-554a133776b0
+
+	measure 'Ingresos totales' = SUM(ordenes[total])
+		formatString: #,0
+		displayFolder: 2 Ventas
+		lineageTag: 488e1afb-cf7f-4568-b670-0c1b1f2e5ab1
+
+	measure 'Ticket promedio' = AVERAGE(ordenes[total])
+		formatString: #,0
+		displayFolder: 2 Ventas
+		lineageTag: cd6e3bbd-7b6f-4ab6-9d2f-40007444727a
+
+	measure 'Puntaje promedio' = AVERAGE(valoraciones[puntaje])
+		formatString: 0.00
+		displayFolder: 3 Satisfacción
+		lineageTag: d2205876-fda4-4362-88ae-e7c96af371e4
+
+	measure '% clientes satisfechos' = DIVIDE(CALCULATE(COUNTROWS(valoraciones), valoraciones[puntaje] >= 4), COUNTROWS(valoraciones))
+		formatString: 0.0%
+		displayFolder: 3 Satisfacción
+		lineageTag: e44b0942-a83d-4b48-adf7-52cb313a0e51
+
+	measure '% valoraciones críticas' = DIVIDE(CALCULATE(COUNTROWS(valoraciones), valoraciones[critica] = TRUE()), COUNTROWS(valoraciones))
+		formatString: 0.0%
+		displayFolder: 3 Satisfacción
+		lineageTag: 762cfd00-65c9-447d-b5fa-f06fa0b58036
+
+	measure '% reclamos por retraso' = DIVIDE(CALCULATE(COUNTROWS(valoraciones), valoraciones[con_retraso] = TRUE()), COUNTROWS(valoraciones))
+		formatString: 0.0%
+		displayFolder: 3 Satisfacción
+		lineageTag: a82fd4fd-1350-416f-acf3-af1a4663a8f5
+
+	measure '% estados coherentes' = DIVIDE(CALCULATE(COUNTROWS(ordenes), ordenes[estado_coherente] = TRUE()), COUNTROWS(ordenes))
+		formatString: 0.0%
+		displayFolder: 4 Calidad de datos
+		lineageTag: f146f400-c975-48f3-8a44-fd5061576ab7
+
+	measure 'Órdenes con estado inconsistente' = CALCULATE(COUNTROWS(ordenes), ordenes[estado_coherente] = FALSE())
+		formatString: 0
+		displayFolder: 4 Calidad de datos
+		lineageTag: 9abdaec1-36bf-4373-b110-d9d65d05f626
+
+	measure 'Canceladas con valoración' = CALCULATE(COUNTROWS(valoraciones), ordenes[estado] = "Cancelado")
+		formatString: 0
+		displayFolder: 4 Calidad de datos
+		lineageTag: ffa41210-38d1-44db-8110-783868176476
+
+	measure 'Órdenes por etapa' = DISTINCTCOUNT(eventos_seguimiento[orden_id])
+		formatString: 0
+		displayFolder: 4 Calidad de datos
+		lineageTag: 09296543-5e31-4c70-a4f2-4cf555da58c6
+
+	column ruta_id
+		dataType: string
+		lineageTag: 54d256ba-89e8-4524-b955-223989ed84e2
+		summarizeBy: none
+		sourceColumn: ruta_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha_envio
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 98c6dbd1-c3e9-43e4-a791-95c94a373e07
+		summarizeBy: none
+		sourceColumn: fecha_envio
+
+		annotation SummarizationSetBy = Automatic
+
+	column estado
+		dataType: string
+		lineageTag: 45985506-88a9-477d-a6cb-67873dd8e047
+		summarizeBy: none
+		sourceColumn: estado
+
+		annotation SummarizationSetBy = Automatic
+
+	column medio_pago
+		dataType: string
+		lineageTag: 83df298f-0e26-4d74-9f3a-6ea58319a6d7
+		summarizeBy: none
+		sourceColumn: medio_pago
+
+		annotation SummarizationSetBy = Automatic
+
+	column total
+		dataType: double
+		formatString: #,0
+		lineageTag: bfad4948-7c32-4982-8cd1-3cd7dc0c242a
+		summarizeBy: none
+		sourceColumn: total
+
+		annotation SummarizationSetBy = Automatic
+
+	column cliente_num_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 8b22dcea-f66b-4210-a700-cbcf3f50328e
+		summarizeBy: none
+		sourceColumn: cliente_num_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column orden_id
+		dataType: string
+		lineageTag: f942b275-d19c-4e8e-89e3-9c8b2d72c5e5
+		summarizeBy: none
+		sourceColumn: orden_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column estado_seguimiento
+		dataType: string
+		lineageTag: 412cb5e0-313e-4c5f-a63a-705f32353e28
+		summarizeBy: none
+		sourceColumn: estado_seguimiento
+
+		annotation SummarizationSetBy = Automatic
+
+	column ultimo_evento
+		dataType: string
+		lineageTag: 65d686f0-7860-4b5a-95ae-dc1900e988c9
+		summarizeBy: none
+		sourceColumn: ultimo_evento
+
+		annotation SummarizationSetBy = Automatic
+
+	column estado_coherente
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 64d89fd9-5e54-4640-8975-4ef7fc7e0ab7
+		summarizeBy: none
+		sourceColumn: estado_coherente
+
+		annotation SummarizationSetBy = Automatic
+
+	column anio_envio = YEAR(ordenes[fecha_envio])
+		dataType: int64
+		formatString: 0
+		lineageTag: a278bea4-56ff-4b3e-a1dd-9d9fd7ebbc9a
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ordenes = m
+		mode: import
+		source =
+				let
+				    Origen = Python.Execute("""""""#(lf)Extracción de datos de MongoDB Atlas para Power BI (QuickTrack).#(lf)#(lf)Uso en Power BI Desktop:#(lf)  Obtener datos > Más... > Otras > Script de Python > pegar este archivo completo.#(lf)  Power BI crea una tabla por cada DataFrame: ordenes, clientes, rutas,#(lf)  seguimiento, eventos_seguimiento y valoraciones.#(lf)#(lf)Requisitos: el Python configurado en Power BI (Archivo > Opciones > Scripting de Python)#(lf)debe tener instalados pymongo, pandas, matplotlib y python-dotenv.#(lf)#(lf)También se puede ejecutar directo para probar: python powerbi/extraer_quicktrack.py#(lf)Plan B sin Python en Power BI: python powerbi/extraer_quicktrack.py --csv  (deja los CSV en powerbi/csv/)#(lf)""""""#(lf)import os#(lf)import sys#(lf)#(lf)import pandas as pd#(lf)import pymongo#(lf)from dotenv import load_dotenv#(lf)#(lf)# pandas 3 usa un tipo de texto nuevo por defecto; se vuelve al de pandas 2 para que Power BI lo lea sin problemas#(lf)pd.options.future.infer_string = False#(lf)#(lf)# Power BI ejecuta el script desde una carpeta temporal, por eso la ruta del proyecto va fija.#(lf)# Cada integrante debe cambiarla por la ubicación de su copia del repositorio.#(lf)RUTA_PROYECTO = r""" & RutaProyecto & """#(lf)#(lf)load_dotenv(os.path.join(RUTA_PROYECTO, "".env""))#(lf)#(lf)#(lf)def extraer_tablas():#(lf)    """"""Lee las 5 colecciones con agregaciones y las devuelve como DataFrames planos.""""""#(lf)    uri = os.getenv(""MONGO_URI"")#(lf)    if not uri:#(lf)        raise ValueError(""Error: no se encontró MONGO_URI en el archivo .env del proyecto"")#(lf)#(lf)    client = pymongo.MongoClient(uri, serverSelectionTimeoutMS=8000)#(lf)    db = client[os.getenv(""DB_NAME"", ""quicktrack_db"")]#(lf)    try:#(lf)        # Órdenes con el estado de su seguimiento, para medir la coherencia entre ambas colecciones#(lf)        ordenes = pd.DataFrame(db.ordenes_entrega.aggregate([#(lf)            {""$lookup"": {""from"": ""seguimiento"", ""localField"": ""_id"", ""foreignField"": ""orden_id"", ""as"": ""seg""}},#(lf)            {""$unwind"": {""path"": ""$seg"", ""preserveNullAndEmptyArrays"": True}},#(lf)            {""$project"": {#(lf)                ""_id"": 0, ""orden_id"": ""$_id"", ""cliente_num_id"": 1, ""ruta_id"": 1,#(lf)                ""fecha_envio"": 1, ""estado"": 1, ""medio_pago"": 1, ""total"": 1,#(lf)                ""estado_seguimiento"": ""$seg.estado_actual"",#(lf)                ""ultimo_evento"": {""$arrayElemAt"": [""$seg.historial.estado"", -1]},#(lf)            }},#(lf)        ]))#(lf)        ordenes[""fecha_envio""] = pd.to_datetime(ordenes[""fecha_envio""])#(lf)        ordenes[""estado_coherente""] = ordenes[""estado""] == ordenes[""estado_seguimiento""]#(lf)#(lf)        clientes = pd.DataFrame(db.clientes.find(#(lf)            {}, {""_id"": 0, ""cliente_num_id"": ""$_id"", ""nombre"": 1, ""pais"": 1, ""fecha_registro"": 1}))#(lf)        clientes[""fecha_registro""] = pd.to_datetime(clientes[""fecha_registro""])#(lf)#(lf)        rutas = pd.DataFrame(db.rutas.find(#(lf)            {}, {""_id"": 0, ""ruta_id"": ""$_id"", ""zona"": 1, ""ciudad_origen"": 1, ""ciudad_destino"": 1, ""distancia_km"": 1}))#(lf)#(lf)        seguimiento = pd.DataFrame(db.seguimiento.aggregate([#(lf)            {""$project"": {#(lf)                ""_id"": 0, ""orden_id"": 1, ""estado_actual"": 1,#(lf)                ""eventos"": {""$size"": ""$historial""},#(lf)                ""primer_evento"": {""$arrayElemAt"": [""$historial.fecha"", 0]},#(lf)                ""ultimo_evento"": {""$arrayElemAt"": [""$historial.estado"", -1]},#(lf)                ""fecha_ultimo_evento"": {""$arrayElemAt"": [""$historial.fecha"", -1]},#(lf)            }},#(lf)        ]))#(lf)        seguimiento[""primer_evento""] = pd.to_datetime(seguimiento[""primer_evento""])#(lf)        seguimiento[""fecha_ultimo_evento""] = pd.to_datetime(seguimiento[""fecha_ultimo_evento""])#(lf)#(lf)        # Historial embebido desplegado: una fila por evento#(lf)        eventos_seguimiento = pd.DataFrame(db.seguimiento.aggregate([#(lf)            {""$unwind"": {""path"": ""$historial"", ""includeArrayIndex"": ""paso""}},#(lf)            {""$project"": {""_id"": 0, ""orden_id"": 1, ""paso"": {""$add"": [""$paso"", 1]},#(lf)                          ""estado"": ""$historial.estado"", ""fecha"": ""$historial.fecha""}},#(lf)        ]))#(lf)        eventos_seguimiento[""fecha""] = pd.to_datetime(eventos_seguimiento[""fecha""])#(lf)#(lf)        # Tiempo de entrega: días entre el primer evento y el evento ""Entregado"" (vacío si no se entregó)#(lf)        entregas = eventos_seguimiento[eventos_seguimiento[""estado""] == ""Entregado""].groupby(""orden_id"")[""fecha""].min()#(lf)        seguimiento[""dias_entrega""] = (seguimiento[""orden_id""].map(entregas) - seguimiento[""primer_evento""]).dt.days#(lf)#(lf)        valoraciones = pd.DataFrame(db.valoraciones.find(#(lf)            {}, {""_id"": 0, ""orden_id"": 1, ""puntaje"": 1, ""comentario"": 1}))#(lf)        valoraciones[""critica""] = valoraciones[""puntaje""] <= 2#(lf)        valoraciones[""con_retraso""] = valoraciones[""comentario""] == ""Tuvo retraso""#(lf)    finally:#(lf)        client.close()#(lf)#(lf)    return ordenes, clientes, rutas, seguimiento, eventos_seguimiento, valoraciones#(lf)#(lf)#(lf)# Power BI toma como tabla cada DataFrame definido en este nivel#(lf)ordenes, clientes, rutas, seguimiento, eventos_seguimiento, valoraciones = extraer_tablas()#(lf)#(lf)if __name__ == ""__main__"":#(lf)    carpeta_csv = os.path.join(RUTA_PROYECTO, ""powerbi"", ""csv"")#(lf)    if ""--csv"" in sys.argv:#(lf)        os.makedirs(carpeta_csv, exist_ok=True)#(lf)    for nombre, df in [(""ordenes"", ordenes), (""clientes"", clientes), (""rutas"", rutas),#(lf)                       (""seguimiento"", seguimiento), (""eventos_seguimiento"", eventos_seguimiento),#(lf)                       (""valoraciones"", valoraciones)]:#(lf)        print(f"" {nombre}: {len(df)} filas | columnas: {', '.join(df.columns)}"")#(lf)        if ""--csv"" in sys.argv:#(lf)            # utf-8-sig para que Power BI y Excel lean bien los tildes#(lf)            df.to_csv(os.path.join(carpeta_csv, f""{nombre}.csv""), index=False, encoding=""utf-8-sig"")#(lf)    if ""--csv"" in sys.argv:#(lf)        print(f"" CSV guardados en {carpeta_csv}"")#(lf)"),
+				    ordenes1 = Origen{[Name="ordenes"]}[Value],
+				    #"Tipo cambiado" = Table.TransformColumnTypes(ordenes1,{{"fecha_envio", type datetime}, {"total", type number}, {"cliente_num_id", Int64.Type}, {"estado_coherente", type logical}}, "en-US")
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+

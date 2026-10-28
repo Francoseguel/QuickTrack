@@ -1,0 +1,24 @@
+model Model
+	culture: es-ES
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-CL
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["clientes","eventos_seguimiento","ordenes","rutas","seguimiento","valoraciones"]
+
+annotation PBI_ProTooling = ["TMDLView_Desktop","DevMode"]
+
+ref table clientes
+ref table eventos_seguimiento
+ref table ordenes
+ref table rutas
+ref table seguimiento
+ref table valoraciones
+
+ref cultureInfo es-ES
+

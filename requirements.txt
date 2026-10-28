@@ -1,6 +1,12 @@
-pymongo==4.6.1
-fastapi==0.110.0
-uvicorn==0.28.0
-pydantic==2.6.4
-python-dotenv==1.0.1
-pandas==2.2.1
+# Probado con Python 3.11 a 3.14. Se fijan versiones mínimas (no exactas) para que
+# instale en cualquier Python 3 reciente.
+pymongo>=4.6
+fastapi>=0.110
+uvicorn>=0.28
+pydantic>=2.6
+python-dotenv>=1.0
+pandas>=2.2
+# Necesario solo si se actualiza el dashboard de Power BI con el script de Python
+matplotlib>=3.8
+# Necesario para las pruebas de la API con TestClient (scripts/probar_api.py)
+httpx>=0.27

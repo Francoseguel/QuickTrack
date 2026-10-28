@@ -45,6 +45,8 @@ Hecho:
 
 El script ahora agrega `seguimiento.dias_entrega` y `valoraciones.con_retraso`, y fija `future.infer_string=False` para que pandas 3 funcione con Power BI. El tiempo de entrega es 6 días en todas las órdenes (dato sintético), así que el retraso se mide con los reclamos «Tuvo retraso». Falta que Felipe arme el .pbix siguiendo la guía.
 
+**Reproducibilidad (28-10-2026), rama `felipe`:** `README.md` con pasos y mapa pauta → archivo; scripts nuevos `consultas_complementarias.py` (C4–C5), `evaluar_eficiencia.py` (IE6), `validar_datos.py` (IE8) y `probar_api.py` (TestClient, 12 pruebas); `requirements.txt` con versiones mínimas; `.env.example` sin credenciales; dashboard en `powerbi/mongoBD_ev2.pbip` con el parámetro `RutaProyecto` (la copia del Escritorio queda como respaldo); capturas en `docs/evidencias/`. Probado desde copia limpia con Python 3.11 y 3.14 en una base aparte: cifras idénticas al informe.
+
 Pendientes del grupo:
 - `.env.example` contiene la contraseña real de Atlas y el repo es público: hay que cambiar la contraseña y dejar un placeholder.
 - Opcional: agregar al repo las consultas C4–C5, las mediciones con `explain()` y las validaciones como script (hoy solo están en el informe).

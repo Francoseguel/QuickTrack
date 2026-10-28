@@ -1,0 +1,100 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 68,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 905.5486611506881,
+            "y": 441.66973829523994
+          },
+          "nodeIndex": "clientes",
+          "nodeLineageTag": "b13cfc0f-a783-46a0-a785-3a651b9fe6fc",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 286.8243886049099,
+            "y": -15.311973802988973
+          },
+          "nodeIndex": "eventos_seguimiento",
+          "nodeLineageTag": "6efb28fa-10e4-4821-ae19-2c0ab408cc06",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 633.5921059074085,
+            "y": 88.61708867292475
+          },
+          "nodeIndex": "ordenes",
+          "nodeLineageTag": "c4ee3f97-b53f-4e88-99f0-7fd05fd3c291",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 920.626502656172,
+            "y": -50
+          },
+          "nodeIndex": "rutas",
+          "nodeLineageTag": "0c2796bf-a948-4100-9e27-0d256c89e81a",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": 213.50194186982503
+          },
+          "nodeIndex": "seguimiento",
+          "nodeLineageTag": "a6ebfec3-6e9b-4385-9b17-f8b4de11bfdb",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 211.94748843921047,
+            "y": 514.4837098245024
+          },
+          "nodeIndex": "valoraciones",
+          "nodeLineageTag": "47ba7cfc-c748-4b8a-928e-f4bd8bac76ee",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Todas las tablas",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas las tablas",
+  "defaultDiagram": "Todas las tablas"
+}

@@ -22,9 +22,14 @@ from dotenv import load_dotenv
 # pandas 3 usa un tipo de texto nuevo por defecto; se vuelve al de pandas 2 para que Power BI lo lea sin problemas
 pd.options.future.infer_string = False
 
-# Power BI ejecuta el script desde una carpeta temporal, por eso la ruta del proyecto va fija.
-# Cada integrante debe cambiarla por la ubicación de su copia del repositorio.
-RUTA_PROYECTO = r"C:\Users\Felipe\Desktop\exp2_bdnorelacional\QuickTrack"
+# Ejecutado como archivo, la ruta del proyecto se deduce de su ubicación.
+# Pegado en Power BI no existe __file__ (corre en una carpeta temporal): se usa la variable
+# de entorno QUICKTRACK_DIR o, si no está, la ruta de abajo. En el .pbip del repo esta línea
+# la completa el parámetro RutaProyecto (Transformar datos > Administrar parámetros).
+try:
+    RUTA_PROYECTO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+except NameError:
+    RUTA_PROYECTO = os.getenv("QUICKTRACK_DIR", r"C:\Users\Felipe\Desktop\exp2_bdnorelacional\QuickTrack")
 
 load_dotenv(os.path.join(RUTA_PROYECTO, ".env"))
 

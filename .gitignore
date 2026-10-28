@@ -13,3 +13,6 @@ __pycache__/
 # Configuración de editor / IDE
 .vscode/
 .idea/
+# Power BI (archivos locales del .pbip)
+**/.pbi/localSettings.json
+**/.pbi/cache.abf

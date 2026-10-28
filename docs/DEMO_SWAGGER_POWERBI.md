@@ -21,7 +21,7 @@ Swagger (POST / PUT / DELETE) ──al instante──► MongoDB Atlas ──bot
    ```
    Espera a ver `Application startup complete.` y no cierres esa terminal.
 2. En el navegador, abre **http://localhost:8000/docs** (Swagger).
-3. Abre Power BI (`mongoBD_ev2.pbip`) y presiona **Actualizar**. Comprueba que estén las cifras de partida (tabla de abajo).
+3. Abre Power BI (`powerbi/mongoBD_ev2.pbip`) y presiona **Actualizar**. Comprueba que estén las cifras de partida (tabla de abajo).
 4. Abre una **segunda terminal de PowerShell** para los bloques rápidos de los actos 2, 3 y 4.
 
 ### Cifras de partida (sin filtros)

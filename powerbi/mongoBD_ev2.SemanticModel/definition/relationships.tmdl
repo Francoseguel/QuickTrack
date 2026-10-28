@@ -1,0 +1,23 @@
+relationship AutoDetected_2ccd01ac-93b4-4039-b17d-0ceef0b14ac0
+	fromColumn: ordenes.cliente_num_id
+	toColumn: clientes.cliente_num_id
+
+relationship AutoDetected_f7e988ea-1f67-4a50-ae47-50e698202bba
+	fromColumn: ordenes.ruta_id
+	toColumn: rutas.ruta_id
+
+relationship 7016cc0e-5727-485e-9ae3-a125c0f0380c
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: valoraciones.orden_id
+	toColumn: ordenes.orden_id
+
+relationship b72a5386-00e6-49a1-ade3-984914e7d3c6
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: seguimiento.orden_id
+	toColumn: ordenes.orden_id
+
+relationship 2b8e68ca-5df5-4aa8-96c4-401a21b39105
+	fromColumn: eventos_seguimiento.orden_id
+	toColumn: ordenes.orden_id

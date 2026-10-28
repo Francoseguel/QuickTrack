@@ -1,0 +1,107 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "3c51d667fe239e0009bd",
+  "position": {
+    "x": 1290,
+    "y": 315,
+    "z": 9,
+    "height": 735,
+    "width": 600,
+    "tabOrder": 9
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "rutas"
+                    }
+                  },
+                  "Property": "zona"
+                }
+              },
+              "queryRef": "rutas.zona",
+              "nativeQueryRef": "zona"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ordenes"
+                    }
+                  },
+                  "Property": "Puntaje promedio"
+                }
+              },
+              "queryRef": "ordenes.Puntaje promedio",
+              "nativeQueryRef": "Puntaje promedio"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ordenes"
+                    }
+                  },
+                  "Property": "% reclamos por retraso"
+                }
+              },
+              "queryRef": "ordenes.% reclamos por retraso",
+              "nativeQueryRef": "% reclamos por retraso"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Puntaje y reclamos por retraso por zona'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

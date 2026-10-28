@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "96f5a7efcfb5b7fb2056",
+  "position": {
+    "x": 30,
+    "y": 120,
+    "z": 4,
+    "height": 170,
+    "width": 290,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ordenes"
+                    }
+                  },
+                  "Property": "Total órdenes"
+                }
+              },
+              "queryRef": "ordenes.Total órdenes",
+              "nativeQueryRef": "Total órdenes"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

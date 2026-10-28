@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "307fa9e92e08c9d5d047",
+  "position": {
+    "x": 1285,
+    "y": 120,
+    "z": 6,
+    "height": 170,
+    "width": 290,
+    "tabOrder": 6
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ordenes"
+                    }
+                  },
+                  "Property": "% estados coherentes"
+                }
+              },
+              "queryRef": "ordenes.% estados coherentes",
+              "nativeQueryRef": "% estados coherentes"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
