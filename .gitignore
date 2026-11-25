@@ -1,5 +1,7 @@
 # Variables de entorno y credenciales (CRÍTICO)
 .env
+.env.*
+!.env.example
 
 # Entorno virtual
 venv/
@@ -9,7 +11,17 @@ env/
 # Caché de Python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+
+# Logs y temporales
+*.log
+.pytest_cache/
 
 # Configuración de editor / IDE
 .vscode/
 .idea/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
