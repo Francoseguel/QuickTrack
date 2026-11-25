@@ -1,0 +1,33 @@
+flowchart LR
+    subgraph C1["1. Capa Origen NoSQL"]
+        ATLAS["MongoDB Atlas (quicktrack_db)\n• ordenes_entrega (100)\n• rutas (100) · clientes (100)\n• seguimiento (100 · 302 ev.)\n• valoraciones (100)"]
+        COSMOS["Azure Cosmos DB (API NoSQL)\nFlujo cloud complementario\n(configurado por el equipo)"]
+    end
+
+    subgraph C2["2. Extracción, RICE y Automatización"]
+        ETL["Python ETL + RICE\n(scripts/etl_analitica.py)\n• $lookup 5 colecciones\n• $unwind historial\n• Limpieza, tipado y validación"]
+        AUTO["Automatización (IE8)\n• scripts/refresh_pipeline.py\n• GitHub Actions (cron diario)\n• Windows Task Scheduler"]
+        API["FastAPI REST (api/main.py)\n• /analitica/kpis\n• /analitica/ordenes\n• /analitica/rendimiento-zonas"]
+        ADF["Azure Data Factory\n(pl_cosmos_a_datalake_quicktrack)\nCopy Data + Mapping sin _rid/_ts"]
+    end
+
+    subgraph C3["3. Capa Analítica Desacoplada"]
+        CSV["Modelo Estrella CSV (data/export/)\n• fact_ordenes (100)\n• fact_seguimiento_eventos (302)\n• dim_rutas · dim_clientes · dim_fecha"]
+        BLOB["Azure Blob Storage\nJSON/CSV limpio en nube\n(sin metadatos internos)"]
+    end
+
+    subgraph C4["4. Visualización BI y Toma de Decisiones"]
+        PBI["Microsoft Power BI\n• Power Query M (RutaExport)\n• Modelo Estrella VertiPaq\n• 4 KPIs DAX + 6 visuales\n• Scheduled Refresh (propuesto)"]
+        USR["Usuarios de Negocio\n• Mandos Medios (Flota/Zonas)\n• Gerencia Comercial (Ingresos)\n• Supervisión Logística (SLA)"]
+    end
+
+    ATLAS -->|PyMongo read-only| ETL
+    ATLAS -->|Consultas /analitica/*| API
+    AUTO -.->|Orquesta y valida 12/12| ETL
+    ETL -->|UTF-8 BOM| CSV
+    COSMOS -->|Copy Data| ADF
+    ADF -->|Archivo limpio| BLOB
+    CSV -->|Power Query M| PBI
+    BLOB -.->|Conector Azure Storage| PBI
+    API -.->|Alternativa Web.Contents| PBI
+    PBI --> USR

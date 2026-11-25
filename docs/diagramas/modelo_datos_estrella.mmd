@@ -1,0 +1,59 @@
+erDiagram
+    dim_fecha ||--o{ fact_ordenes : "fecha_key (1:*)"
+    dim_rutas ||--o{ fact_ordenes : "ruta_id (1:*)"
+    dim_clientes ||--o{ fact_ordenes : "cliente_num_id (1:*)"
+    fact_ordenes ||--o{ fact_seguimiento_eventos : "orden_id (1:*)"
+
+    dim_fecha {
+        int fecha_key PK
+        date fecha
+        int anio
+        string trimestre
+        int mes
+        string nombre_mes
+        string anio_mes
+        string dia_semana
+        int es_fin_de_semana
+    }
+
+    dim_rutas {
+        string ruta_id PK
+        string zona
+        string ciudad_origen
+        string ciudad_destino
+        float distancia_km
+        string tramo
+        string rango_distancia
+    }
+
+    dim_clientes {
+        int cliente_num_id PK
+        string cliente_id_str
+        string pais
+    }
+
+    fact_ordenes {
+        string orden_id PK
+        int fecha_key FK
+        int cliente_num_id FK
+        string ruta_id FK
+        string estado
+        string medio_pago
+        float total
+        int puntaje
+        int es_entregado
+        int dias_en_seguimiento
+        int dias_hasta_entrega_historial
+        int discrepancia_estado_seg
+    }
+
+    fact_seguimiento_eventos {
+        string evento_id PK
+        string seg_id
+        string orden_id FK
+        int orden_evento
+        string estado_evento
+        date fecha_evento
+        int dias_desde_inicio
+        int dias_desde_evento_anterior
+    }

@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 620" width="1240" height="620" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="rel-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#1D6FA5"/>
+    </marker>
+    <filter id="card-shadow" x="-3%" y="-3%" width="106%" height="106%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0D253F" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <rect width="1240" height="620" fill="#F8FAFC"/>
+
+  <!-- Header -->
+  <rect x="20" y="14" width="1200" height="44" rx="8" fill="#0D253F"/>
+  <text x="40" y="42" fill="#FFFFFF" font-size="17" font-weight="700">QuickTrack — Modelo de Datos Estrella para Power BI (IE5)</text>
+  <text x="1200" y="41" fill="#BFD7ED" font-size="11.5" text-anchor="end">2 Tablas de Hechos + 3 Dimensiones · 4 Relaciones Activas (1:* dirección única)</text>
+
+  <!-- dim_fecha (Top Left) -->
+  <g filter="url(#card-shadow)">
+    <rect x="36" y="88" width="270" height="232" rx="8" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.8"/>
+    <rect x="36" y="88" width="270" height="34" rx="8" fill="#0F766E"/>
+    <rect x="36" y="110" width="270" height="12" fill="#0F766E"/>
+    <text x="50" y="110" fill="#FFFFFF" font-size="13" font-weight="700">dim_fecha</text>
+    <text x="294" y="110" fill="#CCFBF1" font-size="10.5" text-anchor="end">890 filas · DIM</text>
+    <text x="50" y="142" fill="#0D253F" font-size="11.5" font-weight="700">PK  fecha_key (int YYYYMMDD)</text>
+    <line x1="48" y1="150" x2="294" y2="150" stroke="#E2E8F0"/>
+    <text x="50" y="170" fill="#334155" font-size="11">fecha (date · tabla de fechas)</text>
+    <text x="50" y="190" fill="#334155" font-size="11">anio (int: 2022–2024)</text>
+    <text x="50" y="210" fill="#334155" font-size="11">trimestre (T1–T4)</text>
+    <text x="50" y="230" fill="#334155" font-size="11">mes (1–12) · nombre_mes</text>
+    <text x="50" y="250" fill="#334155" font-size="11">anio_mes (YYYY-MM)</text>
+    <text x="50" y="270" fill="#334155" font-size="11">dia_semana (Lunes–Domingo)</text>
+    <text x="50" y="290" fill="#334155" font-size="11">es_fin_de_semana (0/1)</text>
+    <text x="50" y="310" fill="#64748B" font-size="9.8">Rango continuo: 2022-01-15 a 2024-06-22</text>
+  </g>
+
+  <!-- dim_rutas (Bottom Left) -->
+  <g filter="url(#card-shadow)">
+    <rect x="36" y="362" width="270" height="218" rx="8" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.8"/>
+    <rect x="36" y="362" width="270" height="34" rx="8" fill="#0F766E"/>
+    <rect x="36" y="384" width="270" height="12" fill="#0F766E"/>
+    <text x="50" y="384" fill="#FFFFFF" font-size="13" font-weight="700">dim_rutas</text>
+    <text x="294" y="384" fill="#CCFBF1" font-size="10.5" text-anchor="end">100 filas · DIM</text>
+    <text x="50" y="416" fill="#0D253F" font-size="11.5" font-weight="700">PK  ruta_id (string "ruta_N")</text>
+    <line x1="48" y1="424" x2="294" y2="424" stroke="#E2E8F0"/>
+    <text x="50" y="444" fill="#334155" font-size="11">zona (Norte, Centro, Oriente,</text>
+    <text x="64" y="459" fill="#334155" font-size="11">Poniente, Sur)</text>
+    <text x="50" y="481" fill="#334155" font-size="11">ciudad_origen (string)</text>
+    <text x="50" y="501" fill="#334155" font-size="11">ciudad_destino (string)</text>
+    <text x="50" y="521" fill="#334155" font-size="11">distancia_km (float · RICE Evaluar)</text>
+    <text x="50" y="541" fill="#334155" font-size="11">tramo (origen → destino)</text>
+    <text x="50" y="561" fill="#334155" font-size="11">rango_distancia (Corta/Media/Larga)</text>
+  </g>
+
+  <!-- fact_ordenes (Center) -->
+  <g filter="url(#card-shadow)">
+    <rect x="435" y="102" width="350" height="456" rx="10" fill="#FFFFFF" stroke="#1D6FA5" stroke-width="2.4"/>
+    <rect x="435" y="102" width="350" height="40" rx="10" fill="#1D6FA5"/>
+    <rect x="435" y="128" width="350" height="14" fill="#1D6FA5"/>
+    <text x="452" y="127" fill="#FFFFFF" font-size="14" font-weight="700">fact_ordenes</text>
+    <text x="770" y="127" fill="#DBEAFE" font-size="11" text-anchor="end">100 filas · HECHO CENTRAL</text>
+
+    <text x="452" y="164" fill="#0D253F" font-size="11.5" font-weight="700">PK  orden_id (string "orden_N")</text>
+    <text x="452" y="184" fill="#1D6FA5" font-size="11.2" font-weight="700">FK  fecha_key → dim_fecha</text>
+    <text x="452" y="204" fill="#1D6FA5" font-size="11.2" font-weight="700">FK  ruta_id → dim_rutas</text>
+    <text x="452" y="224" fill="#1D6FA5" font-size="11.2" font-weight="700">FK  cliente_num_id → dim_clientes</text>
+    <line x1="448" y1="236" x2="772" y2="236" stroke="#CBD5E1"/>
+
+    <text x="452" y="256" fill="#0D253F" font-size="11" font-weight="700">Atributos y Métricas Base (RICE):</text>
+    <text x="452" y="276" fill="#334155" font-size="11">total (float · Facturación Total = $10,94M)</text>
+    <text x="452" y="296" fill="#334155" font-size="11">estado (Entregado | En tránsito | En prep. | Canc.)</text>
+    <text x="452" y="316" fill="#334155" font-size="11">medio_pago (Efectivo | Transferencia | Tarjeta)</text>
+    <text x="452" y="336" fill="#334155" font-size="11">puntaje (int 1–5 · Satisfacción Prom. = 3,07)</text>
+    <text x="452" y="356" fill="#334155" font-size="11">zona · fecha_envio · anio · mes · anio_mes</text>
+    <line x1="448" y1="368" x2="772" y2="368" stroke="#CBD5E1"/>
+
+    <text x="452" y="388" fill="#0D253F" font-size="11" font-weight="700">Métricas Derivadas (ETL + Seguimiento):</text>
+    <text x="452" y="408" fill="#334155" font-size="11">es_entregado (0/1) · es_cancelado (0/1)</text>
+    <text x="452" y="428" fill="#334155" font-size="11">es_valoracion_critica (1 si puntaje ≤ 2)</text>
+    <text x="452" y="448" fill="#334155" font-size="11">num_eventos_seg (2, 3 o 4 eventos)</text>
+    <text x="452" y="468" fill="#334155" font-size="11">dias_en_seguimiento (prom. 4,04 días)</text>
+    <text x="452" y="488" fill="#334155" font-size="11">dias_hasta_entrega_historial (6 días, n=33)</text>
+    <text x="452" y="508" fill="#334155" font-size="11">estado_actual_seg · discrepancia_estado_seg</text>
+
+    <rect x="450" y="522" width="320" height="24" rx="4" fill="#EFF6FF"/>
+    <text x="610" y="538" fill="#1E40AF" font-size="10.2" font-weight="700" text-anchor="middle">Cruce de 5 colecciones NoSQL · 0 nulos · 0 huérfanos</text>
+  </g>
+
+  <!-- dim_clientes (Top Right) -->
+  <g filter="url(#card-shadow)">
+    <rect x="914" y="88" width="290" height="172" rx="8" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.8"/>
+    <rect x="914" y="88" width="290" height="34" rx="8" fill="#0F766E"/>
+    <rect x="914" y="110" width="290" height="12" fill="#0F766E"/>
+    <text x="928" y="110" fill="#FFFFFF" font-size="13" font-weight="700">dim_clientes</text>
+    <text x="1192" y="110" fill="#CCFBF1" font-size="10.5" text-anchor="end">100 filas · DIM</text>
+    <text x="928" y="142" fill="#0D253F" font-size="11.5" font-weight="700">PK  cliente_num_id (int 1..100)</text>
+    <line x1="926" y1="150" x2="1192" y2="150" stroke="#E2E8F0"/>
+    <text x="928" y="170" fill="#334155" font-size="11">cliente_id_str (string "cli_N")</text>
+    <text x="928" y="190" fill="#334155" font-size="11">pais (string · RICE Evaluar)</text>
+    <rect x="928" y="206" width="262" height="40" rx="4" fill="#FEF2F2"/>
+    <text x="938" y="222" fill="#991B1B" font-size="10" font-weight="700">Excluidos por RICE (PII / sin valor BI):</text>
+    <text x="938" y="237" fill="#7F1D1D" font-size="10">nombre, correo, fecha_registro</text>
+  </g>
+
+  <!-- fact_seguimiento_eventos (Bottom Right) -->
+  <g filter="url(#card-shadow)">
+    <rect x="914" y="302" width="290" height="278" rx="8" fill="#FFFFFF" stroke="#B45309" stroke-width="1.8"/>
+    <rect x="914" y="302" width="290" height="34" rx="8" fill="#B45309"/>
+    <rect x="914" y="324" width="290" height="12" fill="#B45309"/>
+    <text x="928" y="324" fill="#FFFFFF" font-size="12.5" font-weight="700">fact_seguimiento_eventos</text>
+    <text x="1192" y="324" fill="#FEF3C7" font-size="10.5" text-anchor="end">302 filas · HECHO</text>
+    <text x="928" y="356" fill="#0D253F" font-size="11.5" font-weight="700">PK  evento_id (string)</text>
+    <text x="928" y="376" fill="#B45309" font-size="11.2" font-weight="700">FK  orden_id → fact_ordenes</text>
+    <line x1="926" y1="386" x2="1192" y2="386" stroke="#E2E8F0"/>
+    <text x="928" y="406" fill="#334155" font-size="11">seg_id · ruta_id (sin vínculo activo)</text>
+    <text x="928" y="426" fill="#334155" font-size="11">zona (string)</text>
+    <text x="928" y="446" fill="#334155" font-size="11">orden_evento (1, 2, 3, 4)</text>
+    <text x="928" y="466" fill="#334155" font-size="11">estado_evento ($unwind historial)</text>
+    <text x="928" y="486" fill="#334155" font-size="11">fecha_evento (date)</text>
+    <text x="928" y="506" fill="#334155" font-size="11">dias_desde_inicio (0, 2, 4, 6)</text>
+    <text x="928" y="526" fill="#334155" font-size="11">dias_desde_evento_anterior (int)</text>
+    <rect x="928" y="542" width="262" height="24" rx="4" fill="#FEF3C7"/>
+    <text x="1059" y="558" fill="#92400E" font-size="10" font-weight="700" text-anchor="middle">Despliegue $unwind de seguimiento.historial[]</text>
+  </g>
+
+  <!-- Relationship lines -->
+  <!-- dim_fecha -> fact_ordenes -->
+  <path d="M 306 180 L 431 180" stroke="#1D6FA5" stroke-width="2.2" fill="none" marker-end="url(#rel-arrow)"/>
+  <rect x="330" y="158" width="76" height="18" rx="4" fill="#E0F2FE"/>
+  <text x="368" y="171" fill="#0369A1" font-size="10" font-weight="700" text-anchor="middle">1 : * (→)</text>
+
+  <!-- dim_rutas -> fact_ordenes -->
+  <path d="M 306 435 L 368 435 L 368 200 L 431 200" stroke="#1D6FA5" stroke-width="2.2" fill="none" marker-end="url(#rel-arrow)"/>
+  <rect x="330" y="413" width="76" height="18" rx="4" fill="#E0F2FE"/>
+  <text x="368" y="426" fill="#0369A1" font-size="10" font-weight="700" text-anchor="middle">1 : * (→)</text>
+
+  <!-- dim_clientes -> fact_ordenes -->
+  <path d="M 914 175 L 850 175 L 850 220 L 789 220" stroke="#1D6FA5" stroke-width="2.2" fill="none" marker-end="url(#rel-arrow)"/>
+  <rect x="814" y="153" width="76" height="18" rx="4" fill="#E0F2FE"/>
+  <text x="852" y="166" fill="#0369A1" font-size="10" font-weight="700" text-anchor="middle">1 : * (←)</text>
+
+  <!-- fact_ordenes -> fact_seguimiento_eventos -->
+  <path d="M 785 372 L 910 372" stroke="#B45309" stroke-width="2.2" fill="none" marker-end="url(#rel-arrow)"/>
+  <rect x="810" y="350" width="76" height="18" rx="4" fill="#FEF3C7"/>
+  <text x="848" y="363" fill="#92400E" font-size="10" font-weight="700" text-anchor="middle">1 : * (→)</text>
+
+  <!-- Footer -->
+  <text x="20" y="604" fill="#64748B" font-size="10.5">Fuente: data/export/*.csv · Las flechas indican la dirección única de propagación de filtros en Power BI (sin ciclos ni relaciones ambiguas).</text>
+</svg>

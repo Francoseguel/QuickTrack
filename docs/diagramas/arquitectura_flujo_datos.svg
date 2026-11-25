@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 540" width="1280" height="540" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#1D6FA5"/>
+    </marker>
+    <marker id="arrow-dash" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#64748B"/>
+    </marker>
+    <filter id="shadow" x="-3%" y="-3%" width="106%" height="106%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#0D253F" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+
+  <rect width="1280" height="540" fill="#F8FAFC"/>
+
+  <!-- Header -->
+  <rect x="20" y="14" width="1240" height="44" rx="8" fill="#0D253F"/>
+  <text x="38" y="41" fill="#FFFFFF" font-size="16" font-weight="700">QuickTrack — Arquitectura del Flujo de Datos NoSQL hacia Power BI (IE4 / IE5 / IE8)</text>
+  <text x="1242" y="40" fill="#BFD7ED" font-size="10.8" text-anchor="end">Sólido: Implementado · Segmentado: Cloud / Alternativo</text>
+
+  <!-- Layer columns -->
+  <!-- Column 1 -->
+  <rect x="20" y="72" width="275" height="448" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <rect x="20" y="72" width="275" height="32" rx="10" fill="#15426B"/>
+  <rect x="20" y="92" width="275" height="12" fill="#15426B"/>
+  <text x="157" y="93" fill="#FFFFFF" font-size="12.5" font-weight="700" text-anchor="middle">1. ORIGEN NoSQL</text>
+
+  <!-- Column 2 -->
+  <rect x="322" y="72" width="320" height="448" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <rect x="322" y="72" width="320" height="32" rx="10" fill="#1D6FA5"/>
+  <rect x="322" y="92" width="320" height="12" fill="#1D6FA5"/>
+  <text x="482" y="93" fill="#FFFFFF" font-size="12.5" font-weight="700" text-anchor="middle">2. EXTRACCIÓN, RICE Y AUTOMATIZACIÓN</text>
+
+  <!-- Column 3 -->
+  <rect x="669" y="72" width="275" height="448" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <rect x="669" y="72" width="275" height="32" rx="10" fill="#0F766E"/>
+  <rect x="669" y="92" width="275" height="12" fill="#0F766E"/>
+  <text x="806" y="93" fill="#FFFFFF" font-size="12.5" font-weight="700" text-anchor="middle">3. ALMACENAMIENTO ANALÍTICO</text>
+
+  <!-- Column 4 -->
+  <rect x="971" y="72" width="289" height="448" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <rect x="971" y="72" width="289" height="32" rx="10" fill="#B45309"/>
+  <rect x="971" y="92" width="289" height="12" fill="#B45309"/>
+  <text x="1115" y="93" fill="#FFFFFF" font-size="12.5" font-weight="700" text-anchor="middle">4. VISUALIZACIÓN BI Y USUARIOS</text>
+
+  <!-- BOX 1A: MongoDB Atlas -->
+  <rect x="36" y="122" width="243" height="196" rx="8" fill="#EFF6FF" stroke="#1D6FA5" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="50" y="146" fill="#0D253F" font-size="13" font-weight="700">MongoDB Atlas</text>
+  <text x="50" y="163" fill="#1D6FA5" font-size="11" font-weight="600">BD: quicktrack_db (5 colecciones)</text>
+  <line x1="50" y1="172" x2="265" y2="172" stroke="#BFDBFE"/>
+  <text x="50" y="191" fill="#1E293B" font-size="11">• ordenes_entrega (100 docs)</text>
+  <text x="50" y="210" fill="#1E293B" font-size="11">• rutas (100 docs · 5 zonas)</text>
+  <text x="50" y="229" fill="#1E293B" font-size="11">• clientes (100 docs · _id int)</text>
+  <text x="50" y="248" fill="#1E293B" font-size="11">• seguimiento (100 · 302 eventos)</text>
+  <text x="50" y="267" fill="#1E293B" font-size="11">• valoraciones (100 · puntaje 1–5)</text>
+  <rect x="50" y="282" width="215" height="24" rx="4" fill="#DBEAFE"/>
+  <text x="157" y="298" fill="#1E40AF" font-size="10.2" font-weight="700" text-anchor="middle">Fallback local reproducible: data/*.json</text>
+
+  <!-- BOX 1B: Azure Cosmos DB -->
+  <rect x="36" y="376" width="243" height="122" rx="8" fill="#F8FAFC" stroke="#64748B" stroke-width="1.4" stroke-dasharray="5,3" filter="url(#shadow)"/>
+  <text x="50" y="400" fill="#334155" font-size="13" font-weight="700">Azure Cosmos DB</text>
+  <text x="50" y="417" fill="#64748B" font-size="10.8" font-weight="600">Flujo cloud (Lab 3.1.2 · equipo)</text>
+  <line x1="50" y1="426" x2="265" y2="426" stroke="#E2E8F0"/>
+  <text x="50" y="445" fill="#475569" font-size="10.8">• Contenedor documental JSON</text>
+  <text x="50" y="464" fill="#475569" font-size="10.8">• Incluye metadatos _rid, _etag, _ts</text>
+  <text x="50" y="483" fill="#475569" font-size="10.8">• Conectado a Azure Data Factory</text>
+
+  <!-- BOX 2A: Python ETL + RICE -->
+  <rect x="338" y="122" width="288" height="130" rx="8" fill="#EFF6FF" stroke="#1D6FA5" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="352" y="145" fill="#0D253F" font-size="13" font-weight="700">Pipeline ETL Python + RICE</text>
+  <text x="352" y="161" fill="#1D6FA5" font-size="10.5" font-weight="600">etl_analitica.py · rice_audit.py · validar_etl.py</text>
+  <line x1="352" y1="169" x2="612" y2="169" stroke="#BFDBFE"/>
+  <text x="352" y="187" fill="#1E293B" font-size="10.8">• $lookup 5 colecciones (cli_N → int N)</text>
+  <text x="352" y="205" fill="#1E293B" font-size="10.8">• $unwind seguimiento.historial (302 ev.)</text>
+  <text x="352" y="223" fill="#1E293B" font-size="10.8">• Filtro RICE (sin PII) + 12/12 checks PASS</text>
+  <text x="352" y="241" fill="#1E293B" font-size="10.8">• Deriva dias_en_seguimiento y KPIs</text>
+
+  <!-- BOX 2B: Automatización + API -->
+  <rect x="338" y="266" width="288" height="96" rx="8" fill="#FEFCE8" stroke="#D97706" stroke-width="1.4" filter="url(#shadow)"/>
+  <text x="352" y="288" fill="#78350F" font-size="12.5" font-weight="700">Orquestación (IE8) y API FastAPI</text>
+  <text x="352" y="307" fill="#451A03" font-size="10.5">• refresh_pipeline.py (comando único)</text>
+  <text x="352" y="324" fill="#451A03" font-size="10.5">• GitHub Actions cron diario + Task Scheduler</text>
+  <text x="352" y="341" fill="#451A03" font-size="10.5">• API /analitica/kpis y /analitica/ordenes</text>
+
+  <!-- BOX 2C: Azure Data Factory -->
+  <rect x="338" y="376" width="288" height="122" rx="8" fill="#F8FAFC" stroke="#64748B" stroke-width="1.4" stroke-dasharray="5,3" filter="url(#shadow)"/>
+  <text x="352" y="400" fill="#334155" font-size="13" font-weight="700">Azure Data Factory (ADF)</text>
+  <text x="352" y="417" fill="#64748B" font-size="10.5" font-weight="600">pl_cosmos_a_datalake_quicktrack</text>
+  <line x1="352" y1="426" x2="612" y2="426" stroke="#E2E8F0"/>
+  <text x="352" y="445" fill="#475569" font-size="10.8">• Actividad Copy Data (Cosmos → Blob)</text>
+  <text x="352" y="464" fill="#475569" font-size="10.8">• Mapping / Query excluye _rid, _etag, _ts</text>
+  <text x="352" y="483" fill="#475569" font-size="10.8">• Schedule Trigger propuesto para nube</text>
+
+  <!-- BOX 3A: CSV Modelo Estrella -->
+  <rect x="685" y="122" width="243" height="196" rx="8" fill="#F0FDFA" stroke="#0F766E" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="699" y="146" fill="#134E4A" font-size="13" font-weight="700">Modelo Estrella CSV</text>
+  <text x="699" y="163" fill="#0F766E" font-size="10.8" font-weight="600">data/export/ (UTF-8 con BOM)</text>
+  <line x1="699" y1="172" x2="914" y2="172" stroke="#99F6E4"/>
+  <text x="699" y="191" fill="#1E293B" font-size="11">• fact_ordenes.csv (100 filas)</text>
+  <text x="699" y="210" fill="#1E293B" font-size="11">• fact_seguimiento_eventos (302)</text>
+  <text x="699" y="229" fill="#1E293B" font-size="11">• dim_rutas.csv (100 filas)</text>
+  <text x="699" y="248" fill="#1E293B" font-size="11">• dim_clientes.csv (100 · sin PII)</text>
+  <text x="699" y="267" fill="#1E293B" font-size="11">• dim_fecha.csv (890 días)</text>
+  <rect x="699" y="282" width="215" height="24" rx="4" fill="#CCFBF1"/>
+  <text x="806" y="298" fill="#115E59" font-size="10.2" font-weight="700" text-anchor="middle">Auditoría: ultimo_refresh.json + RICE</text>
+
+  <!-- BOX 3B: Azure Blob Storage -->
+  <rect x="685" y="376" width="243" height="122" rx="8" fill="#F8FAFC" stroke="#64748B" stroke-width="1.4" stroke-dasharray="5,3" filter="url(#shadow)"/>
+  <text x="699" y="400" fill="#334155" font-size="13" font-weight="700">Azure Blob Storage</text>
+  <text x="699" y="417" fill="#64748B" font-size="10.5" font-weight="600">Capa intermedia en la nube</text>
+  <line x1="699" y1="426" x2="914" y2="426" stroke="#E2E8F0"/>
+  <text x="699" y="445" fill="#475569" font-size="10.8">• JSON Lines / CSV depurados</text>
+  <text x="699" y="464" fill="#475569" font-size="10.8">• Desacopla analítica del motor</text>
+  <text x="699" y="483" fill="#475569" font-size="10.8">• Conector nativo Power BI Service</text>
+
+  <!-- BOX 4A: Power BI -->
+  <rect x="987" y="122" width="257" height="196" rx="8" fill="#FFFBEB" stroke="#B45309" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="1001" y="146" fill="#78350F" font-size="13" font-weight="700">Microsoft Power BI</text>
+  <text x="1001" y="163" fill="#B45309" font-size="10.8" font-weight="600">Desktop + Service (Scheduled Refresh)</text>
+  <line x1="1001" y1="172" x2="1230" y2="172" stroke="#FDE68A"/>
+  <text x="1001" y="191" fill="#1E293B" font-size="10.8">• Power Query M (parámetro RutaExport)</text>
+  <text x="1001" y="210" fill="#1E293B" font-size="10.8">• 4 relaciones 1:* en modelo estrella</text>
+  <text x="1001" y="229" fill="#1E293B" font-size="10.8">• 4 KPIs DAX: Facturación, Volumen,</text>
+  <text x="1009" y="245" fill="#1E293B" font-size="10.8">Cumplimiento (27%) y Satisfacción (3,07)</text>
+  <text x="1001" y="264" fill="#1E293B" font-size="10.8">• 6 visuales + 4 segmentadores</text>
+  <rect x="1001" y="282" width="229" height="24" rx="4" fill="#FEF3C7"/>
+  <text x="1115" y="298" fill="#92400E" font-size="10.2" font-weight="700" text-anchor="middle">Gateway (local) o Conector Cloud (Blob)</text>
+
+  <!-- BOX 4B: Usuarios -->
+  <rect x="987" y="346" width="257" height="152" rx="8" fill="#F1F5F9" stroke="#0D253F" stroke-width="1.4" filter="url(#shadow)"/>
+  <text x="1001" y="370" fill="#0D253F" font-size="13" font-weight="700">Toma de Decisiones</text>
+  <line x1="1001" y1="379" x2="1230" y2="379" stroke="#CBD5E1"/>
+  <text x="1001" y="399" fill="#0D253F" font-size="11" font-weight="700">• Mandos Medios (Táctico):</text>
+  <text x="1011" y="414" fill="#475569" font-size="10.3">Reasignación de flota por zona y mes</text>
+  <text x="1001" y="434" fill="#0D253F" font-size="11" font-weight="700">• Gerencia Comercial (Estratégico):</text>
+  <text x="1011" y="449" fill="#475569" font-size="10.3">Metas de ingreso y convenios de pago</text>
+  <text x="1001" y="469" fill="#0D253F" font-size="11" font-weight="700">• Supervisión Logística (Operacional):</text>
+  <text x="1011" y="484" fill="#475569" font-size="10.3">Intervención en zonas críticas y SLA</text>
+
+  <!-- Arrows -->
+  <!-- Atlas -> Python ETL -->
+  <path d="M 279 185 L 336 185" stroke="#1D6FA5" stroke-width="2.4" fill="none" marker-end="url(#arrow)"/>
+  <!-- Orquestación -> Python ETL -->
+  <path d="M 482 266 L 482 254" stroke="#D97706" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <!-- Atlas -> API (dashed) -->
+  <path d="M 279 295 L 310 295 L 310 314 L 336 314" stroke="#64748B" stroke-width="1.6" stroke-dasharray="4,3" fill="none" marker-end="url(#arrow-dash)"/>
+  <!-- Python ETL -> CSV -->
+  <path d="M 626 185 L 683 185" stroke="#1D6FA5" stroke-width="2.4" fill="none" marker-end="url(#arrow)"/>
+  <!-- CSV -> Power BI -->
+  <path d="M 928 215 L 985 215" stroke="#1D6FA5" stroke-width="2.4" fill="none" marker-end="url(#arrow)"/>
+  <!-- Cosmos -> ADF -->
+  <path d="M 279 437 L 336 437" stroke="#64748B" stroke-width="1.8" stroke-dasharray="5,3" fill="none" marker-end="url(#arrow-dash)"/>
+  <!-- ADF -> Blob -->
+  <path d="M 626 437 L 683 437" stroke="#64748B" stroke-width="1.8" stroke-dasharray="5,3" fill="none" marker-end="url(#arrow-dash)"/>
+  <!-- Blob -> Power BI -->
+  <path d="M 928 437 L 954 437 L 954 265 L 985 265" stroke="#64748B" stroke-width="1.8" stroke-dasharray="5,3" fill="none" marker-end="url(#arrow-dash)"/>
+  <!-- Power BI -> Users -->
+  <path d="M 1115 318 L 1115 344" stroke="#1D6FA5" stroke-width="2.4" fill="none" marker-end="url(#arrow)"/>
+</svg>
