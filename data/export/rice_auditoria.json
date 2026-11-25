@@ -1,0 +1,442 @@
+{
+  "modo_origen": "local",
+  "cobertura_colecciones": {
+    "clientes": {
+      "_id": {
+        "cobertura_R": 1.0,
+        "no_nulos": 100,
+        "total_docs": 100
+      },
+      "correo": {
+        "cobertura_R": 1.0,
+        "no_nulos": 100,
+        "total_docs": 100
+      },
+      "fecha_registro": {
+        "cobertura_R": 1.0,
+        "no_nulos": 100,
+        "total_docs": 100
+      },
+      "nombre": {
+        "cobertura_R": 1.0,
+        "no_nulos": 100,
+        "total_docs": 100
+      },
+      "pais": {
+        "cobertura_R": 1.0,
+        "no_nulos": 100,
+        "total_docs": 100
+      }
+    },
+    "ordenes_entrega": {
+      "_id": {
+        "cobertura_R": 1.0,
+        "no_nulos": 100,
+        "total_docs": 100
+      },
+      "cliente_id": {
+        "cobertura_R": 1.0,
+        "no_nulos": 100,
+        "total_docs": 100
+      },
+      "estado": {
+        "cobertura_R": 1.0,
+        "no_nulos": 100,
+        "total_docs": 100
+      },
+      "fecha_envio": {
+        "cobertura_R": 1.0,
+        "no_nulos": 100,
+        "total_docs": 100
+      },
+      "medio_pago": {
+        "cobertura_R": 1.0,
+        "no_nulos": 100,
+        "total_docs": 100
+      },
+      "ruta_id": {
+        "cobertura_R": 1.0,
+        "no_nulos": 100,
+        "total_docs": 100
+      },
+      "total": {
+        "cobertura_R": 1.0,
+        "no_nulos": 100,
+        "total_docs": 100
+      }
+    },
+    "rutas": {
+      "_id": {
+        "cobertura_R": 1.0,
+        "no_nulos": 100,
+        "total_docs": 100
+      },
+      "ciudad_destino": {
+        "cobertura_R": 1.0,
+        "no_nulos": 100,
+        "total_docs": 100
+      },
+      "ciudad_origen": {
+        "cobertura_R": 1.0,
+        "no_nulos": 100,
+        "total_docs": 100
+      },
+      "distancia_km": {
+        "cobertura_R": 1.0,
+        "no_nulos": 100,
+        "total_docs": 100
+      },
+      "zona": {
+        "cobertura_R": 1.0,
+        "no_nulos": 100,
+        "total_docs": 100
+      }
+    },
+    "seguimiento": {
+      "_id": {
+        "cobertura_R": 1.0,
+        "no_nulos": 100,
+        "total_docs": 100
+      },
+      "estado_actual": {
+        "cobertura_R": 1.0,
+        "no_nulos": 100,
+        "total_docs": 100
+      },
+      "historial": {
+        "cobertura_R": 1.0,
+        "no_nulos": 100,
+        "total_docs": 100
+      },
+      "orden_id": {
+        "cobertura_R": 1.0,
+        "no_nulos": 100,
+        "total_docs": 100
+      },
+      "historial[].estado": {
+        "cobertura_R": 1.0,
+        "no_nulos": 100,
+        "total_docs": 100
+      },
+      "historial[].fecha": {
+        "cobertura_R": 1.0,
+        "no_nulos": 100,
+        "total_docs": 100
+      },
+      "historial[estado=Entregado]": {
+        "cobertura_R": 0.33,
+        "no_nulos": 33,
+        "total_docs": 100
+      }
+    },
+    "valoraciones": {
+      "_id": {
+        "cobertura_R": 1.0,
+        "no_nulos": 100,
+        "total_docs": 100
+      },
+      "comentario": {
+        "cobertura_R": 1.0,
+        "no_nulos": 100,
+        "total_docs": 100
+      },
+      "orden_id": {
+        "cobertura_R": 1.0,
+        "no_nulos": 100,
+        "total_docs": 100
+      },
+      "puntaje": {
+        "cobertura_R": 1.0,
+        "no_nulos": 100,
+        "total_docs": 100
+      }
+    }
+  },
+  "evaluacion_rice": [
+    {
+      "eje": "Pregunta 1 — Eje Táctico (Temporal y Geográfico)",
+      "atributo": "rutas.zona",
+      "coleccion": "rutas",
+      "campo": "zona",
+      "no_nulos": 100,
+      "total_docs": 100,
+      "R": 1.0,
+      "I": 3.0,
+      "C": 1.0,
+      "E": 1,
+      "puntaje": 3.0,
+      "decision": "Conservar",
+      "justificacion": "Agrupador geográfico principal para comparar volumen de despachos y facturación por zona logística."
+    },
+    {
+      "eje": "Pregunta 1 — Eje Táctico (Temporal y Geográfico)",
+      "atributo": "ordenes_entrega.fecha_envio",
+      "coleccion": "ordenes_entrega",
+      "campo": "fecha_envio",
+      "no_nulos": 100,
+      "total_docs": 100,
+      "R": 1.0,
+      "I": 3.0,
+      "C": 1.0,
+      "E": 1,
+      "puntaje": 3.0,
+      "decision": "Conservar",
+      "justificacion": "Eje temporal indispensable para consolidar series mensuales/anuales y detectar estacionalidad."
+    },
+    {
+      "eje": "Pregunta 1 — Eje Táctico (Temporal y Geográfico)",
+      "atributo": "rutas.ciudad_origen",
+      "coleccion": "rutas",
+      "campo": "ciudad_origen",
+      "no_nulos": 100,
+      "total_docs": 100,
+      "R": 1.0,
+      "I": 1.0,
+      "C": 1.0,
+      "E": 1,
+      "puntaje": 1.0,
+      "decision": "Conservar",
+      "justificacion": "Permite desglosar los tramos logísticos por nodo de despacho en la dimensión de rutas."
+    },
+    {
+      "eje": "Pregunta 1 — Eje Táctico (Temporal y Geográfico)",
+      "atributo": "rutas.ciudad_destino",
+      "coleccion": "rutas",
+      "campo": "ciudad_destino",
+      "no_nulos": 100,
+      "total_docs": 100,
+      "R": 1.0,
+      "I": 1.0,
+      "C": 1.0,
+      "E": 1,
+      "puntaje": 1.0,
+      "decision": "Conservar",
+      "justificacion": "Identifica ciudades receptoras de alta demanda para planificación de rutas."
+    },
+    {
+      "eje": "Pregunta 1 — Eje Táctico (Temporal y Geográfico)",
+      "atributo": "rutas.distancia_km",
+      "coleccion": "rutas",
+      "campo": "distancia_km",
+      "no_nulos": 100,
+      "total_docs": 100,
+      "R": 1.0,
+      "I": 2.0,
+      "C": 0.9,
+      "E": 2,
+      "puntaje": 0.9,
+      "decision": "Evaluar",
+      "justificacion": "Métrica operativa secundaria; útil para correlacionar extensión de ruta con cumplimiento y costos (incluida en dim_rutas)."
+    },
+    {
+      "eje": "Pregunta 1 — Eje Táctico (Temporal y Geográfico)",
+      "atributo": "clientes.pais",
+      "coleccion": "clientes",
+      "campo": "pais",
+      "no_nulos": 100,
+      "total_docs": 100,
+      "R": 1.0,
+      "I": 1.0,
+      "C": 0.8,
+      "E": 1,
+      "puntaje": 0.8,
+      "decision": "Evaluar",
+      "justificacion": "Segmentación geográfica complementaria del maestro de clientes (incluida en dim_clientes)."
+    },
+    {
+      "eje": "Pregunta 1 — Eje Táctico (Temporal y Geográfico)",
+      "atributo": "clientes.correo",
+      "coleccion": "clientes",
+      "campo": "correo",
+      "no_nulos": 100,
+      "total_docs": 100,
+      "R": 1.0,
+      "I": 0.25,
+      "C": 1.0,
+      "E": 2,
+      "puntaje": 0.12,
+      "decision": "Descartar",
+      "justificacion": "Dato personal identificable (PII) de contacto; sin valor en agregaciones analíticas y se excluye por privacidad."
+    },
+    {
+      "eje": "Pregunta 1 — Eje Táctico (Temporal y Geográfico)",
+      "atributo": "clientes.nombre",
+      "coleccion": "clientes",
+      "campo": "nombre",
+      "no_nulos": 100,
+      "total_docs": 100,
+      "R": 1.0,
+      "I": 0.25,
+      "C": 1.0,
+      "E": 2,
+      "puntaje": 0.12,
+      "decision": "Descartar",
+      "justificacion": "Atributo nominal PII sin valor para agregación por zonas ni KPIs ejecutivos; se excluye del modelo BI."
+    },
+    {
+      "eje": "Pregunta 2 — Eje Estratégico (Financiero)",
+      "atributo": "ordenes_entrega.total",
+      "coleccion": "ordenes_entrega",
+      "campo": "total",
+      "no_nulos": 100,
+      "total_docs": 100,
+      "R": 1.0,
+      "I": 3.0,
+      "C": 1.0,
+      "E": 1,
+      "puntaje": 3.0,
+      "decision": "Conservar",
+      "justificacion": "Métrica monetaria central para calcular Facturación Total (KPI 1) y Ticket Promedio."
+    },
+    {
+      "eje": "Pregunta 2 — Eje Estratégico (Financiero)",
+      "atributo": "ordenes_entrega.medio_pago",
+      "coleccion": "ordenes_entrega",
+      "campo": "medio_pago",
+      "no_nulos": 100,
+      "total_docs": 100,
+      "R": 1.0,
+      "I": 2.0,
+      "C": 1.0,
+      "E": 1,
+      "puntaje": 2.0,
+      "decision": "Conservar",
+      "justificacion": "Clasifica el canal de recaudación (Efectivo, Transferencia, Tarjeta) para decisiones comerciales."
+    },
+    {
+      "eje": "Pregunta 2 — Eje Estratégico (Financiero)",
+      "atributo": "rutas.zona",
+      "coleccion": "rutas",
+      "campo": "zona",
+      "no_nulos": 100,
+      "total_docs": 100,
+      "R": 1.0,
+      "I": 3.0,
+      "C": 1.0,
+      "E": 1,
+      "puntaje": 3.0,
+      "decision": "Conservar",
+      "justificacion": "Segmenta la recaudación y los medios de pago por sector logístico."
+    },
+    {
+      "eje": "Pregunta 2 — Eje Estratégico (Financiero)",
+      "atributo": "ordenes_entrega.fecha_envio",
+      "coleccion": "ordenes_entrega",
+      "campo": "fecha_envio",
+      "no_nulos": 100,
+      "total_docs": 100,
+      "R": 1.0,
+      "I": 3.0,
+      "C": 1.0,
+      "E": 1,
+      "puntaje": 3.0,
+      "decision": "Conservar",
+      "justificacion": "Habilita el cierre de facturación por mes, trimestre y año."
+    },
+    {
+      "eje": "Pregunta 2 — Eje Estratégico (Financiero)",
+      "atributo": "clientes.fecha_registro",
+      "coleccion": "clientes",
+      "campo": "fecha_registro",
+      "no_nulos": 100,
+      "total_docs": 100,
+      "R": 1.0,
+      "I": 0.5,
+      "C": 0.8,
+      "E": 2,
+      "puntaje": 0.2,
+      "decision": "Descartar",
+      "justificacion": "Fecha administrativa de alta del cliente; no explica la distribución de ingresos por zona ni medio de pago."
+    },
+    {
+      "eje": "Pregunta 3 — Eje Operacional (Cumplimiento y Satisfacción)",
+      "atributo": "ordenes_entrega.estado",
+      "coleccion": "ordenes_entrega",
+      "campo": "estado",
+      "no_nulos": 100,
+      "total_docs": 100,
+      "R": 1.0,
+      "I": 3.0,
+      "C": 1.0,
+      "E": 1,
+      "puntaje": 3.0,
+      "decision": "Conservar",
+      "justificacion": "Estado oficial de la orden; base del KPI Tasa de Cumplimiento (% Entregado) y control de cancelaciones."
+    },
+    {
+      "eje": "Pregunta 3 — Eje Operacional (Cumplimiento y Satisfacción)",
+      "atributo": "valoraciones.puntaje",
+      "coleccion": "valoraciones",
+      "campo": "puntaje",
+      "no_nulos": 100,
+      "total_docs": 100,
+      "R": 1.0,
+      "I": 3.0,
+      "C": 1.0,
+      "E": 1,
+      "puntaje": 3.0,
+      "decision": "Conservar",
+      "justificacion": "Calificación cuantitativa (1–5); base del KPI Satisfacción Promedio y detección de casos críticos (<= 2)."
+    },
+    {
+      "eje": "Pregunta 3 — Eje Operacional (Cumplimiento y Satisfacción)",
+      "atributo": "seguimiento.historial[].estado",
+      "coleccion": "seguimiento",
+      "campo": "historial[].estado",
+      "no_nulos": 100,
+      "total_docs": 100,
+      "R": 1.0,
+      "I": 3.0,
+      "C": 0.9,
+      "E": 2,
+      "puntaje": 1.35,
+      "decision": "Conservar",
+      "justificacion": "Arreglo anidado de hitos logísticos; requiere $unwind para auditar transiciones de etapa y cuellos de botella."
+    },
+    {
+      "eje": "Pregunta 3 — Eje Operacional (Cumplimiento y Satisfacción)",
+      "atributo": "seguimiento.historial[].fecha",
+      "coleccion": "seguimiento",
+      "campo": "historial[].fecha",
+      "no_nulos": 100,
+      "total_docs": 100,
+      "R": 1.0,
+      "I": 3.0,
+      "C": 0.9,
+      "E": 2,
+      "puntaje": 1.35,
+      "decision": "Conservar",
+      "justificacion": "Marcas temporales del historial; permite derivar días en seguimiento y días hasta hito Entregado."
+    },
+    {
+      "eje": "Pregunta 3 — Eje Operacional (Cumplimiento y Satisfacción)",
+      "atributo": "seguimiento.estado_actual",
+      "coleccion": "seguimiento",
+      "campo": "estado_actual",
+      "no_nulos": 100,
+      "total_docs": 100,
+      "R": 1.0,
+      "I": 1.0,
+      "C": 0.7,
+      "E": 1,
+      "puntaje": 0.7,
+      "decision": "Evaluar",
+      "justificacion": "Menor confianza (C=0,7) por desfase detectado en 82% de órdenes respecto a ordenes_entrega.estado; se usa solo como auditoría de consistencia."
+    },
+    {
+      "eje": "Pregunta 3 — Eje Operacional (Cumplimiento y Satisfacción)",
+      "atributo": "valoraciones.comentario",
+      "coleccion": "valoraciones",
+      "campo": "comentario",
+      "no_nulos": 100,
+      "total_docs": 100,
+      "R": 1.0,
+      "I": 0.5,
+      "C": 0.8,
+      "E": 2,
+      "puntaje": 0.2,
+      "decision": "Descartar",
+      "justificacion": "Texto cualitativo no agregable directamente en fórmulas DAX numéricas; descartado del modelo tabular principal (requeriría NLP)."
+    }
+  ]
+}

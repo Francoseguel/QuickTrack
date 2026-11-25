@@ -1,0 +1,72 @@
+{
+  "timestamp_utc": "2026-11-25T00:04:21.020428+00:00",
+  "modo_origen": "local",
+  "archivos_generados": {
+    "fact_ordenes.csv": 100,
+    "fact_seguimiento_eventos.csv": 302,
+    "dim_rutas.csv": 100,
+    "dim_clientes.csv": 100,
+    "dim_fecha.csv": 890
+  },
+  "trazabilidad_pasos": [
+    {
+      "paso": "1. Extracción ordenes_entrega (5 colecciones)",
+      "filas_antes": 100,
+      "filas_despues": 100,
+      "detalle": "Cruce $lookup completado"
+    },
+    {
+      "paso": "2. Aplanamiento métricas de seguimiento.historial",
+      "filas_antes": 100,
+      "filas_despues": 100,
+      "detalle": "Derivados dias_en_seguimiento y dias_hasta_entrega_historial"
+    },
+    {
+      "paso": "3. Limpieza de duplicados y claves nulas (fact_ordenes)",
+      "filas_antes": 100,
+      "filas_despues": 100,
+      "detalle": "Descartadas 0 filas inválidas"
+    },
+    {
+      "paso": "4. Control de huérfanos referenciales (fact_ordenes)",
+      "filas_antes": 100,
+      "filas_despues": 100,
+      "detalle": "Huérfanos eliminados: 0"
+    },
+    {
+      "paso": "5. Despliegue de eventos ($unwind seguimiento.historial)",
+      "filas_antes": 302,
+      "filas_despues": 302,
+      "detalle": "Eventos individuales normalizados con cálculo de duración entre hitos"
+    },
+    {
+      "paso": "6. Dimensión dim_rutas",
+      "filas_antes": 100,
+      "filas_despues": 100,
+      "detalle": "Atributos geográficos y distancia clasificada por rango"
+    },
+    {
+      "paso": "7. Dimensión dim_clientes (PII excluido por RICE)",
+      "filas_antes": 100,
+      "filas_despues": 100,
+      "detalle": "Normalizado cliente_num_id (int) <-> cliente_id_str ('cli_N'); sin nombre/correo"
+    },
+    {
+      "paso": "8. Dimensión dim_fecha (calendario continuo)",
+      "filas_antes": 95,
+      "filas_despues": 890,
+      "detalle": "Rango 2022-01-15 a 2024-06-22"
+    }
+  ],
+  "kpis_resumen": {
+    "facturacion_total": 10939612.72,
+    "volumen_ordenes": 100,
+    "ordenes_entregadas": 27,
+    "tasa_cumplimiento_pct": 27.0,
+    "satisfaccion_promedio": 3.07,
+    "ticket_promedio": 109396.13,
+    "valoraciones_criticas": 37,
+    "dias_seguimiento_promedio": 4.04,
+    "discrepancias_estado_seg": 82
+  }
+}
