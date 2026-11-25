@@ -1,0 +1,78 @@
+name: QuickTrack Refresh Analytics (ETL + Validación)
+
+on:
+  schedule:
+    # Ejecución programada diaria a las 09:00 UTC (06:00 hora Chile continental)
+    - cron: "0 9 * * *"
+  workflow_dispatch:
+    inputs:
+      source:
+        description: "Origen de datos (auto intenta Atlas y usa fallback local)"
+        required: true
+        default: "auto"
+        type: choice
+        options:
+          - auto
+          - local
+          - atlas
+
+jobs:
+  refresh-analytics:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Determinar modo de extracción y ejecutar pipeline
+        env:
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+          DB_NAME: ${{ secrets.DB_NAME || 'quicktrack_db' }}
+          INPUT_SOURCE: ${{ github.event.inputs.source || 'auto' }}
+        run: |
+          if [ -z "$MONGO_URI" ] && [ "$INPUT_SOURCE" = "auto" ]; then
+            echo "Secret MONGO_URI no configurado; ejecutando en modo reproducible --source local."
+            SOURCE_MODE="local"
+          else
+            SOURCE_MODE="$INPUT_SOURCE"
+          fi
+          echo "SOURCE_MODE=$SOURCE_MODE" >> $GITHUB_ENV
+          python scripts/refresh_pipeline.py --source "$SOURCE_MODE"
+
+      - name: Publicar resumen de ejecución y KPIs
+        run: |
+          python - <<'PY'
+          import json, os
+          with open("data/export/ultimo_refresh.json", encoding="utf-8") as f:
+              data = json.load(f)
+          k = data["kpis"]
+          summary = f"""## QuickTrack — Resumen de Refresh Automatizado
+          - **Timestamp UTC:** `{data['timestamp_utc']}`
+          - **Modo ejecutado:** `{data['modo_ejecutado']}` (solicitado: `{data['source_solicitado']}`)
+          - **Validación:** `{'PASS' if data['validacion_aprobada'] else 'FAIL'}`
+          - **Facturación Total:** `${k['facturacion_total']:,.2f}`
+          - **Volumen de Órdenes:** `{k['volumen_ordenes']}`
+          - **Tasa de Cumplimiento:** `{k['tasa_cumplimiento_pct']:.2f}%`
+          - **Satisfacción Promedio:** `{k['satisfaccion_promedio']:.2f} / 5.00`
+          """
+          summary_file = os.environ.get("GITHUB_STEP_SUMMARY")
+          if summary_file:
+              with open(summary_file, "a", encoding="utf-8") as out:
+                  out.write(summary + "\n")
+          print(summary)
+          PY
+
+      - name: Subir artefactos CSV exportados
+        uses: actions/upload-artifact@v4
+        with:
+          name: quicktrack-export-csv
+          path: data/export/
+          retention-days: 14
