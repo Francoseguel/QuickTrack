@@ -1,0 +1,139 @@
+// =============================================================================
+// MEDIDAS DAX — QUICKTRACK ANALÍTICA (EP3 BDY0101)
+// =============================================================================
+// Se recomienda crear una tabla vacía de medidas llamada "_Medidas" en Power BI
+// (Inicio -> Especificar datos -> "_Medidas") y guardar todas las fórmulas aquí.
+// Los 4 KPIs principales son 100% coherentes con el Informe Técnico y los CSV.
+
+
+// =============================================================================
+// 1. LOS 4 KPIs PRINCIPALES DEL NEGOCIO (IE5 / IE6 / IE8)
+// =============================================================================
+
+// KPI 1 — Facturación Total (Formato: Moneda $#,##0)
+// Valor base verificado sobre 100 órdenes: $10.939.612,72
+Facturacion Total =
+SUM( fact_ordenes[total] )
+
+
+// KPI 2 — Volumen de Órdenes (Formato: Número entero #,##0)
+// Valor base verificado: 100 órdenes
+Volumen Ordenes =
+DISTINCTCOUNT( fact_ordenes[orden_id] )
+
+
+// KPI 3 — Tasa de Cumplimiento / % Entregado (Formato: Porcentaje 0,0%)
+// Valor base verificado: 27,0% (27 de 100 órdenes con estado = "Entregado")
+Tasa Cumplimiento =
+DIVIDE(
+    CALCULATE(
+        [Volumen Ordenes],
+        fact_ordenes[estado] = "Entregado"
+    ),
+    [Volumen Ordenes],
+    0
+)
+
+
+// KPI 4 — Satisfacción Promedio (Formato: Decimal 0,00 sobre escala 1 a 5)
+// Valor base verificado: 3,07 / 5,00 (sobre 100 valoraciones)
+Satisfaccion Promedio =
+AVERAGE( fact_ordenes[puntaje] )
+
+
+// =============================================================================
+// 2. INDICADORES SECUNDARIOS — FINANCIEROS Y COMERCIALES
+// =============================================================================
+
+// Ticket Promedio por Orden (Indicador secundario — $109.396,13)
+Ticket Promedio =
+DIVIDE( [Facturacion Total], [Volumen Ordenes], 0 )
+
+
+// Facturación efectivamente entregada (ingresos realizados)
+Facturacion Entregada =
+CALCULATE(
+    [Facturacion Total],
+    fact_ordenes[estado] = "Entregado"
+)
+
+
+// Facturación en riesgo por cancelaciones
+Ingresos Cancelados =
+CALCULATE(
+    [Facturacion Total],
+    fact_ordenes[estado] = "Cancelado"
+)
+
+
+// Participación porcentual de facturación por segmento (zona o medio de pago)
+% Participacion Facturacion =
+DIVIDE(
+    [Facturacion Total],
+    CALCULATE( [Facturacion Total], ALLSELECTED( fact_ordenes ) ),
+    0
+)
+
+
+// =============================================================================
+// 3. INDICADORES SECUNDARIOS — CUMPLIMIENTO, SEGUIMIENTO Y CALIDAD
+// =============================================================================
+
+Ordenes Entregadas =
+CALCULATE( [Volumen Ordenes], fact_ordenes[estado] = "Entregado" )
+
+Ordenes En Transito =
+CALCULATE( [Volumen Ordenes], fact_ordenes[estado] = "En tránsito" )
+
+Ordenes En Preparacion =
+CALCULATE( [Volumen Ordenes], fact_ordenes[estado] = "En preparación" )
+
+Ordenes Canceladas =
+CALCULATE( [Volumen Ordenes], fact_ordenes[estado] = "Cancelado" )
+
+
+// Tasa de Cancelación (Formato: Porcentaje 0,0% — valor base: 23,0%)
+Tasa Cancelacion =
+DIVIDE( [Ordenes Canceladas], [Volumen Ordenes], 0 )
+
+
+// Valoraciones Críticas (puntaje <= 2 — valor base: 37 órdenes / 37,0%)
+Valoraciones Criticas =
+CALCULATE( [Volumen Ordenes], fact_ordenes[puntaje] <= 2 )
+
+% Valoraciones Criticas =
+DIVIDE( [Valoraciones Criticas], [Volumen Ordenes], 0 )
+
+
+// Métricas derivadas desde seguimiento.historial (NO inventadas)
+// Días transcurridos entre el primer y último evento registrado en historial (media: 4,04 días)
+Dias Promedio Seguimiento =
+AVERAGE( fact_ordenes[dias_en_seguimiento] )
+
+
+// Días entre el primer evento y el hito "Entregado" en historial (media: 6,00 días en 33 órdenes)
+Dias Promedio Hasta Entrega =
+AVERAGE( fact_ordenes[dias_hasta_entrega_historial] )
+
+
+// Total de hitos de trazabilidad desplegados ($unwind sobre seguimiento.historial = 302)
+Total Eventos Seguimiento =
+COUNTROWS( fact_seguimiento_eventos )
+
+
+// Distancia media recorrida por orden (cruzando con dim_rutas)
+Distancia Promedio km =
+AVERAGEX(
+    fact_ordenes,
+    RELATED( dim_rutas[distancia_km] )
+)
+
+
+// Auditoría de calidad de datos: % de órdenes con desfase entre ordenes_entrega.estado
+// y seguimiento.estado_actual (valor base detectado: 82,0%)
+% Discrepancia Estado Seguimiento =
+DIVIDE(
+    CALCULATE( [Volumen Ordenes], fact_ordenes[discrepancia_estado_seg] = 1 ),
+    [Volumen Ordenes],
+    0
+)

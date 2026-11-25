@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Boceto Dashboard Power BI — QuickTrack (EP3 BDY0101)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+    background: #EEF2F6;
+    color: #1A2B3C;
+    width: 1440px;
+    padding: 18px 22px 22px 22px;
+  }
+  .banner {
+    background: linear-gradient(135deg, #0D253F 0%, #15426B 100%);
+    color: #FFFFFF;
+    border-radius: 10px;
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 6px rgba(13,37,63,0.16);
+  }
+  .banner h1 { font-size: 20px; font-weight: 700; letter-spacing: 0.2px; }
+  .banner p { font-size: 12px; color: #C5D9EC; margin-top: 3px; }
+  .badge-wireframe {
+    background: #F59E0B;
+    color: #1A1A1A;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+  }
+  .slicers {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .slicer {
+    background: #FFFFFF;
+    border: 1px solid #D5DEE8;
+    border-left: 4px solid #1D6FA5;
+    border-radius: 6px;
+    padding: 7px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+  }
+  .slicer .lbl { color: #5C6F82; font-weight: 600; font-size: 10.5px; text-transform: uppercase; }
+  .slicer .val { color: #0D253F; font-weight: 700; margin-top: 2px; }
+  .slicer .chev { color: #7E92A6; font-size: 11px; }
+
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr) 0.85fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .kpi-card {
+    background: #FFFFFF;
+    border: 1px solid #D5DEE8;
+    border-top: 4px solid #0D253F;
+    border-radius: 8px;
+    padding: 12px 14px;
+    box-shadow: 0 1px 3px rgba(13,37,63,0.06);
+  }
+  .kpi-card.k1 { border-top-color: #1D6FA5; }
+  .kpi-card.k2 { border-top-color: #0D253F; }
+  .kpi-card.k3 { border-top-color: #C0392B; }
+  .kpi-card.k4 { border-top-color: #D97706; }
+  .kpi-card.k5 { border-top-color: #64748B; background: #F8FAFC; }
+  .kpi-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; color: #5C6F82; letter-spacing: 0.4px; }
+  .kpi-value { font-size: 26px; font-weight: 800; color: #0D253F; margin: 4px 0 3px 0; }
+  .kpi-card.k3 .kpi-value { color: #B91C1C; }
+  .kpi-card.k4 .kpi-value { color: #B45309; }
+  .kpi-card.k5 .kpi-value { font-size: 21px; color: #334155; }
+  .kpi-sub { font-size: 11px; color: #5C6F82; line-height: 1.3; }
+
+  .grid-mid {
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .grid-bot {
+    display: grid;
+    grid-template-columns: 1fr 1.25fr 1fr;
+    gap: 12px;
+  }
+  .panel {
+    background: #FFFFFF;
+    border: 1px solid #D5DEE8;
+    border-radius: 8px;
+    padding: 12px 14px;
+    box-shadow: 0 1px 3px rgba(13,37,63,0.06);
+  }
+  .panel-hdr {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #E8EEF4;
+    padding-bottom: 6px;
+  }
+  .panel-title { font-size: 13px; font-weight: 700; color: #0D253F; }
+  .panel-tag {
+    font-size: 10px;
+    font-weight: 600;
+    color: #1D6FA5;
+    background: #E8F3FA;
+    padding: 2px 7px;
+    border-radius: 10px;
+  }
+  .panel-foot {
+    font-size: 10.5px;
+    color: #64748B;
+    margin-top: 6px;
+    border-top: 1px dashed #E2E8F0;
+    padding-top: 5px;
+  }
+  table.matrix {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11.5px;
+  }
+  table.matrix th {
+    background: #0D253F;
+    color: #FFFFFF;
+    padding: 6px 7px;
+    text-align: right;
+    font-weight: 600;
+    font-size: 10.5px;
+  }
+  table.matrix th:first-child { text-align: left; }
+  table.matrix td {
+    padding: 6px 7px;
+    border-bottom: 1px solid #E5ECF3;
+    text-align: right;
+  }
+  table.matrix td:first-child { text-align: left; font-weight: 700; color: #0D253F; }
+  table.matrix tr.total-row td {
+    background: #F1F5F9;
+    font-weight: 700;
+    border-top: 2px solid #0D253F;
+  }
+  .pill-ok { background: #DCFCE7; color: #166534; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+  .pill-warn { background: #FEF3C7; color: #92400E; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+  .pill-bad { background: #FEE2E2; color: #991B1B; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+
+  .legend {
+    display: flex;
+    gap: 12px;
+    font-size: 10.5px;
+    color: #475569;
+    margin-bottom: 4px;
+  }
+  .leg-item { display: flex; align-items: center; gap: 4px; }
+  .dot { width: 9px; height: 9px; border-radius: 2px; display: inline-block; }
+  .footer-note {
+    margin-top: 10px;
+    font-size: 10.5px;
+    color: #5C6F82;
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+
+<div class="banner">
+  <div>
+    <h1>QuickTrack — Tablero Ejecutivo de Logística, Facturación y Satisfacción</h1>
+    <p>Modelo Estrella Power BI (fact_ordenes + fact_seguimiento_eventos + dim_rutas + dim_clientes + dim_fecha) · Período 2022–2024</p>
+  </div>
+  <div class="badge-wireframe">Boceto Wireframe · Datos Reales ETL</div>
+</div>
+
+<!-- SEGMENTADORES INTERACTIVOS -->
+<div class="slicers">
+  <div class="slicer"><div><div class="lbl">Año (dim_fecha)</div><div class="val">Todos (2022 – 2024)</div></div><div class="chev">▼</div></div>
+  <div class="slicer"><div><div class="lbl">Zona Logística (dim_rutas)</div><div class="val">Todas (5 zonas)</div></div><div class="chev">▼</div></div>
+  <div class="slicer"><div><div class="lbl">Estado Orden (fact_ordenes)</div><div class="val">Todos (4 estados)</div></div><div class="chev">▼</div></div>
+  <div class="slicer"><div><div class="lbl">Medio de Pago (fact_ordenes)</div><div class="val">Todos (3 canales)</div></div><div class="chev">▼</div></div>
+</div>
+
+<!-- FILA DE 4 KPIs OFICIALES + 1 SECUNDARIO -->
+<div class="kpi-row">
+  <div class="kpi-card k1">
+    <div class="kpi-tag">KPI 1 · Facturación Total</div>
+    <div class="kpi-value">$10.939.613</div>
+    <div class="kpi-sub">SUM(fact_ordenes[total]) · Ingresos brutos acumulados en 100 envíos.</div>
+  </div>
+  <div class="kpi-card k2">
+    <div class="kpi-tag">KPI 2 · Volumen de Órdenes</div>
+    <div class="kpi-value">100</div>
+    <div class="kpi-sub">DISTINCTCOUNT(orden_id) · 38 (2022), 45 (2023), 17 (2024).</div>
+  </div>
+  <div class="kpi-card k3">
+    <div class="kpi-tag">KPI 3 · Tasa de Cumplimiento</div>
+    <div class="kpi-value">27,0 %</div>
+    <div class="kpi-sub">27 entregadas · 29 preparación · 21 tránsito · 23 canceladas.</div>
+  </div>
+  <div class="kpi-card k4">
+    <div class="kpi-tag">KPI 4 · Satisfacción Promedio</div>
+    <div class="kpi-value">3,07 / 5,00</div>
+    <div class="kpi-sub">AVERAGE(puntaje) · 37 valoraciones críticas (≤ 2 puntos).</div>
+  </div>
+  <div class="kpi-card k5">
+    <div class="kpi-tag">Secundario · Ticket Promedio</div>
+    <div class="kpi-value">$109.396</div>
+    <div class="kpi-sub">Facturación / Volumen · Días seg. prom.: 4,04 d.</div>
+  </div>
+</div>
+
+<!-- FILA CENTRAL: PREGUNTA 1 (TÁCTICO) -->
+<div class="grid-mid">
+  <!-- Visual 2: Barras agrupadas por Zona -->
+  <div class="panel">
+    <div class="panel-hdr">
+      <div class="panel-title">2. Facturación y Volumen de Órdenes por Zona Logística</div>
+      <div class="panel-tag">Pregunta 1 · Táctico</div>
+    </div>
+    <div class="legend">
+      <div class="leg-item"><span class="dot" style="background:#1D6FA5;"></span>Facturación ($M)</div>
+      <div class="leg-item"><span class="dot" style="background:#0D253F;"></span>Volumen de órdenes (n)</div>
+    </div>
+    <svg width="100%" height="190" viewBox="0 0 580 190">
+      <!-- Grid lines -->
+      <line x1="95" y1="12" x2="95" y2="168" stroke="#CBD5E1" stroke-width="1"/>
+      <line x1="210" y1="12" x2="210" y2="168" stroke="#F1F5F9" stroke-width="1"/>
+      <line x1="325" y1="12" x2="325" y2="168" stroke="#F1F5F9" stroke-width="1"/>
+      <line x1="440" y1="12" x2="440" y2="168" stroke="#F1F5F9" stroke-width="1"/>
+      <!-- Poniente: 2.75M (bar 385), n=22 -->
+      <text x="86" y="31" text-anchor="end" font-size="11.5" font-weight="700" fill="#0D253F">Poniente</text>
+      <rect x="95" y="17" width="385" height="14" rx="2" fill="#1D6FA5"/>
+      <text x="486" y="28" font-size="10.5" font-weight="700" fill="#1D6FA5">$2,75M (25,2%)</text>
+      <rect x="95" y="33" width="237" height="7" rx="2" fill="#0D253F"/>
+      <text x="338" y="40" font-size="9.5" fill="#334155">22 órd.</text>
+      <!-- Norte: 2.70M (bar 378), n=22 -->
+      <text x="86" y="63" text-anchor="end" font-size="11.5" font-weight="700" fill="#0D253F">Norte</text>
+      <rect x="95" y="49" width="378" height="14" rx="2" fill="#1D6FA5"/>
+      <text x="479" y="60" font-size="10.5" font-weight="700" fill="#1D6FA5">$2,70M (24,7%)</text>
+      <rect x="95" y="65" width="237" height="7" rx="2" fill="#0D253F"/>
+      <text x="338" y="72" font-size="9.5" fill="#334155">22 órd.</text>
+      <!-- Oriente: 2.52M (bar 353), n=26 -->
+      <text x="86" y="95" text-anchor="end" font-size="11.5" font-weight="700" fill="#0D253F">Oriente</text>
+      <rect x="95" y="81" width="353" height="14" rx="2" fill="#1D6FA5"/>
+      <text x="454" y="92" font-size="10.5" font-weight="700" fill="#1D6FA5">$2,52M (23,0%)</text>
+      <rect x="95" y="97" width="280" height="7" rx="2" fill="#0D253F"/>
+      <text x="381" y="104" font-size="9.5" fill="#334155">26 órd.</text>
+      <!-- Centro: 1.74M (bar 244), n=17 -->
+      <text x="86" y="127" text-anchor="end" font-size="11.5" font-weight="700" fill="#0D253F">Centro</text>
+      <rect x="95" y="113" width="244" height="14" rx="2" fill="#1D6FA5"/>
+      <text x="345" y="124" font-size="10.5" font-weight="700" fill="#1D6FA5">$1,74M (15,9%)</text>
+      <rect x="95" y="129" width="183" height="7" rx="2" fill="#0D253F"/>
+      <text x="284" y="136" font-size="9.5" fill="#334155">17 órd.</text>
+      <!-- Sur: 1.23M (bar 172), n=13 -->
+      <text x="86" y="159" text-anchor="end" font-size="11.5" font-weight="700" fill="#0D253F">Sur</text>
+      <rect x="95" y="145" width="172" height="14" rx="2" fill="#1D6FA5"/>
+      <text x="273" y="156" font-size="10.5" font-weight="700" fill="#1D6FA5">$1,23M (11,2%)</text>
+      <rect x="95" y="161" width="140" height="7" rx="2" fill="#0D253F"/>
+      <text x="241" y="168" font-size="9.5" fill="#334155">13 órd.</text>
+    </svg>
+    <div class="panel-foot">Justificación IE7: Barras horizontales comparan magnitudes discretas por zona para reasignación de flota.</div>
+  </div>
+
+  <!-- Visual 3: Evolución Temporal (Columnas + Línea) -->
+  <div class="panel">
+    <div class="panel-hdr">
+      <div class="panel-title">3. Evolución Trimestral de Facturación y Volumen (2022-T1 a 2024-T2)</div>
+      <div class="panel-tag">Pregunta 1 · Serie Temporal</div>
+    </div>
+    <div class="legend">
+      <div class="leg-item"><span class="dot" style="background:#3B82C4;"></span>Facturación Trimestral ($M)</div>
+      <div class="leg-item"><span class="dot" style="background:#E67E22; border-radius:50%;"></span>Volumen de Órdenes (eje der.)</div>
+    </div>
+    <svg width="100%" height="190" viewBox="0 0 720 190">
+      <!-- Grid horizontal -->
+      <line x1="48" y1="20" x2="690" y2="20" stroke="#F1F5F9" stroke-width="1"/>
+      <line x1="48" y1="55" x2="690" y2="55" stroke="#F1F5F9" stroke-width="1"/>
+      <line x1="48" y1="90" x2="690" y2="90" stroke="#F1F5F9" stroke-width="1"/>
+      <line x1="48" y1="125" x2="690" y2="125" stroke="#F1F5F9" stroke-width="1"/>
+      <line x1="48" y1="160" x2="690" y2="160" stroke="#CBD5E1" stroke-width="1"/>
+      <text x="42" y="24" text-anchor="end" font-size="9.5" fill="#64748B">$1,6M</text>
+      <text x="42" y="94" text-anchor="end" font-size="9.5" fill="#64748B">$0,8M</text>
+      <text x="42" y="163" text-anchor="end" font-size="9.5" fill="#64748B">$0</text>
+      <!-- Columns: max 1.6M -> height 140 (y=160-h) -->
+      <!-- 22T1: 1.27M (111), 22T2: 0.29M (25), 22T3: 1.00M (88), 22T4: 0.92M (80), 23T1: 1.38M (121), 23T2: 1.58M (138), 23T3: 1.43M (125), 23T4: 1.17M (102), 24T1: 0.92M (81), 24T2: 0.97M (85) -->
+      <rect x="64"  y="49" width="38" height="111" rx="3" fill="#3B82C4"/>
+      <rect x="128" y="135" width="38" height="25"  rx="3" fill="#3B82C4"/>
+      <rect x="192" y="72" width="38" height="88"  rx="3" fill="#3B82C4"/>
+      <rect x="256" y="80" width="38" height="80"  rx="3" fill="#3B82C4"/>
+      <rect x="320" y="39" width="38" height="121" rx="3" fill="#3B82C4"/>
+      <rect x="384" y="22" width="38" height="138" rx="3" fill="#1D6FA5"/>
+      <rect x="448" y="35" width="38" height="125" rx="3" fill="#3B82C4"/>
+      <rect x="512" y="58" width="38" height="102" rx="3" fill="#3B82C4"/>
+      <rect x="576" y="79" width="38" height="81"  rx="3" fill="#3B82C4"/>
+      <rect x="640" y="75" width="38" height="85"  rx="3" fill="#3B82C4"/>
+      <!-- Line for orders (max 15 -> 140px): 14(29), 6(104), 9(76), 9(76), 11(57), 14(29), 11(57), 9(76), 9(76), 8(85) -->
+      <polyline fill="none" stroke="#E67E22" stroke-width="2.6"
+        points="83,29 147,104 211,76 275,76 339,57 403,29 467,57 531,76 595,76 659,85"/>
+      <circle cx="83"  cy="29"  r="4" fill="#E67E22"/>
+      <circle cx="147" cy="104" r="4" fill="#E67E22"/>
+      <circle cx="211" cy="76"  r="4" fill="#E67E22"/>
+      <circle cx="275" cy="76"  r="4" fill="#E67E22"/>
+      <circle cx="339" cy="57"  r="4" fill="#E67E22"/>
+      <circle cx="403" cy="29"  r="4.5" fill="#B45309"/>
+      <circle cx="467" cy="57"  r="4" fill="#E67E22"/>
+      <circle cx="531" cy="76"  r="4" fill="#E67E22"/>
+      <circle cx="595" cy="76"  r="4" fill="#E67E22"/>
+      <circle cx="659" cy="85"  r="4" fill="#E67E22"/>
+      <!-- Order labels -->
+      <text x="83"  y="21" text-anchor="middle" font-size="9.5" font-weight="700" fill="#B45309">14</text>
+      <text x="147" y="97" text-anchor="middle" font-size="9.5" font-weight="700" fill="#B45309">6</text>
+      <text x="211" y="68" text-anchor="middle" font-size="9.5" font-weight="700" fill="#B45309">9</text>
+      <text x="275" y="68" text-anchor="middle" font-size="9.5" font-weight="700" fill="#B45309">9</text>
+      <text x="339" y="49" text-anchor="middle" font-size="9.5" font-weight="700" fill="#B45309">11</text>
+      <text x="403" y="18" text-anchor="middle" font-size="10"  font-weight="800" fill="#B45309">14 ($1,58M)</text>
+      <text x="467" y="49" text-anchor="middle" font-size="9.5" font-weight="700" fill="#B45309">11</text>
+      <text x="531" y="68" text-anchor="middle" font-size="9.5" font-weight="700" fill="#B45309">9</text>
+      <text x="595" y="68" text-anchor="middle" font-size="9.5" font-weight="700" fill="#B45309">9</text>
+      <text x="659" y="77" text-anchor="middle" font-size="9.5" font-weight="700" fill="#B45309">8</text>
+      <!-- X axis -->
+      <text x="83"  y="176" text-anchor="middle" font-size="9.5" fill="#475569">22-T1</text>
+      <text x="147" y="176" text-anchor="middle" font-size="9.5" fill="#475569">22-T2</text>
+      <text x="211" y="176" text-anchor="middle" font-size="9.5" fill="#475569">22-T3</text>
+      <text x="275" y="176" text-anchor="middle" font-size="9.5" fill="#475569">22-T4</text>
+      <text x="339" y="176" text-anchor="middle" font-size="9.5" fill="#475569">23-T1</text>
+      <text x="403" y="176" text-anchor="middle" font-size="9.5" font-weight="700" fill="#0D253F">23-T2</text>
+      <text x="467" y="176" text-anchor="middle" font-size="9.5" fill="#475569">23-T3</text>
+      <text x="531" y="176" text-anchor="middle" font-size="9.5" fill="#475569">23-T4</text>
+      <text x="595" y="176" text-anchor="middle" font-size="9.5" fill="#475569">24-T1</text>
+      <text x="659" y="176" text-anchor="middle" font-size="9.5" fill="#475569">24-T2</text>
+    </svg>
+    <div class="panel-foot">Justificación IE7: Gráfico combinado correlaciona serie temporal continua de ingresos y demanda (pico 2023-T2).</div>
+  </div>
+</div>
+
+<!-- FILA INFERIOR: PREGUNTA 2 (FINANCIERO) Y PREGUNTA 3 (OPERACIONAL + SATISFACCIÓN + SEGUIMIENTO) -->
+<div class="grid-bot">
+  <!-- Visual 4: Barras apiladas 100% Medio de pago por Zona -->
+  <div class="panel">
+    <div class="panel-hdr">
+      <div class="panel-title">4. Ingresos por Medio de Pago y Zona</div>
+      <div class="panel-tag">Pregunta 2 · Financiero</div>
+    </div>
+    <div class="legend">
+      <div class="leg-item"><span class="dot" style="background:#0D253F;"></span>Efectivo (35,0%)</div>
+      <div class="leg-item"><span class="dot" style="background:#1D6FA5;"></span>Transferencia (33,7%)</div>
+      <div class="leg-item"><span class="dot" style="background:#56A8D8;"></span>Tarjeta (31,3%)</div>
+    </div>
+    <svg width="100%" height="182" viewBox="0 0 420 182">
+      <!-- Each bar total width = 320 (x=82 to 402) -->
+      <!-- Poniente: Ef 26.6% (85), Tr 41.2% (132), Ta 32.2% (103) -->
+      <text x="74" y="28" text-anchor="end" font-size="11" font-weight="700" fill="#0D253F">Poniente</text>
+      <rect x="82" y="14" width="85"  height="20" fill="#0D253F"/><text x="124" y="28" text-anchor="middle" font-size="9.5" fill="#FFF">27%</text>
+      <rect x="167" y="14" width="132" height="20" fill="#1D6FA5"/><text x="233" y="28" text-anchor="middle" font-size="9.5" fill="#FFF">41%</text>
+      <rect x="299" y="14" width="103" height="20" fill="#56A8D8"/><text x="350" y="28" text-anchor="middle" font-size="9.5" fill="#0D253F" font-weight="700">32%</text>
+      <!-- Norte: Ef 13.5% (43), Tr 50.4% (161), Ta 36.1% (116) -->
+      <text x="74" y="61" text-anchor="end" font-size="11" font-weight="700" fill="#0D253F">Norte</text>
+      <rect x="82" y="47" width="43"  height="20" fill="#0D253F"/><text x="103" y="61" text-anchor="middle" font-size="9" fill="#FFF">13%</text>
+      <rect x="125" y="47" width="161" height="20" fill="#1D6FA5"/><text x="205" y="61" text-anchor="middle" font-size="9.5" fill="#FFF">50%</text>
+      <rect x="286" y="47" width="116" height="20" fill="#56A8D8"/><text x="344" y="61" text-anchor="middle" font-size="9.5" fill="#0D253F" font-weight="700">36%</text>
+      <!-- Oriente: Ef 47.7% (153), Tr 14.4% (46), Ta 37.9% (121) -->
+      <text x="74" y="94" text-anchor="end" font-size="11" font-weight="700" fill="#0D253F">Oriente</text>
+      <rect x="82" y="80" width="153" height="20" fill="#0D253F"/><text x="158" y="94" text-anchor="middle" font-size="9.5" fill="#FFF">48%</text>
+      <rect x="235" y="80" width="46"  height="20" fill="#1D6FA5"/><text x="258" y="94" text-anchor="middle" font-size="9" fill="#FFF">14%</text>
+      <rect x="281" y="80" width="121" height="20" fill="#56A8D8"/><text x="341" y="94" text-anchor="middle" font-size="9.5" fill="#0D253F" font-weight="700">38%</text>
+      <!-- Centro: Ef 49.7% (159), Tr 26.4% (84), Ta 23.9% (77) -->
+      <text x="74" y="127" text-anchor="end" font-size="11" font-weight="700" fill="#0D253F">Centro</text>
+      <rect x="82" y="113" width="159" height="20" fill="#0D253F"/><text x="161" y="127" text-anchor="middle" font-size="9.5" fill="#FFF">50%</text>
+      <rect x="241" y="113" width="84"  height="20" fill="#1D6FA5"/><text x="283" y="127" text-anchor="middle" font-size="9.5" fill="#FFF">26%</text>
+      <rect x="325" y="113" width="77"  height="20" fill="#56A8D8"/><text x="363" y="127" text-anchor="middle" font-size="9.5" fill="#0D253F" font-weight="700">24%</text>
+      <!-- Sur: Ef 53.7% (172), Tr 30.4% (97), Ta 15.9% (51) -->
+      <text x="74" y="160" text-anchor="end" font-size="11" font-weight="700" fill="#0D253F">Sur</text>
+      <rect x="82" y="146" width="172" height="20" fill="#0D253F"/><text x="168" y="160" text-anchor="middle" font-size="9.5" fill="#FFF">54%</text>
+      <rect x="254" y="146" width="97"  height="20" fill="#1D6FA5"/><text x="302" y="160" text-anchor="middle" font-size="9.5" fill="#FFF">30%</text>
+      <rect x="351" y="146" width="51"  height="20" fill="#56A8D8"/><text x="376" y="160" text-anchor="middle" font-size="9" fill="#0D253F" font-weight="700">16%</text>
+    </svg>
+    <div class="panel-foot">Justificación IE7: Barras 100% apiladas destacan el mix financiero por zona (Norte 50% transferencia; Sur 54% efectivo).</div>
+  </div>
+
+  <!-- Visual 5: Matriz de Cumplimiento y Satisfacción por Zona -->
+  <div class="panel">
+    <div class="panel-hdr">
+      <div class="panel-title">5. Matriz Operacional: Cumplimiento, Cancelación y Satisfacción</div>
+      <div class="panel-tag">Pregunta 3 · Supervisión</div>
+    </div>
+    <table class="matrix">
+      <thead>
+        <tr>
+          <th>Zona</th>
+          <th>Órd.</th>
+          <th>% Entregado</th>
+          <th>% Cancelado</th>
+          <th>Satisfacción</th>
+          <th>Días Seg.*</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Poniente</td><td>22</td>
+          <td><span class="pill-ok">40,9 %</span></td>
+          <td>9,1 %</td>
+          <td>3,14</td><td>3,82 d</td>
+        </tr>
+        <tr>
+          <td>Centro</td><td>17</td>
+          <td><span class="pill-warn">29,4 %</span></td>
+          <td><span class="pill-bad">47,1 %</span></td>
+          <td><span class="pill-bad">2,71</span></td><td>3,76 d</td>
+        </tr>
+        <tr>
+          <td>Oriente</td><td>26</td>
+          <td><span class="pill-warn">26,9 %</span></td>
+          <td>7,7 %</td>
+          <td><span class="pill-ok">3,35</span></td><td>4,15 d</td>
+        </tr>
+        <tr>
+          <td>Norte</td><td>22</td>
+          <td><span class="pill-bad">18,2 %</span></td>
+          <td><span class="pill-bad">36,4 %</span></td>
+          <td>3,00</td><td>4,27 d</td>
+        </tr>
+        <tr>
+          <td>Sur</td><td>13</td>
+          <td><span class="pill-bad">15,4 %</span></td>
+          <td>23,1 %</td>
+          <td>3,00</td><td>4,15 d</td>
+        </tr>
+        <tr class="total-row">
+          <td>Total QuickTrack</td><td>100</td><td>27,0 %</td><td>23,0 %</td><td>3,07</td><td>4,04 d</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="panel-foot">*Días Seg.: métrica derivada de <code>seguimiento.historial</code>. Semáforo alerta zonas críticas (Sur, Norte y Centro).</div>
+  </div>
+
+  <!-- Visual 6: Embudo de Seguimiento ($unwind historial) + Satisfacción por Estado -->
+  <div class="panel">
+    <div class="panel-hdr">
+      <div class="panel-title">6. Embudo de Seguimiento (302 eventos) y Calidad</div>
+      <div class="panel-tag">Pregunta 3 · $unwind + Valorac.</div>
+    </div>
+    <svg width="100%" height="182" viewBox="0 0 420 182">
+      <!-- Top half: Embudo de hitos -->
+      <text x="4" y="13" font-size="10.5" font-weight="700" fill="#475569">Hitos en seguimiento.historial (n = 302 eventos)</text>
+      <text x="98" y="34" text-anchor="end" font-size="10.5" fill="#0D253F">En preparación</text>
+      <rect x="104" y="22" width="230" height="15" rx="2" fill="#0D253F"/>
+      <text x="340" y="33" font-size="10" font-weight="700" fill="#0D253F">100 (día 0)</text>
+
+      <text x="98" y="54" text-anchor="end" font-size="10.5" fill="#0D253F">Despachado</text>
+      <rect x="104" y="42" width="230" height="15" rx="2" fill="#1D6FA5"/>
+      <text x="340" y="53" font-size="10" font-weight="700" fill="#1D6FA5">100 (día 2)</text>
+
+      <text x="98" y="74" text-anchor="end" font-size="10.5" fill="#0D253F">En tránsito</text>
+      <rect x="104" y="62" width="159" height="15" rx="2" fill="#3B82C4"/>
+      <text x="269" y="73" font-size="10" font-weight="700" fill="#3B82C4">69 (día 4)</text>
+
+      <text x="98" y="94" text-anchor="end" font-size="10.5" fill="#0D253F">Entregado</text>
+      <rect x="104" y="82" width="76" height="15" rx="2" fill="#1E8E5A"/>
+      <text x="186" y="93" font-size="10" font-weight="700" fill="#1E8E5A">33 (día 6)</text>
+
+      <!-- Divider -->
+      <line x1="4" y1="108" x2="416" y2="108" stroke="#E2E8F0" stroke-width="1"/>
+
+      <!-- Bottom half: Satisfacción promedio por estado -->
+      <text x="4" y="124" font-size="10.5" font-weight="700" fill="#475569">Satisfacción Promedio por Estado de Orden (escala 1–5)</text>
+      <!-- Entregado 3.33, En transito 3.10, Cancelado 3.04, En preparacion 2.83 -->
+      <rect x="20"  y="134" width="82" height="38" rx="4" fill="#ECFDF5" stroke="#1E8E5A"/>
+      <text x="61"  y="151" text-anchor="middle" font-size="13" font-weight="800" fill="#166534">3,33</text>
+      <text x="61"  y="165" text-anchor="middle" font-size="9.5" fill="#334155">Entregado</text>
+
+      <rect x="116" y="134" width="82" height="38" rx="4" fill="#EFF6FF" stroke="#1D6FA5"/>
+      <text x="157" y="151" text-anchor="middle" font-size="13" font-weight="800" fill="#1D6FA5">3,10</text>
+      <text x="157" y="165" text-anchor="middle" font-size="9.5" fill="#334155">En tránsito</text>
+
+      <rect x="212" y="134" width="82" height="38" rx="4" fill="#FEF3C7" stroke="#D97706"/>
+      <text x="253" y="151" text-anchor="middle" font-size="13" font-weight="800" fill="#B45309">3,04</text>
+      <text x="253" y="165" text-anchor="middle" font-size="9.5" fill="#334155">Cancelado</text>
+
+      <rect x="308" y="134" width="96" height="38" rx="4" fill="#FEE2E2" stroke="#C0392B"/>
+      <text x="356" y="151" text-anchor="middle" font-size="13" font-weight="800" fill="#991B1B">2,83</text>
+      <text x="356" y="165" text-anchor="middle" font-size="9.5" fill="#334155">En prep. (14 ≤2)</text>
+    </svg>
+    <div class="panel-foot">Justificación IE7: Embudo muestra progresión real de etapas y detecta estancamiento en preparación (peor nota 2,83).</div>
+  </div>
+</div>
+
+<div class="footer-note">
+  <div>QuickTrack · BDY0101 Evaluación Parcial N°3 (Forma B) · Boceto de diseño interactivo para construcción/alineación en Power BI Desktop</div>
+  <div>Fuente verificada: data/export/*.csv (12/12 validaciones PASS)</div>
+</div>
+
+</body>
+</html>
